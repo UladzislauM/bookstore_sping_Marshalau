@@ -6,11 +6,14 @@ import com.company.dao.entity.StatusBook;
 import com.company.dao.util.DataSourceElephant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("bookDao")
 public class BookDaoImpl implements BookDao {
     public static final String GET_ALL = "SELECT books.id, books.title, books.name_author, books.date_release_book, books.price," +
             " books.isbn, status.status_name FROM books JOIN status ON books.status_id = status.Id;";
@@ -30,12 +33,12 @@ public class BookDaoImpl implements BookDao {
     private final DataSourceElephant dataSourceElephant;
     private static final Logger log = LogManager.getLogger(BookDaoImpl.class);
 
-    public BookDaoImpl(DataSourceElephant dataSourceElephant) {
+    public BookDaoImpl(@Qualifier("dataSourceElephant") DataSourceElephant dataSourceElephant) {
         this.dataSourceElephant = dataSourceElephant;
     }
 
     @Override
-    public List<Book> getAll() {
+    public List<Book> findAll() {
         List<Book> books = new ArrayList<>();
         Connection connection = dataSourceElephant.getConnection();
         try (Statement statement = connection.createStatement()) {
@@ -53,7 +56,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Book getById(Long id) {
+    public Book findById(Long id) {
         Connection connection = dataSourceElephant.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID);) {
             statement.setLong(1, id);
@@ -70,7 +73,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Book getBookByISBN(String isbn) {
+    public Book findBookByISBN(String isbn) {
         Connection connection = dataSourceElephant.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_ISBN);) {
             statement.setString(1, isbn);
@@ -87,7 +90,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getBooksByAuthor(String author) {
+    public List<Book> findBooksByAuthor(String author) {
         Connection connection = dataSourceElephant.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_AUTHOR);) {
             List<Book> books = new ArrayList<>();
@@ -114,7 +117,7 @@ public class BookDaoImpl implements BookDao {
             if (statement.executeUpdate() == 1) {
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
-                    return getById(resultSet.getLong(1));
+                    return findById(resultSet.getLong(1));
                 }
             }
         } catch (SQLException e) {
@@ -133,7 +136,7 @@ public class BookDaoImpl implements BookDao {
             statement.setLong(7, book.getId());
             log.debug("The method is being executed - update book: {}", book);
             if (statement.executeUpdate() == 1) {
-                return getById(book.getId());
+                return findById(book.getId());
             }
         } catch (SQLException e) {
             log.error("Method error - update book: {}", e);
@@ -160,7 +163,7 @@ public class BookDaoImpl implements BookDao {
 
 
     @Override
-    public Long countAllBooks() {
+    public Long countAll() {
         Connection connection = dataSourceElephant.getConnection();
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(COUNT_BOOKS);

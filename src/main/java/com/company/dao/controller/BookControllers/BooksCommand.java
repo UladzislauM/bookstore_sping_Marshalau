@@ -2,17 +2,21 @@ package com.company.dao.controller.BookControllers;
 
 import com.company.dao.controller.Command;
 import com.company.dao.entity.Book;
-import com.company.dao.service.serviceImpl.BookBookServiceImpl;
+import com.company.dao.service.serviceImpl.BookServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+@Controller("books")
 public class BooksCommand implements Command {
-    private final BookBookServiceImpl bookServiceImpl;
+    private final BookServiceImpl bookServiceImpl;
 
-    public BooksCommand(BookBookServiceImpl bookServiceImpl) {
+    @Autowired
+    public BooksCommand(BookServiceImpl bookServiceImpl) {
         this.bookServiceImpl = bookServiceImpl;
     }
 

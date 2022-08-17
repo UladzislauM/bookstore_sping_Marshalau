@@ -5,21 +5,31 @@ import com.company.dao.dao.BookDao;
 import com.company.dao.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BookBookServiceImpl implements BookService {
+@Service("bookService")
+public class BookServiceImpl implements BookService {
     private final BookDao bookDao;
-    private static final Logger log = LogManager.getLogger(BookBookServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
 
-    public BookBookServiceImpl(BookDao bookDao) {
+    @Autowired
+    public BookServiceImpl(BookDao bookDao) {
         this.bookDao = bookDao;
+    }
+
+    public void validate(Book book){
+        if(book.getPrice().compareTo(BigDecimal.ZERO) == 0){
+            throw new RuntimeException("Price is not valid, ...");
+        }
     }
 
     @Override
     public List<Book> getAllBooks() {
-        List<Book> books = bookDao.getAll();
+        List<Book> books = bookDao.findAll();
         log.debug("Start BookService - getAllBooks - {}", books.size());
         return books;
     }
@@ -27,7 +37,7 @@ public class BookBookServiceImpl implements BookService {
     @Override
     public Book getBookById(Long id) {
         log.debug("Start BookService - getBookById {}", id);
-        return bookDao.getById(id);
+        return bookDao.findById(id);
     }
 
     @Override
@@ -52,26 +62,26 @@ public class BookBookServiceImpl implements BookService {
     @Override
     public Book getBookByISBN(String isbn) {
         log.debug("Start BookService - getBookByISBN {}", isbn);
-        return bookDao.getBookByISBN(isbn);
+        return bookDao.findBookByISBN(isbn);
     }
 
     @Override
     public List<Book> getBookByAuthor(String author) {
         log.debug("Start BookService - getBookByISBN {}", author);
-        List<Book> books = bookDao.getBooksByAuthor(author);
+        List<Book> books = bookDao.findBooksByAuthor(author);
         return books;
     }
 
     @Override
     public Long countAllBooks() {
         log.debug("Start BookService - countAllBooks");
-        return bookDao.countAllBooks();
+        return bookDao.countAll();
     }
 
     @Override
     public BigDecimal sumBooksByAuthor(String author) {
         log.debug("Start BookService - sumBooksByAuthor {}", author);
-        List<Book> books = bookDao.getBooksByAuthor(author);
+        List<Book> books = bookDao.findBooksByAuthor(author);
         try {
             if (books.size() != 0) {
                 BigDecimal sum = books.get(0).getPrice();

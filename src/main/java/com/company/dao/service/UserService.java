@@ -1,9 +1,10 @@
 package com.company.dao.service;
 
 import com.company.dao.entity.User;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface UserService {
     public List<User> getAllUsers();
 

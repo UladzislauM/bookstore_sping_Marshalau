@@ -1,5 +1,8 @@
 package com.company.dao.entity;
 
+import org.springframework.stereotype.Component;
+
+
 public enum StatusBook {
     IN_STOCK,
     SOLD,
