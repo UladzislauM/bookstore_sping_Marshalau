@@ -10,6 +10,9 @@
 4. Module 4 - Servlet;
 5. Module 5 - jsp;
 
+###### Spring:
+1. Module 1 - config annotation 
+
 * PS - supplemented.
 
 
