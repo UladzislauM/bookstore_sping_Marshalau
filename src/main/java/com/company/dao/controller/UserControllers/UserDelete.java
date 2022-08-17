@@ -5,10 +5,14 @@ import com.company.dao.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component("user_delete")
 public class UserDelete implements Command {
     private final UserServiceImpl userServiceImpl;
 
+    @Autowired
     public UserDelete(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }

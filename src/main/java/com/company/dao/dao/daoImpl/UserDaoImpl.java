@@ -6,11 +6,14 @@ import com.company.dao.entity.User;
 import com.company.dao.util.DataSourceElephant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("userDao")
 public class UserDaoImpl implements UserDao {
     public static final String GET_ALL = "SELECT u.id, u.name, u.last_name, u.email, u.password, r.role_name" +
             " FROM users u JOIN role r ON u.role_id = r.id";
@@ -30,13 +33,12 @@ public class UserDaoImpl implements UserDao {
     private final DataSourceElephant dataSourceElephant;
     private static final Logger log = LogManager.getLogger(BookDaoImpl.class);
 
-
-    public UserDaoImpl(DataSourceElephant dataSourceElephant) {
+    public UserDaoImpl(@Autowired DataSourceElephant dataSourceElephant) {
         this.dataSourceElephant = dataSourceElephant;
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> findAll() {
         List<User> users = new ArrayList<>();
         Connection connection = dataSourceElephant.getConnection();
         try (Statement statement = connection.createStatement()) {
@@ -54,7 +56,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getUserByLastName(String lastName) {
+    public List<User> findUserByLastName(String lastName) {
         List<User> users = new ArrayList<>();
         Connection connection = dataSourceElephant.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(GET_BY_LAST_NAME, Statement.RETURN_GENERATED_KEYS)) {
@@ -62,7 +64,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultSet = statement.executeQuery();
             log.debug("The method is being executed - getUserByLastName: {}", lastName);
             while (resultSet.next()) {
-                users.add(getById(resultSet.getLong(1)));
+                users.add(findById(resultSet.getLong(1)));
                 return users;
             }
         } catch (SQLException e) {
@@ -73,7 +75,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getById(Long id) {
+    public User findById(Long id) {
         return getUserBySomeParams(GET_BY_ID, ps -> {
             try {
                 ps.setLong(1, id);
@@ -86,7 +88,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getByEmail(String email) {
+    public User findByEmail(String email) {
         log.debug("The method is being executed - getByEmail: {}", email);
         return getUserBySomeParams(GET_BY_EMAIL, ps -> ps.setString(1, email));
     }
@@ -100,7 +102,7 @@ public class UserDaoImpl implements UserDao {
             if (statement.executeUpdate() == 1) {
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
-                    return getById(resultSet.getLong(1));
+                    return findById(resultSet.getLong(1));
                 }
             }
         } catch (SQLException e) {
@@ -118,7 +120,7 @@ public class UserDaoImpl implements UserDao {
             statement.setLong(6, user.getId());
             log.debug("The method is being executed - update user: {}", user);
             if (statement.executeUpdate() == 1) {
-                return getById(user.getId());
+                return findById(user.getId());
             }
         } catch (SQLException e) {
             log.error("Method error - update user: {}", e);
@@ -144,7 +146,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Long countAllUsers() {
+    public Long countAll() {
         Connection connection = dataSourceElephant.getConnection();
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(COUNT_USERS);

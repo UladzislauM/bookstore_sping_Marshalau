@@ -7,11 +7,15 @@ import com.company.dao.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component("user_update")
 public class UserUpdate implements Command {
     private final UserServiceImpl userServiceImpl;
     private User user;
 
+    @Autowired
     public UserUpdate(UserServiceImpl userServiceImpl, User user) {
         this.userServiceImpl = userServiceImpl;
         this.user = user;
@@ -43,19 +47,19 @@ public class UserUpdate implements Command {
     }
 
     private User addUserKeyHttpReq(HttpServletRequest req) {
-        if(req.getParameter("name") != null) {
+        if (req.getParameter("name") != null) {
             user.setName(req.getParameter("name"));
         }
-        if(req.getParameter("last_name") != null) {
+        if (req.getParameter("last_name") != null) {
             user.setLast_name(req.getParameter("last_name"));
         }
         if (req.getParameter("email") != null) {
             user.setEmail(req.getParameter("email"));
         }
-        if(req.getParameter("password") != null) {
+        if (req.getParameter("password") != null) {
             user.setPassword(req.getParameter("password"));
         }
-        if(req.getParameter("role") != null) {
+        if (req.getParameter("role") != null) {
             String roleStr = req.getParameter("role");
             user.setRole(RoleUser.valueOf(roleStr));
         }

@@ -6,12 +6,16 @@ import com.company.dao.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component("users")
 public class UsersCommand implements Command {
     private final UserServiceImpl userServiceImpl;
 
+    @Autowired
     public UsersCommand(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }

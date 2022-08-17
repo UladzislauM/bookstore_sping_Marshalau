@@ -42,7 +42,7 @@
         <c:forEach items="${requestScope.books}" var="book" varStatus="counter">
             <tr>
                 <td class="center"><input type="radio" name="id" value="${book.id}">${counter.count}</td>
-                <td><a href="controller?command=book&id=${book.id}">${book.title}</a></td>
+                <td><a href="controller?command=get_book_by_id&id=${book.id}">${book.title}</a></td>
                 <td>${book.nameAuthor}</td>
                 <td class="center">${book.dateReleaseBook}</td>
                 <td class="center">${book.price}</td>
