@@ -13,19 +13,19 @@ import java.sql.SQLException;
 
 @Component
 public class DataSourceElephant implements Closeable {
-//    public static final DataSourceElephant INSTANCE = new DataSourceElephant();
-
-    private DataSourceElephant() {
-    }
-
-    @Value("${db_elephant.url}")
-    private String URL;
-    @Value("${db_elephant.user}")
-    private String USER;
-    @Value("${db_elephant.password}")
-    private String PASSWORD;
 
     private Connection connection;
+
+    private DataSourceElephant() {
+
+    }
+
+    @Value("${db.elephant.url}")
+    private String URL;
+    @Value("${db.elephant.username}")
+    private String USER;
+    @Value("${db.elephant.password}")
+    private String PASSWORD;
 
     private static final Logger log = LogManager.getLogger(DataSourceElephant.class);
 

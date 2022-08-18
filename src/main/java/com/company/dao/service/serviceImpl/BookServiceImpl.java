@@ -21,8 +21,8 @@ public class BookServiceImpl implements BookService {
         this.bookDao = bookDao;
     }
 
-    public void validate(Book book){
-        if(book.getPrice().compareTo(BigDecimal.ZERO) == 0){
+    public void validate(Book book) {
+        if (book.getPrice().compareTo(BigDecimal.ZERO) == 0) {
             throw new RuntimeException("Price is not valid, ...");
         }
     }
@@ -41,10 +41,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean deleteBookById(Long id) {
-        boolean checkBook = bookDao.delete(id);
-        log.debug("Start BookService - deleteBookById {} - {}", id, checkBook);
-        return checkBook;
+    public void deleteBookById(Long id) {
+        if (bookDao.delete(id)) {
+            log.debug("Start BookService - deleteBookById: {}", id);
+        } else {
+            log.error("BookService - deleteBookById false: {}", id);
+        }
     }
 
     @Override
