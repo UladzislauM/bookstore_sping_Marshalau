@@ -13,7 +13,7 @@ public interface UserService {
 
     List<User> getUsersByLastName(String lastName);
 
-    boolean deleteUserById(Long id);
+    void deleteUserById(Long id);
 
     User createUser(User user);
 

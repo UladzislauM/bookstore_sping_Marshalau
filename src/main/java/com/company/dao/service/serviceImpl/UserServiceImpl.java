@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
-    private static final Logger log = LogManager.getLogger(BookBookServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
 
 
     public UserServiceImpl(UserDao userDao) {
@@ -43,10 +43,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUserById(Long id) {
-        boolean checkUser = userDao.delete(id);
-        log.debug("Start UserService - deleteUserById: {}", id);
-        return checkUser;
+    public void deleteUserById(Long id) {
+        if (userDao.delete(id)) {
+            log.debug("Start UserService - deleteUserById: {}", id);
+        } else {
+            log.error("UserService - deleteUserById false: {}", id);
+        }
     }
 
     @Override

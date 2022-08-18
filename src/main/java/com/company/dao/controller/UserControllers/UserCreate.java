@@ -16,6 +16,7 @@ public class UserCreate implements Command {
         this.userServiceImpl = userServiceImpl;
         this.user = user;
     }
+
     private static final Logger log = LogManager.getLogger(UserCommand.class);
 
     @Override

@@ -9,11 +9,11 @@ import org.apache.logging.log4j.Logger;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BookBookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService {
     private final BookDao bookDao;
-    private static final Logger log = LogManager.getLogger(BookBookServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
 
-    public BookBookServiceImpl(BookDao bookDao) {
+    public BookServiceImpl(BookDao bookDao) {
         this.bookDao = bookDao;
     }
 
@@ -31,10 +31,12 @@ public class BookBookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean deleteBookById(Long id) {
-        boolean checkBook = bookDao.delete(id);
-        log.debug("Start BookService - deleteBookById {} - {}", id, checkBook);
-        return checkBook;
+    public void deleteBookById(Long id) {
+        if (bookDao.delete(id)) {
+            log.debug("Start BookService - deleteBookById: {}", id);
+        } else {
+            log.error("BookService - deleteBookById false: {}", id);
+        }
     }
 
     @Override

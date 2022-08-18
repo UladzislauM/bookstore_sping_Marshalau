@@ -1,5 +1,6 @@
 package com.company.dao.controller;
 
+import com.company.dao.ContextConfiguration;
 import com.company.dao.util.DataSourceElephant;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,12 +9,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-
+@Component
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger log = LogManager.getLogger(Controller.class);
+    private AnnotationConfigApplicationContext context;
+
+    @Override
+    public void init(){
+        context = new AnnotationConfigApplicationContext(ContextConfiguration.class);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +45,7 @@ public class Controller extends HttpServlet {
                 log.info("Address error or CommandParam == null");
             } else {
                 String page = "";
-                Command command = CommandFactory.INSTANCE.getCommand(commandParam);
+                Command command = (Command)context.getBean(commandParam);
                 if (command == null) {
                     log.error("Controller exception, execude {}");
                     req.setAttribute("errorMessage", "Oops..... You entered the wrong command.....");
@@ -59,6 +68,6 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        DataSourceElephant.INSTANCE.close();
+        context.close();
     }
 }
