@@ -8,22 +8,29 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger log = LogManager.getLogger(Controller.class);
+    private ClassPathXmlApplicationContext context;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void init (){
+        context = new ClassPathXmlApplicationContext("appContext.xml");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String commandParam = req.getParameter("post");
         log.info("Start Controller doPost {}", commandParam);
         forwardProcess(req, resp, commandParam);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
         String commandParam = req.getParameter("command");
         log.info("Start Controller doGet {}", commandParam);
         forwardProcess(req, resp, commandParam);
@@ -36,7 +43,7 @@ public class Controller extends HttpServlet {
                 log.info("Address error or CommandParam == null");
             } else {
                 String page = "";
-                Command command = CommandFactory.INSTANCE.getCommand(commandParam);
+                Command command = (Command)context.getBean(commandParam);
                 if (command == null) {
                     log.error("Controller exception, execude {}");
                     req.setAttribute("errorMessage", "Oops..... You entered the wrong command.....");
@@ -59,6 +66,6 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        DataSourceElephant.INSTANCE.close();
+        context.close();
     }
 }

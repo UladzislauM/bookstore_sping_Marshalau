@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="error" class="com.company.dao.controller.Error"/>
+
+    <bean id="user_update" class="com.company.dao.controller.UserControllers.UserUpdate">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="user"/>
+    </bean>
+    <bean id="users" class="com.company.dao.controller.UserControllers.UsersCommand">
+        <constructor-arg ref="userService"/>
+    </bean>
+    <bean id="user_delete" class="com.company.dao.controller.UserControllers.UserDelete">
+        <constructor-arg ref="userService"/>
+    </bean>
+    <bean id="user_create" class="com.company.dao.controller.UserControllers.UserCreate">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="user"/>
+    </bean>
+    <bean id="get_user_by_id" class="com.company.dao.controller.UserControllers.UserCommand">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="user"/>
+    </bean>
+
+    <bean id="book_update" class="com.company.dao.controller.BookControllers.BookUpdate">
+        <constructor-arg ref="bookService"/>
+        <constructor-arg ref="book"/>
+    </bean>
+    <bean id="books" class="com.company.dao.controller.BookControllers.BooksCommand">
+        <constructor-arg ref="bookService"/>
+    </bean>
+    <bean id="book_delete" class="com.company.dao.controller.BookControllers.BookDelete">
+        <constructor-arg ref="bookService"/>
+    </bean>
+    <bean id="book_create" class="com.company.dao.controller.BookControllers.BookCreate">
+        <constructor-arg ref="bookService"/>
+        <constructor-arg ref="book"/>
+    </bean>
+    <bean id="get_book_by_id" class="com.company.dao.controller.BookControllers.BookCommand">
+        <constructor-arg ref="bookService"/>
+        <constructor-arg ref="book"/>
+    </bean>
+
+    <bean id="book" class="com.company.dao.entity.Book"/>
+    <bean id="user" class="com.company.dao.entity.User"/>
+    <bean id="userService" class="com.company.dao.service.serviceImpl.UserServiceImpl">
+        <constructor-arg ref="userDao"/>
+    </bean>
+    <bean id="bookService" class="com.company.dao.service.serviceImpl.BookBookServiceImpl">
+        <constructor-arg ref="bookDao"/>
+    </bean>
+    <bean id="userDao" class="com.company.dao.dao.daoImpl.UserDaoImpl">
+        <constructor-arg ref="dataSourceElephant"/>
+    </bean>
+    <bean id="bookDao" class="com.company.dao.dao.daoImpl.BookDaoImpl">
+        <constructor-arg ref="dataSourceElephant"/>
+    </bean>
+    <bean id="dataSourceElephant" class="com.company.dao.util.DataSourceElephant"/>
+</beans>
