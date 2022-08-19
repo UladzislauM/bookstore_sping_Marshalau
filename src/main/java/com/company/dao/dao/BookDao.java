@@ -1,24 +1,13 @@
 package com.company.dao.dao;
 
 import com.company.dao.entity.Book;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-public interface BookDao {
-    Book create(Book book);
+@Component
+public interface BookDao extends AbstractDao<Book, Long> {
+    Book findBookByISBN(String isbn);
 
-    Book getById(Long id);
-
-    Book getBookByISBN(String isbn);
-
-    List<Book> getBooksByAuthor(String author);
-
-    Long countAllBooks();
-
-    List<Book> getAll();
-
-    Book update(Book book);
-
-    boolean delete(Long id);
-
+    List<Book> findBooksByAuthor(String author);
 }

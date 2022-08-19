@@ -30,3 +30,9 @@ replay_pid*
 #loggs
 logs/
 *.log
+
+#target
+terget/
+
+#DS_Store
+*.DS_Store

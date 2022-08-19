@@ -6,11 +6,15 @@ import com.company.dao.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component("get_user_by_id")
 public class UserCommand implements Command {
     private final UserServiceImpl userServiceImpl;
     private User user;
 
+    @Autowired
     public UserCommand(UserServiceImpl userServiceImpl, User user) {
         this.userServiceImpl = userServiceImpl;
         this.user = user;

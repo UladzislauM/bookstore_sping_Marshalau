@@ -1,9 +1,10 @@
 package com.company.dao.service;
 
 import com.company.dao.entity.User;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface UserService {
     public List<User> getAllUsers();
 
@@ -13,7 +14,7 @@ public interface UserService {
 
     List<User> getUsersByLastName(String lastName);
 
-    boolean deleteUserById(Long id);
+    void deleteUserById(Long id);
 
     User createUser(User user);
 

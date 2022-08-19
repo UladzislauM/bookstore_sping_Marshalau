@@ -36,7 +36,7 @@
         <c:forEach items="${requestScope.users}" var="user" varStatus="counter">
             <tr>
                 <td class="center"><input type="radio" name="id" value="${user.id}">${counter.count}</td>
-                <td><a href="controller?command=user&id=${user.id}">${user.name} ${user.last_name}</a></td>
+                <td><a href="controller?command=get_user_by_id&id=${user.id}">${user.name} ${user.last_name}</a></td>
                 <td>${user.email}</td>
                 <td class="center">${user.role}</td>
             </tr>

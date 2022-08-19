@@ -1,9 +1,11 @@
 package com.company.dao.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-
+@Component
 public class Book {
     private Long id;
     private String title;

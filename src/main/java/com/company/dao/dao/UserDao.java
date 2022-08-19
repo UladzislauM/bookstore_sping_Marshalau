@@ -1,24 +1,13 @@
 package com.company.dao.dao;
 
 import com.company.dao.entity.User;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-public interface UserDao {
-    User create(User user);
+@Component
+public interface UserDao extends AbstractDao<User, Long> {
+    User findByEmail(String email);
 
-    User getById(Long id);
-
-    Long countAllUsers();
-
-    List<User> getAll();
-
-    User update(User user);
-
-    boolean delete(Long id);
-
-    public User getByEmail(String email);
-
-    public List<User> getUserByLastName(String lastName);
-
+    List<User> findUserByLastName(String lastName);
 }

@@ -1,7 +1,9 @@
 package com.company.dao.entity;
 
-import java.util.Objects;
+import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+@Component
 public class User {
     private Long id;
     private String name;
