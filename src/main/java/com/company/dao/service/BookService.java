@@ -18,13 +18,13 @@ public interface BookService {
 
     Book updateBook(Book book);
 
-    Book getBookByISBN(String isbn);
-
-    List<Book> getBookByAuthor(String author);
-
-    Long countAllBooks();
-
-    BigDecimal sumBooksByAuthor(String author);
-
-    void validate(Book book);
+//    Book getBookByISBN(String isbn);
+//
+//    List<Book> getBookByAuthor(String author);
+//
+//    Long countAllBooks();
+//
+//    BigDecimal sumBooksByAuthor(String author);
+//
+//    void validate(Book book);
 }

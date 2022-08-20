@@ -10,9 +10,9 @@ public interface UserService {
 
     User getUserById(Long id);
 
-    User getUserByEmail(String email);
-
-    List<User> getUsersByLastName(String lastName);
+//    User getUserByEmail(String email);
+//
+//    List<User> getUsersByLastName(String lastName);
 
     void deleteUserById(Long id);
 
@@ -20,5 +20,5 @@ public interface UserService {
 
     User updateUser(User user);
 
-    Long countAllUsers();
+//    Long countAllUsers();
 }
