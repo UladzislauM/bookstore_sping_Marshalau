@@ -17,23 +17,18 @@
     </thead>
     <tbody>
     <tr>
-        <form id="form1" action="controller?post=user_update" method="post">
+        <form id="form1" action="controller?post=user_update_form" method="post">
             <input type="hidden" name="id" value="${requestScope.user.id}"/></form>
         <td>
-            <input form="form1" type="text" value="${requestScope.user.last_name}" name="last_name">
+            ${requestScope.user.last_name}
         </td>
         <td>
-            <input form="form1" type="email" value="${requestScope.user.email}" name="email">
+            ${requestScope.user.email}
         </td>
         <td>
-            <input form="form1" type="text" value="${requestScope.user.password}" name="password">
+            ${requestScope.user.password}
         </td>
-        <td class="center">${requestScope.user.role}
-            <select form="form1" name="role" size="1">
-                <option selected value="USER">USER</option>
-                <option selected value="ADMIN">ADMIN</option>
-                <option selected value="MANAGER">MANAGER</option>
-            </select>
+        ${requestScope.user.role}
         </td>
     </tr>
     </tbody>

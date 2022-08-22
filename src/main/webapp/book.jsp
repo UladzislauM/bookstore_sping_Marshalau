@@ -18,28 +18,21 @@
     </thead>
     <tbody>
     <tr>
-        <form id="form1" action="controller?post=book_update" method="post">
+        <form id="form1" action="controller?post=book_update_form" method="post">
             <input type="hidden" name="id" value="${requestScope.book.id}"/></form>
         <td>
-            <input form="form1" type="text" value="${requestScope.book.nameAuthor}" name="name_author">
+            ${requestScope.book.nameAuthor}
         </td>
         <td class="center">
-            <input form="form1" type="date" value="${requestScope.book.dateReleaseBook}" name="data_purchase">
+            ${requestScope.book.dateReleaseBook}"
         </td>
         <td class="center">
-            <input form="form1" type="text" value="${requestScope.book.price}" name="price">
+            ${requestScope.book.price}
         </td>
         <td class="center">
-            <input form="form1" type="text" value="${requestScope.book.isbn}" name="isbn">
+            ${requestScope.book.isbn}
         </td>
         <td class="center">${requestScope.book.status}
-            <select form="form1" name="status_book" size="1">
-                <option selected value="IN_STOCK">IN_STOCK</option>
-                <option selected value="SOLD">SOLD</option>
-                <option selected value="RESERVE">RESERVE</option>
-                <option selected value="DELIVERY_EXPECTED">DELIVERY_EXPECTED</option>
-                <option selected value="OUT_OF_STOCK">OUT_OF_STOCK</option>
-            </select>
         </td>
     </tr>
     </tbody>

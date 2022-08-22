@@ -41,8 +41,8 @@ public class BookUpdate implements Command {
                 return "error.jsp";
             } else {
                 bookServiceImpl.updateBook(book);
-                req.setAttribute("books", bookServiceImpl.getAllBooks());
-                return "books.jsp";
+                req.setAttribute("book", book);
+                return "book.jsp";
             }
         } catch (Exception e) {
             log.error("Exception by BookUpdate {}", e);

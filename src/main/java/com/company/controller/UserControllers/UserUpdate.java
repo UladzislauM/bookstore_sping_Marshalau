@@ -36,8 +36,8 @@ public class UserUpdate implements Command {
                 return "error.jsp";
             } else {
                 userServiceImpl.updateUser(user);
-                req.setAttribute("users", userServiceImpl.getAllUsers());
-                return "users.jsp";
+                req.setAttribute("user", user);
+                return "user.jsp";
             }
         } catch (Exception e) {
             log.error("Exception by UserUpdate {}", e);

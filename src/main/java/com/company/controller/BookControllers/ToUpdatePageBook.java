@@ -9,30 +9,30 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
-
-@Controller("books")
-public class BooksCommand implements Command {
+@Controller("book_update_form")
+public class ToUpdatePageBook implements Command {
     private final BookServiceImpl bookServiceImpl;
+    private Book book;
 
     @Autowired
-    public BooksCommand(BookServiceImpl bookServiceImpl) {
+    public ToUpdatePageBook(BookServiceImpl bookServiceImpl, Book book) {
         this.bookServiceImpl = bookServiceImpl;
+        this.book = book;
     }
 
-    private static final Logger log = LogManager.getLogger(BooksCommand.class);
+    private static final Logger log = LogManager.getLogger(BookDelete.class);
 
     @Override
     public String execude(HttpServletRequest req) {
-        log.info("Start BooksCommand {}", req);
+        log.info("Start ToUpdatePageBook {}", req.getParameter("id"));
         try {
-            req.setAttribute("books", bookServiceImpl.getAllBooks());
-            return "books.jsp";
+            req.setCharacterEncoding("UTF-8");
+            req.setAttribute("book", bookServiceImpl.getBookById(Long.parseLong(req.getParameter("id"))));
+            return "updateBook.jsp";
         } catch (Exception e) {
-            log.error("Exception by BooksCommand {}", e);
-            req.setAttribute("errorMessage", "Ops..... The book does not exist: " + e);
+            log.error("Exception by ToUpdatePageBook {}", e);
+            req.setAttribute("errorMessage", "Ops..... The book does not update: " + e);
             return "error.jsp";
         }
     }
 }
-
