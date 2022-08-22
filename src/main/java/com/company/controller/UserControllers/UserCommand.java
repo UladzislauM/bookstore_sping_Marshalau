@@ -26,7 +26,7 @@ public class UserCommand implements Command {
     public String execude(HttpServletRequest req) {
         log.info("Start UserCommand {}", req.getParameter("id"));
         try {
-            user = userServiceImpl.getUserById(Long.parseLong(req.getParameter("id")));
+            user = userServiceImpl.findById(Long.parseLong(req.getParameter("id")));
             if (user.getId() == null) {
                 req.setAttribute("errorMessage", "The user does not exist");
                 log.error("The user does not exist");

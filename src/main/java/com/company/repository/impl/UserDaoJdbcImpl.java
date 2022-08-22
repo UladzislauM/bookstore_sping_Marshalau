@@ -88,6 +88,11 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
         return rowsUpdated == 1;
     }
 
+    @Override
+    public Long countAll() {
+        return namedJdbcTemplate.queryForObject(COUNT_USERS, new MapSqlParameterSource(), Long.class);
+    }
+
     private void extractedUser(User user, Map<String, Object> map) {
         map.put("name", user.getName());
         map.put("last_name", user.getLast_name());

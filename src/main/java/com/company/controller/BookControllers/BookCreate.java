@@ -39,8 +39,8 @@ public class BookCreate implements Command {
                 log.error("The book does not created, BookCreate.");
                 return "error.jsp";
             } else {
-                bookServiceImpl.createBook(book);
-                req.setAttribute("books", bookServiceImpl.getAllBooks());
+                bookServiceImpl.create(book);
+                req.setAttribute("books", bookServiceImpl.findAll());
                 return "books.jsp";
             }
         } catch (Exception e) {

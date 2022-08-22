@@ -24,8 +24,8 @@ public class BookDelete implements Command {
         log.info("Start BookDelete {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            bookServiceImpl.deleteBookById(Long.parseLong(req.getParameter("id")));
-            req.setAttribute("books", bookServiceImpl.getAllBooks());
+            bookServiceImpl.delete(Long.parseLong(req.getParameter("id")));
+            req.setAttribute("books", bookServiceImpl.findAll());
             return "books.jsp";
         } catch (Exception e) {
             log.error("Exception by BookDelete {}", e);

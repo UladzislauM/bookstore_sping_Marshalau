@@ -3,15 +3,17 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>BookStore</title>
+    <title>Users in BookStore</title>
     <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
 <h3>AllUsers (abbreviated representation): </h3>
-<form align="left" action="controller?post=user_create" method="post">
+
+<form align="left" action="controller" method="post">
     <details>
         <summary>Create New User</summary>
         <p>Write Parameters:</p>
+        <input type="hidden" name="post" value="user_create"/>
         <p><input type="text" name="name" placeholder="write Name">
         <p><input type="text" name="last_name" placeholder="write Last_Name">
         <p><input type="email" name="email" placeholder="write Email">
@@ -22,7 +24,11 @@
         <p><input type="submit" name="submit" value="Create User"/></p>
     </details>
 </form>
-<form action="controller?post=user_delete" method="post">
+
+<p align="left">All counts: ${requestScope.user_count}</p>
+
+<form action="controller" method="post">
+    <input type="hidden" name="post" value="user_delete"/>
     <table class="table">
         <thead>
         <tr>
@@ -45,6 +51,7 @@
     </table>
     <input type="submit" name="id" value="Delete User"/>
 </form>
+
 <form align="left" action="controller" method="get">
     <h3>What do you want to work with?(users, books):</h3>
     <p><input type="text" name="command" placeholder="write command">

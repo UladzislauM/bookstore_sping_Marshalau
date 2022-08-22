@@ -26,7 +26,7 @@ public class BookCommand implements Command {
     public String execude(HttpServletRequest req) {
         log.info("Start BookCommand {}", req.getParameter("id"));
         try {
-            book = bookServiceImpl.getBookById(Long.parseLong(req.getParameter("id")));
+            book = bookServiceImpl.findById(Long.parseLong(req.getParameter("id")));
             if (book.getId() == 0) {
                 log.error("The book does not exist, BookCommand");
                 req.setAttribute("errorMessage", "The book does not exist, BookCommand");

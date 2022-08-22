@@ -28,14 +28,14 @@ public class UserUpdate implements Command {
         log.info("Start UserUpdate {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            user = userServiceImpl.getUserById(Long.parseLong(req.getParameter("id")));
+            user = userServiceImpl.findById(Long.parseLong(req.getParameter("id")));
             user = addUserKeyHttpReq(req);
             if (user.getName() == null) {
                 req.setAttribute("errorMessage", "The user update fail");
                 log.error("The user update fail");
                 return "error.jsp";
             } else {
-                userServiceImpl.updateUser(user);
+                userServiceImpl.update(user);
                 req.setAttribute("user", user);
                 return "user.jsp";
             }

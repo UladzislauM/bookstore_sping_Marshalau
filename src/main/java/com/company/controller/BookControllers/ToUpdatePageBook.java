@@ -27,7 +27,7 @@ public class ToUpdatePageBook implements Command {
         log.info("Start ToUpdatePageBook {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            req.setAttribute("book", bookServiceImpl.getBookById(Long.parseLong(req.getParameter("id"))));
+            req.setAttribute("book", bookServiceImpl.findById(Long.parseLong(req.getParameter("id"))));
             return "updateBook.jsp";
         } catch (Exception e) {
             log.error("Exception by ToUpdatePageBook {}", e);
