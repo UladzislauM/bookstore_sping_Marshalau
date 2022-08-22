@@ -83,6 +83,11 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         return rowsUpdated == 1;
     }
 
+    @Override
+    public Long countAll() {
+        return namedJdbcTemplate.queryForObject(COUNT_BOOKS, new MapSqlParameterSource(), Long.class);
+    }
+
     private void extractedBook(Book book, Map<String, Object> map) {
         map.put("title", book.getTitle());
         map.put("name_author", book.getNameAuthor());

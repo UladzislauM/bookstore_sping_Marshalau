@@ -27,8 +27,8 @@ public class ToUpdatePageUser implements Command {
         log.info("Start ToUpdatePageUser {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            userServiceImpl.updateUser(user);
-            req.setAttribute("user", userServiceImpl.getUserById(Long.parseLong(req.getParameter("id"))));
+            userServiceImpl.update(user);
+            req.setAttribute("user", userServiceImpl.findById(Long.parseLong(req.getParameter("id"))));
             return "updateUser.jsp";
         } catch (Exception e) {
             log.error("Exception by ToUpdatePageUser {}", e);

@@ -21,16 +21,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> findAll() {
         List<User> users = userDaoJdbc.findAll();
         log.debug("Start UserService - getAllUsers: {}", users.size());
         return users;
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User findById(Long id) {
         log.debug("Start UserService - getUserById: {}", id);
         return userDaoJdbc.findById(id);
+    }
+
+    @Override
+    public void delete(Long id) {
+        if (userDaoJdbc.delete(id)) {
+            log.debug("Start UserService - deleteUserById: {}", id);
+        } else {
+            log.error("UserService - deleteUserById false: {}", id);
+        }
+    }
+
+    @Override
+    public User create(User user) {
+        log.debug("Start UserService - createUser: {}", user);
+        return userDaoJdbc.create(user);
+    }
+
+    @Override
+    public User update(User user) {
+        log.debug("Start UserService - updateUserById: {}", user);
+        return userDaoJdbc.update(user);
+    }
+
+    @Override
+    public Long countAll() {
+        log.debug("Start UserService - countAllUsers");
+        return userDaoJdbc.countAll();
     }
 
 //    @Override
@@ -43,32 +70,5 @@ public class UserServiceImpl implements UserService {
 //    public List<User> getUsersByLastName(String lastName) {
 //        log.debug("Start UserService - getUsersByLastName: {}", lastName);
 //        return userDaoJdbc.findUserByLastName(lastName);
-//    }
-
-    @Override
-    public void deleteUserById(Long id) {
-        if (userDaoJdbc.delete(id)) {
-            log.debug("Start UserService - deleteUserById: {}", id);
-        } else {
-            log.error("UserService - deleteUserById false: {}", id);
-        }
-    }
-
-    @Override
-    public User createUser(User user) {
-        log.debug("Start UserService - createUser: {}", user);
-        return userDaoJdbc.create(user);
-    }
-
-    @Override
-    public User updateUser(User user) {
-        log.debug("Start UserService - updateUserById: {}", user);
-        return userDaoJdbc.update(user);
-    }
-
-//    @Override
-//    public Long countAllUsers() {
-//        log.debug("Start UserService - countAllUsers");
-//        return userDaoJdbc.countAll();
 //    }
 }

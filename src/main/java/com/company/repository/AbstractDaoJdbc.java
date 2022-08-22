@@ -1,7 +1,9 @@
 package com.company.repository;
 
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public interface AbstractDaoJdbc<T> {
     T findById(Long id);
 
@@ -12,4 +14,6 @@ public interface AbstractDaoJdbc<T> {
     T update(T entity);
 
     boolean delete(Long id);
+
+    Long countAll();
 }

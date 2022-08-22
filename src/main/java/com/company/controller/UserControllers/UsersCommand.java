@@ -26,8 +26,8 @@ public class UsersCommand implements Command {
     public String execude(HttpServletRequest req) {
         log.info("Start UsersCommand {}", req);
         try {
-            List<User> users = userServiceImpl.getAllUsers();
-            req.setAttribute("users", users);
+            req.setAttribute("user_count", userServiceImpl.countAll());
+            req.setAttribute("users", userServiceImpl.findAll());
             return "users.jsp";
         } catch (Exception e) {
             log.error("Exception by UsersCommand {}", e);

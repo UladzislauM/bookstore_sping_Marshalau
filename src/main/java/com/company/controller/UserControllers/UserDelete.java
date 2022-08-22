@@ -24,8 +24,9 @@ public class UserDelete implements Command {
         log.info("Start UserDelete {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            userServiceImpl.deleteUserById(Long.parseLong(req.getParameter("id")));
-            req.setAttribute("users", userServiceImpl.getAllUsers());
+            userServiceImpl.delete(Long.parseLong(req.getParameter("id")));
+            req.setAttribute("user_count", userServiceImpl.countAll());
+            req.setAttribute("users", userServiceImpl.findAll());
             return "users.jsp";
         } catch (Exception e) {
             log.error("Exception by UserDelete {}", e);

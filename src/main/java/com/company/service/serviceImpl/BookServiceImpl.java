@@ -28,20 +28,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> findAll() {
         List<Book> books = bookDaoJdbc.findAll();
         log.debug("Start BookService - getAllBooks - {}", books.size());
         return books;
     }
 
     @Override
-    public Book getBookById(Long id) {
+    public Book findById(Long id) {
         log.debug("Start BookService - getBookById {}", id);
         return bookDaoJdbc.findById(id);
     }
 
     @Override
-    public void deleteBookById(Long id) {
+    public void delete(Long id) {
         if (bookDaoJdbc.delete(id)) {
             log.debug("Start BookService - deleteBookById: {}", id);
         } else {
@@ -50,15 +50,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book createBook(Book book) {
+    public Book create(Book book) {
         log.debug("Start BookService - createBook {}", book);
         return bookDaoJdbc.create(book);
     }
 
     @Override
-    public Book updateBook(Book book) {
+    public Book update(Book book) {
         log.debug("Start BookService - updateBookById {}", book);
         return bookDaoJdbc.update(book);
+    }
+
+    @Override
+    public Long countAll() {
+        log.debug("Start BookService - countAllBooks");
+        return bookDaoJdbc.countAll();
     }
 
 //    @Override
@@ -74,11 +80,6 @@ public class BookServiceImpl implements BookService {
 //        return books;
 //    }
 //
-//    @Override
-//    public Long countAllBooks() {
-//        log.debug("Start BookService - countAllBooks");
-//        return bookDaoJdbc.countAll();
-//    }
 //
 //    @Override
 //    public BigDecimal sumBooksByAuthor(String author) {

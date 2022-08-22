@@ -33,14 +33,14 @@ public class BookUpdate implements Command {
         log.info("Start BookUpdate {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            book = bookServiceImpl.getBookById(Long.parseLong(req.getParameter("id")));
+            book = bookServiceImpl.findById(Long.parseLong(req.getParameter("id")));
             book = addBookKeyBoard(req);
             if (book == null) {
                 log.error("The book does not update, BookUpdate");
                 req.setAttribute("errorMessage", "Ops..... The book does not update, BookUpdate");
                 return "error.jsp";
             } else {
-                bookServiceImpl.updateBook(book);
+                bookServiceImpl.update(book);
                 req.setAttribute("book", book);
                 return "book.jsp";
             }
