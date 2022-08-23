@@ -11,7 +11,8 @@
 5. Module 5 - jsp;
 
 ###### Spring:
-1. Module 1 - config annotation 
+1. Module 1 - config annotation;
+2. Module 2 - Jdbc Template;
 
 * PS - supplemented.
 

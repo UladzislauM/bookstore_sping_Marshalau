@@ -4,15 +4,17 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>BookStore</title>
+    <title>Books in BookStore</title>
     <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
 <h3 align="center">AllBooks (abbreviated representation): </h3>
-<form align="left" action="controller?post=book_create" method="post">
+
+<form align="left" action="controller" method="post">
     <details>
         <summary>Create New Book</summary>
         <p>Write Parameters:</p>
+        <input type="hidden" name="post" value="book_create"/>
         <p><input type="text" name="title" placeholder="write title">
         <p><input type="text" name="name_author" placeholder="write author">
         <p>(Format data: yyyy-MM-dd)</p>
@@ -27,7 +29,11 @@
         <p><input type="submit" name="submit" value="Create Book"/></p>
     </details>
 </form>
-<form action="controller?post=book_delete" method="post">
+
+<p align="left">All counts: ${requestScope.book_count}</p>
+
+<form action="controller" method="post">
+    <input type="hidden" name="post" value="book_delete"/>
     <table class="table">
         <thead>
         <tr>
@@ -52,6 +58,7 @@
     </table>
     <input type="submit" name="id" value="Delete Book"/>
 </form>
+
 <form align="left" action="controller" method="get">
     <h3>What do you want to work with?(users, books):</h3>
     <p><input type="text" name="command" placeholder="write command">
