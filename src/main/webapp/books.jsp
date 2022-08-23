@@ -10,7 +10,7 @@
 <body>
 <h3 align="center">AllBooks (abbreviated representation): </h3>
 
-<form align="left" action="controller" method="post">
+<form id="form_forward" action="controller" method="post">
     <details>
         <summary>Create New Book</summary>
         <p>Write Parameters:</p>
@@ -30,39 +30,46 @@
     </details>
 </form>
 
-<p align="left">All counts: ${requestScope.book_count}</p>
 
-<form action="controller" method="post">
-    <input type="hidden" name="post" value="book_delete"/>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>DataPurchase</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${requestScope.books}" var="book" varStatus="counter">
+<form id="form_forward2" action="controller" method="post">
+    <h3>Search:</h3>
+    <p><input type="radio" name="search" value="search_author">search by author
+        <input type="radio" name="search" value="search_isbn">search by ISBN</p>
+    <p><input type="text" name="post" placeholder="write search"></p>
+        <p><input type="submit" value="Search"/></p></form>
+
+    <div id="under">All counts: ${requestScope.book_count}</div>
+    <form action="controller" method="post">
+        <input type="hidden" name="post" value="book_delete"/>
+        <table class="table">
+            <thead>
             <tr>
-                <td class="center"><input type="radio" name="id" value="${book.id}">${counter.count}</td>
-                <td><a href="controller?command=get_book_by_id&id=${book.id}">${book.title}</a></td>
-                <td>${book.nameAuthor}</td>
-                <td class="center">${book.dateReleaseBook}</td>
-                <td class="center">${book.price}</td>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>DataPurchase</th>
+                <th>Price</th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-    <input type="submit" name="id" value="Delete Book"/>
-</form>
+            </thead>
+            <tbody>
+            <c:forEach items="${requestScope.books}" var="book" varStatus="counter">
+                <tr>
+                    <td class="center"><input type="radio" name="id" value="${book.id}">${counter.count}</td>
+                    <td><a href="controller?command=get_book_by_id&id=${book.id}">${book.title}</a></td>
+                    <td>${book.nameAuthor}</td>
+                    <td class="center">${book.dateReleaseBook}</td>
+                    <td class="center">${book.price}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <input type="submit" name="id" value="Delete Book"/>
+    </form>
 
-<form align="left" action="controller" method="get">
-    <h3>What do you want to work with?(users, books):</h3>
-    <p><input type="text" name="command" placeholder="write command">
-        <input type="submit" value="Submit"/></p>
-</form>
+    <form align="left" action="controller" method="get">
+        <h3>What do you want to work with?(users, books):</h3>
+        <p><input type="text" name="command" placeholder="write command">
+            <input type="submit" value="Submit"/></p>
+    </form>
 </body>
 </html>

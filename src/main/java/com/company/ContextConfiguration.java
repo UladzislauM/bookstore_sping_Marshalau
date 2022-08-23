@@ -7,10 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan
@@ -27,8 +32,19 @@ public class ContextConfiguration {
     }
     @Bean
     public DataSource dataSource(){
-        HikariConfig config = new HikariConfig("/application.properties");
+        HikariConfig config = new HikariConfig();
+//        config.set properties()
         return new HikariDataSource(config);
     }
 
+//    public Properties properties(){
+//        try {
+//
+//            Resource resource = new ClassPathResource("/application.properties");
+////            Properties properties = PropertiesLoaderUtils.loadAllProperties(resource);
+//        }catch (IOException e){
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
 }
