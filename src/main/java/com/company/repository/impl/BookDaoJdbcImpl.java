@@ -94,7 +94,7 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         map.put("date_release_book", Date.valueOf(book.getDateReleaseBook()));
         map.put("price", book.getPrice());
         map.put("isbn", book.getIsbn());
-        map.put("cover_name", String.valueOf(book.getCover()));
+        map.put("cover_name", String.valueOf(book.getCoverBook()));
         map.put("id", book.getId());
     }
 
@@ -106,7 +106,7 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         book.setDateReleaseBook(resultSet.getTimestamp("date_release_book").toLocalDateTime().toLocalDate());
         book.setPrice(resultSet.getBigDecimal("price"));
         book.setIsbn(resultSet.getString("isbn"));
-        book.setCover(CoverBook.valueOf(resultSet.getString("cover_name")));
+        book.setCoverBook(CoverBook.valueOf(resultSet.getString("cover_name")));
         return book;
     }
 
