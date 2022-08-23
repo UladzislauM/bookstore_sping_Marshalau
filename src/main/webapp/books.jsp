@@ -21,11 +21,9 @@
         <p><input type="date" name="data_purchase" placeholder="write data purchase">
         <p><input type="text" name="price" placeholder="write price">
         <p><input type="text" name="isbn" placeholder="write isbn">
-        <p><input type="radio" name="status_book" value="IN_STOCK">IN_STOCK
-            <input type="radio" name="status_book" value="SOLD">SOLD
-            <input type="radio" name="status_book" value="RESERVE">RESERVE
-            <input type="radio" name="status_book" value="DELIVERY_EXPECTED">DELIVERY_EXPECTED
-            <input type="radio" name="status_book" value="OUT_OF_STOCK">OUT_OF_STOCK
+        <p><input type="radio" name="cover_book" value="HARD">HARD
+            <input type="radio" name="cover_book" value="SOFT">SOFT
+            <input type="radio" name="cover_book" value="EXCLUSIVE">EXCLUSIVE
         <p><input type="submit" name="submit" value="Create Book"/></p>
     </details>
 </form>
@@ -42,6 +40,7 @@
             <th>Author</th>
             <th>DataPurchase</th>
             <th>Price</th>
+            <th>Cover</th>
         </tr>
         </thead>
         <tbody>
@@ -52,6 +51,7 @@
                 <td>${book.nameAuthor}</td>
                 <td class="center">${book.dateReleaseBook}</td>
                 <td class="center">${book.price}</td>
+                <td class="center">${book.cover}</td>
             </tr>
         </c:forEach>
         </tbody>

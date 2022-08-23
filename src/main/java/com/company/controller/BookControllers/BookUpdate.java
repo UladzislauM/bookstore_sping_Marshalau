@@ -2,7 +2,7 @@ package com.company.controller.BookControllers;
 
 import com.company.controller.Command;
 import com.company.entity.Book;
-import com.company.entity.StatusBook;
+import com.company.entity.CoverBook;
 import com.company.service.serviceImpl.BookServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -66,7 +66,7 @@ public class BookUpdate implements Command {
         }
         if (req.getParameter("status_book") != null) {
             String statusStr = req.getParameter("status_book");
-            book.setStatus(StatusBook.valueOf(statusStr));
+            book.setCover(CoverBook.valueOf(statusStr));
         }
         if (req.getParameter("price") != null) {
             book.setPrice(new BigDecimal(req.getParameter("price")));

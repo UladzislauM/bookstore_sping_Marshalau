@@ -11,7 +11,7 @@ public class Book {
     private String title;
     private String nameAuthor;
     private LocalDate dateReleaseBook;
-    private StatusBook statusBook;
+    private CoverBook coverBook;
     private BigDecimal price;
     private String isbn;
 
@@ -48,12 +48,12 @@ public class Book {
         this.dateReleaseBook = dateReleaseBook;
     }
 
-    public StatusBook getStatus() {
-        return statusBook;
+    public CoverBook getCover() {
+        return coverBook;
     }
 
-    public void setStatus(StatusBook statusBook) {
-        this.statusBook = statusBook;
+    public void setCover(CoverBook coverBook) {
+        this.coverBook = coverBook;
     }
 
     public BigDecimal getPrice() {
@@ -77,12 +77,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(nameAuthor, book.nameAuthor) && Objects.equals(dateReleaseBook, book.dateReleaseBook) && Objects.equals(statusBook, book.statusBook) && Objects.equals(price, book.price) && Objects.equals(isbn, book.isbn);
+        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(nameAuthor, book.nameAuthor) && Objects.equals(dateReleaseBook, book.dateReleaseBook) && Objects.equals(coverBook, book.coverBook) && Objects.equals(price, book.price) && Objects.equals(isbn, book.isbn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, nameAuthor, dateReleaseBook, statusBook, price, isbn);
+        return Objects.hash(id, title, nameAuthor, dateReleaseBook, coverBook, price, isbn);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", nameAuthor='" + nameAuthor + '\'' +
                 ", bookReleaseDate=" + dateReleaseBook +
-                ", status='" + statusBook + '\'' +
+                ", status='" + coverBook + '\'' +
                 ", price=" + price +
                 ", isbn='" + isbn + '\'' +
                 '}';

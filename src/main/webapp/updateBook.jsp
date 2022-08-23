@@ -14,7 +14,7 @@
         <th>Date release book:</th>
         <th>Price:</th>
         <th>ISBN:</th>
-        <th>Status:</th>
+        <th>Cover:</th>
     </tr>
     </thead>
     <tbody>
@@ -34,13 +34,11 @@
             <td class="center">
                 <input form="form1" type="text" value="${requestScope.book.isbn}" name="isbn">
             </td>
-            <td class="center">${requestScope.book.status}
+            <td class="center">${requestScope.book.cover}
                 <select form="form1" name="status_book" size="1">
-                    <option selected value="IN_STOCK">IN_STOCK</option>
-                    <option selected value="SOLD">SOLD</option>
-                    <option selected value="RESERVE">RESERVE</option>
-                    <option selected value="DELIVERY_EXPECTED">DELIVERY_EXPECTED</option>
-                    <option selected value="OUT_OF_STOCK">OUT_OF_STOCK</option>
+                    <option selected value="HARD">HARD</option>
+                    <option selected value="SOFT">SOFT</option>
+                    <option selected value="EXCLUSIVE">EXCLUSIVE</option>
                 </select>
             </td>
         </form>

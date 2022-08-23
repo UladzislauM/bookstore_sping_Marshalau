@@ -13,7 +13,7 @@
         <th>Date release book:</th>
         <th>Price:</th>
         <th>ISBN:</th>
-        <th>Status:</th>
+        <th>Cover:</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
             ${requestScope.book.isbn}
         </td>
         <td class="center">
-            ${requestScope.book.status}
+            ${requestScope.book.cover}
         </td>
     </tr>
     </tbody>

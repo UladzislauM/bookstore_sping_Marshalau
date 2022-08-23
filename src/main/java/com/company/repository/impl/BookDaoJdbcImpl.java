@@ -1,7 +1,7 @@
 package com.company.repository.impl;
 
 import com.company.entity.Book;
-import com.company.entity.StatusBook;
+import com.company.entity.CoverBook;
 import com.company.repository.BookDaoJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,15 +21,15 @@ import java.util.Map;
 @Repository("bookDao")
 public class BookDaoJdbcImpl implements BookDaoJdbc {
     private static final String GET_ALL = "SELECT books.id, books.title, books.name_author, books.date_release_book, books.price," +
-            " books.isbn, status.status_name FROM books JOIN status ON books.status_id = status.Id;";
+            " books.isbn, cover.cover_name FROM books JOIN cover ON books.cover_id = cover.id;";
     private static final String GET_BY_ID = "SELECT books.id, books.title, books.name_author, books.date_release_book, books.price, " +
-            "books.isbn, status.status_name FROM books JOIN status ON books.status_id = status.Id WHERE books.id =:id";
+            "books.isbn, cover.cover_name FROM books JOIN cover ON books.cover_id = cover.id WHERE books.id =:id";
     private static final String DELETE_BY_ID = "DELETE FROM books WHERE id = :id";
     private static final String ADD_BOOK = "INSERT INTO books (title, name_author, date_release_book," +
-            " status_id, price, isbn) VALUES (:title, :name_author, :date_release_book, " +
-            "(SELECT id FROM status WHERE status_name = :status_name), :price, :isbn)";
+            " cover_id, price, isbn) VALUES (:title, :name_author, :date_release_book, " +
+            "(SELECT id FROM cover WHERE cover_name = :cover_name), :price, :isbn)";
     private static final String UPDATE_BY_ID = "UPDATE books SET title = :title, name_author = :name_author, date_release_book = :date_release_book," +
-            "status_id = (SELECT id FROM status WHERE status_name = :status_name), price = :price, isbn = :isbn where id = :id;";
+            "cover_id = (SELECT id FROM cover WHERE cover_name = :cover_name), price = :price, isbn = :isbn where id = :id;";
     private static final String COUNT_BOOKS = "SELECT count(*) AS total FROM books";
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
@@ -94,7 +94,7 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         map.put("date_release_book", Date.valueOf(book.getDateReleaseBook()));
         map.put("price", book.getPrice());
         map.put("isbn", book.getIsbn());
-        map.put("status_name", String.valueOf(book.getStatus()));
+        map.put("cover_name", String.valueOf(book.getCover()));
         map.put("id", book.getId());
     }
 
@@ -106,7 +106,7 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         book.setDateReleaseBook(resultSet.getTimestamp("date_release_book").toLocalDateTime().toLocalDate());
         book.setPrice(resultSet.getBigDecimal("price"));
         book.setIsbn(resultSet.getString("isbn"));
-        book.setStatus(StatusBook.valueOf(resultSet.getString("status_name")));
+        book.setCover(CoverBook.valueOf(resultSet.getString("cover_name")));
         return book;
     }
 
