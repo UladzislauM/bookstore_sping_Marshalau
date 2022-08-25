@@ -59,16 +59,4 @@ public class UserServiceImpl implements UserService {
         log.debug("Start UserService - countAllUsers");
         return userDaoJdbc.countAll();
     }
-
-//    @Override
-//    public User getUserByEmail(String email) {
-//        log.debug("Start UserService - getUserByEmail: {}", email);
-//        return userDaoJdbc.findByEmail(email);
-//    }
-//
-//    @Override
-//    public List<User> getUsersByLastName(String lastName) {
-//        log.debug("Start UserService - getUsersByLastName: {}", lastName);
-//        return userDaoJdbc.findUserByLastName(lastName);
-//    }
 }

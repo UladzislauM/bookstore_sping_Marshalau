@@ -4,5 +4,8 @@ import com.company.entity.Book;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface BookDaoJdbc extends AbstractDaoJdbc<Book>{
+public interface BookDaoJdbc extends AbstractDaoJdbc<Book> {
+    Book create(Book book);
+
+    Long countAll();
 }

@@ -3,6 +3,7 @@ package com.company.repository.impl;
 import com.company.entity.Book;
 import com.company.entity.CoverBook;
 import com.company.repository.BookDaoJdbc;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository("bookDao")
+@RequiredArgsConstructor
 public class BookDaoJdbcImpl implements BookDaoJdbc {
     private static final String GET_ALL = "SELECT books.id, books.title, books.name_author, books.date_release_book, books.price," +
             " books.isbn, cover.cover_name FROM books JOIN cover ON books.cover_id = cover.id;";
@@ -33,11 +35,6 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
     private static final String COUNT_BOOKS = "SELECT count(*) AS total FROM books";
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
-
-    @Autowired
-    public BookDaoJdbcImpl(NamedParameterJdbcTemplate namedJdbcTemplate) {
-        this.namedJdbcTemplate = namedJdbcTemplate;
-    }
 
     @Override
     public Book findById(Long id) {
@@ -109,5 +106,4 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         book.setCoverBook(CoverBook.valueOf(resultSet.getString("cover_name")));
         return book;
     }
-
 }

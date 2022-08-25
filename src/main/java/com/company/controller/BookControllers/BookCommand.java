@@ -4,21 +4,16 @@ import com.company.controller.Command;
 import com.company.entity.Book;
 import com.company.service.serviceImpl.BookServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller("get_book_by_id")
+@RequiredArgsConstructor
 public class BookCommand implements Command {
     private final BookServiceImpl bookServiceImpl;
     private Book book;
-
-    @Autowired
-    public BookCommand(BookServiceImpl bookServiceImpl, Book book) {
-        this.bookServiceImpl = bookServiceImpl;
-        this.book = book;
-    }
 
     private static final Logger log = LogManager.getLogger(BookCommand.class);
 

@@ -51,7 +51,7 @@
                 <td>${book.nameAuthor}</td>
                 <td class="center">${book.dateReleaseBook}</td>
                 <td class="center">${book.price}</td>
-                <td class="center">${book.cover}</td>
+                <td class="center">${book.coverBook}</td>
             </tr>
         </c:forEach>
         </tbody>

@@ -3,7 +3,7 @@ package com.company.repository.impl;
 import com.company.entity.RoleUser;
 import com.company.entity.User;
 import com.company.repository.UserDaoJdbc;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository("userDao")
+@RequiredArgsConstructor
 public class UserDaoJdbcImpl implements UserDaoJdbc {
     private static final String GET_ALL = "SELECT u.id, u.name, u.last_name, u.email, u.password, r.role_name" +
             " FROM users u JOIN role r ON u.role_id = r.id";
@@ -32,17 +33,7 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
     private static final String COUNT_USERS = "SELECT count(*) AS total FROM users";
 
     private final JdbcTemplate jdbcTemplate;
-    private NamedParameterJdbcTemplate namedJdbcTemplate;
-
-    @Autowired
-    public UserDaoJdbcImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    @Autowired
-    public void setNamedJdbcTemplate(NamedParameterJdbcTemplate namedJdbcTemplate) {
-        this.namedJdbcTemplate = namedJdbcTemplate;
-    }
+    private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
     public User findById(Long id) {
@@ -70,7 +61,6 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
             return findById(id);
         }
         return null;
-
     }
 
     @Override

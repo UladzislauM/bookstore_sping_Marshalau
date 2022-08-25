@@ -1,10 +1,13 @@
 package com.company.entity;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+
+@Component
 @Data
-public class OrdersItem {
+public class OrdersItems {
     private Long id;
     private Orders orders;
     private Book book;

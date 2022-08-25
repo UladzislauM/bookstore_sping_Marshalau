@@ -1,5 +1,5 @@
 /*
-DROP TABLE IF EXISTS orders_item;
+DROP TABLE IF EXISTS orders_items;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS cover;
 DROP TABLE IF EXISTS orders;
@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS books(
  isbn                char(17) unique,
  cover_id            BIGINT REFERENCES cover(id),
  deleted			 BOOLEAN NOT NULL DEFAULT FALSE
-
 );
 
 CREATE TABLE IF NOT EXISTS role(
@@ -53,7 +52,7 @@ timestamp		   DATE NOT NULL,
 status_id          BIGINT REFERENCES status(id)
 );
 
-CREATE TABLE IF NOT EXISTS orders_item(
+CREATE TABLE IF NOT EXISTS orders_items(
  id                 BIGSERIAL PRIMARY KEY NOT NULL,
  orders_id 			BIGINT REFERENCES orders(id),
  book_id			BIGINT REFERENCES books(id),

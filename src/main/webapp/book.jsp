@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
-<h2 align="center">Book: ${requestScope.book.title}</h2>
+<h2 align="center">Book: ${requestScope.orders.title}</h2>
 <table class="table">
     <thead>
     <tr>
@@ -19,31 +19,31 @@
     <tbody>
     <tr>
         <td>
-            ${requestScope.book.nameAuthor}
+            ${requestScope.orders.nameAuthor}
         </td>
         <td class="center">
-            ${requestScope.book.dateReleaseBook}"
+            ${requestScope.orders.dateReleaseBook}"
         </td>
         <td class="center">
-            ${requestScope.book.price}
+            ${requestScope.orders.price}
         </td>
         <td class="center">
-            ${requestScope.book.isbn}
+            ${requestScope.orders.isbn}
         </td>
         <td class="center">
-            ${requestScope.book.cover}
+            ${requestScope.orders.coverBook}
         </td>
     </tr>
     </tbody>
 </table>
 <form action="controller" method="post">
     <input type="hidden" name="post" value="book_update_form"/>
-    <input type="hidden" name="id" value="${requestScope.book.id}"/>
+    <input type="hidden" name="id" value="${requestScope.orders.id}"/>
     <input type="submit" name="submit" value="Update Book"/></form>
 
 <form action="controller" method="post">
     <input type="hidden" name="post" value="book_delete"/>
-    <input type="hidden" name="id" value="${requestScope.book.id}"/>
+    <input type="hidden" name="id" value="${requestScope.orders.id}"/>
     <input type="submit" name="delete" value="Delete book"/></form>
 
 <a href="controller?command=books"><-Back</a>

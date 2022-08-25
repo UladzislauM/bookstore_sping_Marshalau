@@ -59,7 +59,7 @@ public class BookCreate implements Command {
         book.setDateReleaseBook(LocalDate.of
                 (Integer.parseInt(dataArr.get(0)), Integer.parseInt(dataArr.get(1)), Integer.parseInt(dataArr.get(2))));
         String statusStr = req.getParameter("status_book");
-        book.setCover(CoverBook.valueOf(statusStr));
+        book.setCoverBook(CoverBook.valueOf(statusStr));
         book.setPrice(BigDecimal.valueOf(Integer.parseInt(req.getParameter("price"))));
         book.setIsbn(req.getParameter("isbn"));
         return book;

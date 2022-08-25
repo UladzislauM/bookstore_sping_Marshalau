@@ -1,6 +1,5 @@
 package com.company.service;
 
-import com.company.entity.Book;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,8 +15,5 @@ public interface AbstractService<T> {
     T create(T t);
 
     T update(T t);
-
-    Long countAll();
-
 }
 

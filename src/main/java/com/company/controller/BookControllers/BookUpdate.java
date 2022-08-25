@@ -66,7 +66,7 @@ public class BookUpdate implements Command {
         }
         if (req.getParameter("status_book") != null) {
             String statusStr = req.getParameter("status_book");
-            book.setCover(CoverBook.valueOf(statusStr));
+            book.setCoverBook(CoverBook.valueOf(statusStr));
         }
         if (req.getParameter("price") != null) {
             book.setPrice(new BigDecimal(req.getParameter("price")));

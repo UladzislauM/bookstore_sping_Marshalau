@@ -9,11 +9,8 @@ public interface AbstractDaoJdbc<T> {
 
     List<T> findAll();
 
-    T create(T entity);
-
     T update(T entity);
 
     boolean delete(Long id);
 
-    Long countAll();
 }

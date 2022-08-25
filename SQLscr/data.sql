@@ -54,8 +54,30 @@ VALUES ('Yauheni', 'Hlaholeu', 'jek94@gmail.com', '12qwaszx', (SELECT Id FROM ro
     ('Vlad', 'Marshalau', 'rigfd2020@rambler.by', 'srdfhgjthr', (SELECT id FROM role WHERE role_name = 'ADMIN'));
     
 INSERT INTO status (status_name)
-VALUES ('IN_STOCK'),
-    ('SOLD'),
-    ('RESERVE'),
-    ('DELIVERY_EXPECTED'),
-    ('OUT_OF_STOCK');
+VALUES ('IN_PROCESSING'),
+	('ASSEMBLED'),
+	('AWAITING_PAYMENT'),
+	('READY_TO_SHIP'),
+	('SENT'),
+	('PAID_FOR'),
+	('CANCELLED'),
+	('COMPLETELY_CHANGED'),
+	('FAILED'),
+	('DELIVERED'),
+	('REFUND'),
+	('THE_TRANSACTION_IS_COMPLETED'),
+	('CANCELLED');
+   
+INSERT INTO orders (user_id, total_cost, timestamp, status_id)
+VALUES ((SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu'), 125.00, '2022-08-22', (SELECT id FROM status WHERE status_name = 'IN_PROCESSING')),
+	((SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev'), 50.00, '2022-08-21', (SELECT id FROM status WHERE status_name = 'ASSEMBLED')),
+	((SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova'), 45.00, '2022-08-23', (SELECT id FROM status WHERE status_name = 'ASSEMBLED')),
+	((SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov'), 300.00, '2022-08-24', (SELECT id FROM status WHERE status_name = 'SENT')),
+	((SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric'), 1200.00, '2022-08-22', (SELECT id FROM status WHERE status_name = 'SENT'));
+
+INSERT INTO orders_items(orders_id, book_id, quantity, price)
+VALUES ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu')), (SELECT id FROM books WHERE title = '7Navikov'), 2, 2*(SELECT price FROM books WHERE title = '7Navikov')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev')), (SELECT id FROM books WHERE title = 'GrafMonte'), 1, 1*(SELECT price FROM books WHERE title = 'GrafMonte')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova')), (SELECT id FROM books WHERE title = 'GunsSteelAndGerms'), 1, 1*(SELECT price FROM books WHERE title = 'GunsSteelAndGerms')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov')), (SELECT id FROM books WHERE title = 'TheSubtleArtOfNotGivingAF'), 3, 3*(SELECT price FROM books WHERE title = 'TheSubtleArtOfNotGivingAF')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric')), (SELECT id FROM books WHERE title = 'SmertIvanaIlicha'), 5, 5*(SELECT price FROM books WHERE title = 'SmertIvanaIlicha'));
