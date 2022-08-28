@@ -45,11 +45,13 @@ public class ContextConfiguration {
                 userKey = "db.elephant.user";
                 passwordKey = "db.elephant.password";
                 driverClassNameKey = "db.elephant.driver-Class-Name";
+                break;
             case "local":
                 urlKey = "db.local.url";
                 userKey = "db.local.user";
                 passwordKey = "db.local.password";
                 driverClassNameKey = "db.local.driver-Class-Name";
+                break;
             default:
                 urlKey = "db.elephant.url";
                 userKey = "db.elephant.user";

@@ -37,11 +37,6 @@
     <input type="hidden" name="id" value="${requestScope.order.id}"/>
     <input type="submit" name="submit" value="Update Order"/></form>
 
-<form action="controller" method="post">
-    <input type="hidden" name="post" value="order_delete"/>
-    <input type="hidden" name="id" value="${requestScope.order.id}"/>
-    <input type="submit" name="delete" value="Delete order"/></form>
-
 <a href="controller?command=all_orders"><-Back</a>
 </body>
 </html>

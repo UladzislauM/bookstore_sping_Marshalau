@@ -1,10 +1,11 @@
-package com.company.repository;
+package com.company.data.repository;
 
+import com.company.entity.Book;
 import com.company.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserDaoJdbc extends AbstractDaoJdbc<User> {
+public interface UserRepJdbc extends AbstractRepJdbc<User> {
     User create(User user);
 
     Long countAll();

@@ -30,39 +30,41 @@
 
 <p align="left">All counts: </p>
 
-<form action="controller" method="post">
-    <input type="hidden" name="post" value="order_delete"/>
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>User name</th>
+        <th>Total cost</th>
+        <th>Timestamp</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${requestScope.orders}" var="order" varStatus="counter">
         <tr>
-            <th>Id</th>
-            <th>User name</th>
-            <th>Total cost</th>
-            <th>Timestamp</th>
-            <th>Status</th>
+            <td class="center">${counter.count}</td>
+            <td>
+                <a href="controller?command=find_order_by_id&id=${order.id}">${order.user.name} ${order.user.last_name}</a>
+            </td>
+            <td class="center">${order.totalCost}</td>
+            <td class="center">${order.timestamp}</td>
+            <td class="center">${order.status}</td>
         </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${requestScope.orders}" var="order" varStatus="counter">
-            <tr>
-                <td class="center"><input type="radio" name="id" value="${order.id}">${counter.count}</td>
-                <td>
-                    <a href="controller?command=find_order_by_id&id=${order.id}">${order.user.name} ${order.user.last_name}</a>
-                </td>
-                <td class="center">${order.totalCost}</td>
-                <td class="center">${order.timestamp}</td>
-                <td class="center">${order.status}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-    <input type="submit" name="id" value="Delete Order"/>
-</form>
+    </c:forEach>
+    </tbody>
+</table>
 
-<form align="left" action="controller" method="get">
-    <h3>What do you want to work with?(users, books):</h3>
-    <p><input type="text" name="command" placeholder="write command">
-        <input type="submit" value="Submit"/></p>
+<h3>What do you want to work with?(users, books, all_orders):</h3>
+<form action="controller" method="post">
+    <input type="hidden" name="post" value="users"/>
+    <input type="submit" value="All users"/></form>
+<form action="controller" method="post">
+    <input type="hidden" name="post" value="books"/>
+    <input type="submit" value="All books"/></form>
+<form action="controller" method="post">
+    <input type="hidden" name="post" value="all_orders"/>
+    <input type="submit" value="All orders"/></form>
 </form>
 </body>
 </html>

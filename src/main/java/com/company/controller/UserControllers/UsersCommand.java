@@ -1,24 +1,17 @@
 package com.company.controller.UserControllers;
 
 import com.company.controller.Command;
-import com.company.entity.User;
 import com.company.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component("users")
+@RequiredArgsConstructor
 public class UsersCommand implements Command {
     private final UserServiceImpl userServiceImpl;
-
-    @Autowired
-    public UsersCommand(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
-    }
 
     private static final Logger log = LogManager.getLogger(UsersCommand.class);
 

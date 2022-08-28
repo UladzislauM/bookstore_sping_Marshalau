@@ -64,9 +64,9 @@ public class BookUpdate implements Command {
             book.setDateReleaseBook(LocalDate.of
                     (Integer.parseInt(dataArr.get(0)), Integer.parseInt(dataArr.get(1)), Integer.parseInt(dataArr.get(2))));
         }
-        if (req.getParameter("status_book") != null) {
-            String statusStr = req.getParameter("status_book");
-            book.setCoverBook(CoverBook.valueOf(statusStr));
+        if (req.getParameter("cover_name") != null) {
+            String coverStr = req.getParameter("cover_name");
+            book.setCoverBook(CoverBook.valueOf(coverStr));
         }
         if (req.getParameter("price") != null) {
             book.setPrice(new BigDecimal(req.getParameter("price")));

@@ -1,7 +1,7 @@
 package com.company.service.serviceImpl;
 
 import com.company.entity.Orders;
-import com.company.repository.OrdersDaoJdbc;
+import com.company.data.repository.OrdersRepJdbc;
 import com.company.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -13,13 +13,13 @@ import java.util.List;
 @Service("orderService")
 @RequiredArgsConstructor
 public class OrdersServiceImpl implements OrdersService {
-    private final OrdersDaoJdbc ordersDaoJdbc;
+    private final OrdersRepJdbc ordersRepJdbc;
 
     private static final Logger log = LogManager.getLogger(OrdersServiceImpl.class);
 
     @Override
     public List<Orders> findAll() {
-        List<Orders> orders = ordersDaoJdbc.findAll();
+        List<Orders> orders = ordersRepJdbc.findAll();
         log.info("Start OrdersServiceImpl - findAll - {}", orders.size());
         return orders;
     }
@@ -27,7 +27,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public Orders findById(Long id) {
         log.info("Start OrdersServiceImpl - findById - {}", id);
-        return ordersDaoJdbc.findById(id);
+        return ordersRepJdbc.findById(id);
     }
 
     @Override

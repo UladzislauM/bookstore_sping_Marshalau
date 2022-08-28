@@ -19,31 +19,31 @@
     <tbody>
     <tr>
         <td>
-            ${requestScope.orders.nameAuthor}
+            ${requestScope.book.nameAuthor}
         </td>
         <td class="center">
-            ${requestScope.orders.dateReleaseBook}"
+            ${requestScope.book.dateReleaseBook}"
         </td>
         <td class="center">
-            ${requestScope.orders.price}
+            ${requestScope.book.price}
         </td>
         <td class="center">
-            ${requestScope.orders.isbn}
+            ${requestScope.book.isbn}
         </td>
         <td class="center">
-            ${requestScope.orders.coverBook}
+            ${requestScope.book.coverBook}
         </td>
     </tr>
     </tbody>
 </table>
 <form action="controller" method="post">
     <input type="hidden" name="post" value="book_update_form"/>
-    <input type="hidden" name="id" value="${requestScope.orders.id}"/>
+    <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="submit" value="Update Book"/></form>
 
 <form action="controller" method="post">
     <input type="hidden" name="post" value="book_delete"/>
-    <input type="hidden" name="id" value="${requestScope.orders.id}"/>
+    <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="delete" value="Delete book"/></form>
 
 <a href="controller?command=books"><-Back</a>

@@ -58,8 +58,8 @@ public class BookCreate implements Command {
         List<String> dataArr = Arrays.asList(dataNull.split("-"));
         book.setDateReleaseBook(LocalDate.of
                 (Integer.parseInt(dataArr.get(0)), Integer.parseInt(dataArr.get(1)), Integer.parseInt(dataArr.get(2))));
-        String statusStr = req.getParameter("status_book");
-        book.setCoverBook(CoverBook.valueOf(statusStr));
+        String coverStr = req.getParameter("cover_book");
+        book.setCoverBook(CoverBook.valueOf(coverStr));
         book.setPrice(BigDecimal.valueOf(Integer.parseInt(req.getParameter("price"))));
         book.setIsbn(req.getParameter("isbn"));
         return book;

@@ -1,7 +1,7 @@
 package com.company.service.serviceImpl;
 
 import com.company.entity.Book;
-import com.company.repository.BookDaoJdbc;
+import com.company.data.repository.BookRepJdbc;
 import com.company.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,12 +13,12 @@ import java.util.List;
 
 @Service("bookService")
 public class BookServiceImpl implements BookService {
-    private final BookDaoJdbc bookDaoJdbc;
+    private final BookRepJdbc bookRepJdbc;
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
 
     @Autowired
-    public BookServiceImpl(BookDaoJdbc bookDaoJdbc) {
-        this.bookDaoJdbc = bookDaoJdbc;
+    public BookServiceImpl(BookRepJdbc bookRepJdbc) {
+        this.bookRepJdbc = bookRepJdbc;
     }
 
     public void validate(Book book) {
@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findAll() {
-        List<Book> books = bookDaoJdbc.findAll();
+        List<Book> books = bookRepJdbc.findAll();
         log.debug("Start BookService - getAllBooks - {}", books.size());
         return books;
     }
@@ -37,12 +37,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findById(Long id) {
         log.debug("Start BookService - getBookById {}", id);
-        return bookDaoJdbc.findById(id);
+        return bookRepJdbc.findById(id);
     }
 
     @Override
     public void delete(Long id) {
-        if (bookDaoJdbc.delete(id)) {
+        if (bookRepJdbc.delete(id)) {
             log.debug("Start BookService - deleteBookById: {}", id);
         } else {
             log.error("BookService - deleteBookById false: {}", id);
@@ -52,50 +52,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book create(Book book) {
         log.debug("Start BookService - createBook {}", book);
-        return bookDaoJdbc.create(book);
+        return bookRepJdbc.create(book);
     }
 
     @Override
     public Book update(Book book) {
         log.debug("Start BookService - updateBookById {}", book);
-        return bookDaoJdbc.update(book);
+        return bookRepJdbc.update(book);
     }
 
     @Override
     public Long countAll() {
         log.debug("Start BookService - countAllBooks");
-        return bookDaoJdbc.countAll();
+        return bookRepJdbc.countAll();
     }
-
-//    @Override
-//    public Book getBookByISBN(String isbn) {
-//        log.debug("Start BookService - getBookByISBN {}", isbn);
-//        return bookDaoJdbc.findBookByISBN(isbn);
-//    }
-//
-//    @Override
-//    public List<Book> getBookByAuthor(String author) {
-//        log.debug("Start BookService - getBookByISBN {}", author);
-//        List<Book> books = bookDaoJdbc.findBooksByAuthor(author);
-//        return books;
-//    }
-//
-//
-//    @Override
-//    public BigDecimal sumBooksByAuthor(String author) {
-//        log.debug("Start BookService - sumBooksByAuthor {}", author);
-//        List<Book> books = bookDaoJdbc.findBooksByAuthor(author);
-//        try {
-//            if (books.size() != 0) {
-//                BigDecimal sum = books.get(0).getPrice();
-//                for (int i = 1; i < books.size(); i++) {
-//                    sum = sum.add(books.get(i).getPrice());
-//                }
-//                return sum;
-//            }
-//        } catch (Exception e) {
-//            log.error("Method error - sumBooksByAuthor: {}", e);
-//        }
-//        throw new RuntimeException("Method error - sumBooksByAuthor");
-//    }
 }

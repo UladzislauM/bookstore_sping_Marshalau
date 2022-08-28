@@ -1,10 +1,10 @@
-package com.company.repository;
+package com.company.data.repository;
 
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 @Component
-public interface AbstractDaoJdbc<T> {
+public interface AbstractRepJdbc<T> {
     T findById(Long id);
 
     List<T> findAll();

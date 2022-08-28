@@ -3,19 +3,15 @@ package com.company.controller.UserControllers;
 import com.company.controller.Command;
 import com.company.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("user_delete")
+@RequiredArgsConstructor
 public class UserDelete implements Command {
     private final UserServiceImpl userServiceImpl;
-
-    @Autowired
-    public UserDelete(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
-    }
 
     private static final Logger log = LogManager.getLogger(UserCommand.class);
 

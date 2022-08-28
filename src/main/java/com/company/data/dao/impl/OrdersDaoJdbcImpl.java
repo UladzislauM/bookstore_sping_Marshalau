@@ -1,23 +1,19 @@
-package com.company.repository.impl;
+package com.company.data.dao.impl;
 
-import com.company.entity.*;
-import com.company.repository.OrdersDaoJdbc;
+import com.company.data.dao.OrdersDaoJdbc;
+import com.company.data.dataDTO.OrdersDaoDTO;
+import com.company.entity.StatusBook;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Repository
+@Repository("ordersDao")
 @RequiredArgsConstructor
 public class OrdersDaoJdbcImpl implements OrdersDaoJdbc {
     private static final String GET_ALL = """
@@ -33,16 +29,10 @@ public class OrdersDaoJdbcImpl implements OrdersDaoJdbc {
             ON o.status_id = s.id
             WHERE o.id = :id;
             """;
-    private static final String ADD_BOOK = """
-            INSERT INTO orders(o.user_id, o.total_cost, o.timestamp, o.status_id) 
-            VALUES (:user_id, :total_cost, :timestamp, :status_id)
-            """;//fixme
-
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
-    private final UserDaoJdbcImpl userDaoJdbc;
 
     @Override
-    public Orders findById(Long id) {
+    public OrdersDaoDTO findById(Long id) {
         try {
             return namedJdbcTemplate.queryForObject(GET_BY_ID, new MapSqlParameterSource("id", id), this::processRow);
         } catch (EmptyResultDataAccessException ignored) {
@@ -51,27 +41,17 @@ public class OrdersDaoJdbcImpl implements OrdersDaoJdbc {
     }
 
     @Override
-    public List<Orders> findAll() {
+    public List<OrdersDaoDTO> findAll() {
         return namedJdbcTemplate.query(GET_ALL, this::processRow);
     }
 
     @Override
-    public Orders create(Orders orders) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        Map<String, Object> map = new HashMap<>();
-        extractedOrder(orders, map);
-        namedJdbcTemplate.update(ADD_BOOK, new MapSqlParameterSource().addValues(map),
-                keyHolder, new String[]{"id"});
-        Number number = keyHolder.getKey();
-        if (number != null) {
-            Long id = number.longValue();
-            return findById(id);
-        }
+    public OrdersDaoDTO create(OrdersDaoDTO ordersDTO) {
         return null;
     }
 
     @Override
-    public Orders update(Orders orders) {
+    public OrdersDaoDTO update(OrdersDaoDTO ordersDTO) {
         return null;
     }
 
@@ -80,22 +60,13 @@ public class OrdersDaoJdbcImpl implements OrdersDaoJdbc {
         return false;
     }
 
-    private void extractedOrder(Orders orders, Map<String, Object> map) {
-        map.put("total_cost", orders.getTotalCost());
-        map.put("timestamp", Date.valueOf(orders.getTimestamp()));
-        map.put("status_name", orders.getStatus());
-        map.put("user_id", orders.getUser().getId());
-    }
-
-    public Orders processRow(ResultSet resultSet, int rowNum) throws SQLException {
-        Orders orders = new Orders();
+    public OrdersDaoDTO processRow(ResultSet resultSet, int rowNum) throws SQLException {
+        OrdersDaoDTO orders = new OrdersDaoDTO();
         orders.setId(resultSet.getLong("id"));
+        orders.setUserId(resultSet.getLong("user_id"));
         orders.setTotalCost(resultSet.getBigDecimal("total_cost"));
         orders.setTimestamp(resultSet.getTimestamp("timestamp").toLocalDateTime().toLocalDate());
         orders.setStatus(StatusBook.valueOf(resultSet.getString("status_name")));
-        Long userId = resultSet.getLong("user_id");
-        User user = userDaoJdbc.findById(userId);//fixme
-        orders.setUser(user);
         return orders;
     }
 }

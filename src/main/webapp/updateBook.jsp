@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
-<h2 align="center">Book: ${requestScope.orders.title}</h2>
+<h2 align="center">Book: ${requestScope.book.title}</h2>
 
 <table class="table">
     <thead>
@@ -21,21 +21,21 @@
     <tr>
         <form id="form1" action="controller" method="post">
             <input type="hidden" name="post" value="book_update"/>
-            <input type="hidden" name="id" value="${requestScope.orders.id}"/>
+            <input type="hidden" name="id" value="${requestScope.book.id}"/>
             <td>
-                <input form="form1" type="text" value="${requestScope.orders.nameAuthor}" name="name_author">
+                <input form="form1" type="text" value="${requestScope.book.nameAuthor}" name="name_author">
             </td>
             <td class="center">
-                <input form="form1" type="date" value="${requestScope.orders.dateReleaseBook}" name="data_purchase">
+                <input form="form1" type="date" value="${requestScope.book.dateReleaseBook}" name="data_purchase">
             </td>
             <td class="center">
-                <input form="form1" type="text" value="${requestScope.orders.price}" name="price">
+                <input form="form1" type="text" value="${requestScope.book.price}" name="price">
             </td>
             <td class="center">
-                <input form="form1" type="text" value="${requestScope.orders.isbn}" name="isbn">
+                <input form="form1" type="text" value="${requestScope.book.isbn}" name="isbn">
             </td>
-            <td class="center">${requestScope.orders.cover}
-                <select form="form1" name="status_book" size="1">
+            <td class="center">${requestScope.book.coverBook}
+                <select form="form1" name="cover_book" size="1">
                     <option selected value="HARD">HARD</option>
                     <option selected value="SOFT">SOFT</option>
                     <option selected value="EXCLUSIVE">EXCLUSIVE</option>
@@ -49,7 +49,7 @@
 
 <form action="controller" method="post">
     <input type="hidden" name="post" value="book_delete"/>
-    <input type="hidden" name="id" value="${requestScope.orders.id}"/>
+    <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="delete" value="Delete book"/></form>
 
 <a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>

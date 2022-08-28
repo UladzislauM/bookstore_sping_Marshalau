@@ -4,21 +4,16 @@ import com.company.controller.Command;
 import com.company.entity.User;
 import com.company.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("get_user_by_id")
+@RequiredArgsConstructor
 public class UserCommand implements Command {
     private final UserServiceImpl userServiceImpl;
     private User user;
-
-    @Autowired
-    public UserCommand(UserServiceImpl userServiceImpl, User user) {
-        this.userServiceImpl = userServiceImpl;
-        this.user = user;
-    }
 
     private static final Logger log = LogManager.getLogger(UserCommand.class);
 

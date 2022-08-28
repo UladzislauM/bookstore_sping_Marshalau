@@ -1,9 +1,9 @@
-package com.company.repository;
+package com.company.data.repository;
 
 import com.company.entity.OrdersItems;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface OrderItemDaoJdbc extends AbstractDaoJdbc<OrdersItems> {
+public interface OrderItemRepJdbc extends AbstractRepJdbc<OrdersItems> {
     OrdersItems create(OrdersItems entity, Long id);
 }

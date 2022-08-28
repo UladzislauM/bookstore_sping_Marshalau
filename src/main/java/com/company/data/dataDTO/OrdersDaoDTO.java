@@ -1,19 +1,18 @@
-package com.company.entity;
+package com.company.data.dataDTO;
 
+import com.company.entity.StatusBook;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Component
 @Data
-public class Orders {
+public class OrdersDaoDTO {
     private Long id;
-    private User user;
+    private Long userId;
     private BigDecimal totalCost;
     private LocalDate timestamp;
     private StatusBook status;
-    private List<OrdersItems> items;
 }
