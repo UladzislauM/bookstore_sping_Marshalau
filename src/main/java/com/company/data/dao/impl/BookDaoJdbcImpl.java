@@ -58,7 +58,6 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
             """;
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
-    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public BookDaoDTO findById(Long id) {

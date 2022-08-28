@@ -1,25 +1,24 @@
 package com.company.service.serviceImpl;
 
+import com.company.DTO.BookDTO;
 import com.company.entity.Book;
 import com.company.data.repository.BookRepJdbc;
 import com.company.service.BookService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service("bookService")
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepJdbc bookRepJdbc;
-    private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
+    private final ObjectMapperSC mapper;
 
-    @Autowired
-    public BookServiceImpl(BookRepJdbc bookRepJdbc) {
-        this.bookRepJdbc = bookRepJdbc;
-    }
+    private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
 
     public void validate(Book book) {
         if (book.getPrice().compareTo(BigDecimal.ZERO) == 0) {
@@ -28,16 +27,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAll() {
+    public List<BookDTO> findAll() {
         List<Book> books = bookRepJdbc.findAll();
         log.debug("Start BookService - getAllBooks - {}", books.size());
-        return books;
+        List<BookDTO> booksDTO = books.stream().map(book -> {
+            return mapper.toBookDTO(book);
+        }).toList();
+        return booksDTO;
     }
 
     @Override
-    public Book findById(Long id) {
+    public BookDTO findById(Long id) {
         log.debug("Start BookService - getBookById {}", id);
-        return bookRepJdbc.findById(id);
+        BookDTO bookDTO = mapper.toBookDTO(bookRepJdbc.findById(id));
+        return bookDTO;
     }
 
     @Override
@@ -50,14 +53,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book create(Book book) {
-        log.debug("Start BookService - createBook {}", book);
+    public Book create(BookDTO bookDTO) {
+        log.debug("Start BookService - createBook {}", bookDTO);
+        Book book = mapper.toBook(bookDTO);
         return bookRepJdbc.create(book);
     }
 
     @Override
-    public Book update(Book book) {
-        log.debug("Start BookService - updateBookById {}", book);
+    public Book update(BookDTO bookDTO) {
+        log.debug("Start BookService - updateBookById {}", bookDTO);
+        Book book = mapper.toBook(bookDTO);
         return bookRepJdbc.update(book);
     }
 

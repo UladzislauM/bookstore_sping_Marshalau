@@ -1,9 +1,9 @@
 package com.company.controller.BookControllers;
 
+import com.company.DTO.BookDTO;
 import com.company.controller.Command;
-import com.company.entity.Book;
 import com.company.entity.CoverBook;
-import com.company.service.serviceImpl.BookServiceImpl;
+import com.company.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,13 +17,13 @@ import java.util.List;
 
 @Controller("book_create")
 public class BookCreate implements Command {
-    private final BookServiceImpl bookServiceImpl;
-    private Book book;
+    private final BookService bookService;
+    private BookDTO bookDTO;
 
     @Autowired
-    public BookCreate(BookServiceImpl bookServiceImpl, Book book) {
-        this.bookServiceImpl = bookServiceImpl;
-        this.book = book;
+    public BookCreate(BookService bookService, BookDTO bookDTO) {
+        this.bookService = bookService;
+        this.bookDTO = bookDTO;
     }
 
     private static final Logger log = LogManager.getLogger(BookCreate.class);
@@ -33,14 +33,14 @@ public class BookCreate implements Command {
         log.info("Start BookCreate {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            book = addBookKeyBoard(req);
-            if (book.getTitle() == null) {
+            bookDTO = addBookKeyBoard(req);
+            if (bookDTO.getTitle() == null) {
                 req.setAttribute("errorMessage", "Ops..... The book does not created, BookCreate");
                 log.error("The book does not created, BookCreate.");
                 return "error.jsp";
             } else {
-                bookServiceImpl.create(book);
-                req.setAttribute("books", bookServiceImpl.findAll());
+                bookService.create(bookDTO);
+                req.setAttribute("books", bookService.findAll());
                 return "books.jsp";
             }
         } catch (Exception e) {
@@ -51,17 +51,17 @@ public class BookCreate implements Command {
     }
 
 
-    private Book addBookKeyBoard(HttpServletRequest req) {
-        book.setTitle(req.getParameter("title"));
-        book.setNameAuthor(req.getParameter("name_author"));
+    private BookDTO addBookKeyBoard(HttpServletRequest req) {
+        bookDTO.setTitle(req.getParameter("title"));
+        bookDTO.setNameAuthor(req.getParameter("name_author"));
         String dataNull = req.getParameter("data_purchase");
         List<String> dataArr = Arrays.asList(dataNull.split("-"));
-        book.setDateReleaseBook(LocalDate.of
+        bookDTO.setDateReleaseBook(LocalDate.of
                 (Integer.parseInt(dataArr.get(0)), Integer.parseInt(dataArr.get(1)), Integer.parseInt(dataArr.get(2))));
         String coverStr = req.getParameter("cover_book");
-        book.setCoverBook(CoverBook.valueOf(coverStr));
-        book.setPrice(BigDecimal.valueOf(Integer.parseInt(req.getParameter("price"))));
-        book.setIsbn(req.getParameter("isbn"));
-        return book;
+        bookDTO.setCoverBook(CoverBook.valueOf(coverStr));
+        bookDTO.setPrice(BigDecimal.valueOf(Integer.parseInt(req.getParameter("price"))));
+        bookDTO.setIsbn(req.getParameter("isbn"));
+        return bookDTO;
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookRepJdbcImpl implements BookRepJdbc {
     private final BookDaoJdbcImpl bookDaoJdbc;
-    private final ObjectMapper mapper;
+    private final ObjectMapperDao mapper;
 
     @Override
     public Book findById(Long id) {

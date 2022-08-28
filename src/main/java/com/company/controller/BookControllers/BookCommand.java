@@ -1,7 +1,7 @@
 package com.company.controller.BookControllers;
 
+import com.company.DTO.BookDTO;
 import com.company.controller.Command;
-import com.company.entity.Book;
 import com.company.service.serviceImpl.BookServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class BookCommand implements Command {
     private final BookServiceImpl bookServiceImpl;
-    private Book book;
+    private BookDTO bookDTO;
 
     private static final Logger log = LogManager.getLogger(BookCommand.class);
 
@@ -21,13 +21,13 @@ public class BookCommand implements Command {
     public String execude(HttpServletRequest req) {
         log.info("Start BookCommand {}", req.getParameter("id"));
         try {
-            book = bookServiceImpl.findById(Long.parseLong(req.getParameter("id")));
-            if (book.getId() == 0) {
+            bookDTO = bookServiceImpl.findById(Long.parseLong(req.getParameter("id")));
+            if (bookDTO.getId() == 0) {
                 log.error("The book does not exist, BookCommand");
                 req.setAttribute("errorMessage", "The book does not exist, BookCommand");
                 return "error.jsp";
             } else {
-                req.setAttribute("book", book);
+                req.setAttribute("book", bookDTO);
                 return "book.jsp";
             }
         } catch (Exception e) {

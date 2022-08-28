@@ -2,7 +2,9 @@ package com.company.DTO;
 
 import com.company.entity.RoleUser;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
+@Component
 @Data
 public class UserDTO {
     private Long id;

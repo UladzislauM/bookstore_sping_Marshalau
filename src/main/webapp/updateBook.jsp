@@ -35,7 +35,7 @@
                 <input form="form1" type="text" value="${requestScope.book.isbn}" name="isbn">
             </td>
             <td class="center">${requestScope.book.coverBook}
-                <select form="form1" name="cover_book" size="1">
+                <select form="form1" name="cover_name" size="1">
                     <option selected value="HARD">HARD</option>
                     <option selected value="SOFT">SOFT</option>
                     <option selected value="EXCLUSIVE">EXCLUSIVE</option>

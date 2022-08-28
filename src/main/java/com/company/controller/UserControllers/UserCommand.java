@@ -1,7 +1,7 @@
 package com.company.controller.UserControllers;
 
+import com.company.DTO.UserDTO;
 import com.company.controller.Command;
-import com.company.entity.User;
 import com.company.service.serviceImpl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserCommand implements Command {
     private final UserServiceImpl userServiceImpl;
-    private User user;
+    private UserDTO userDTO;
 
     private static final Logger log = LogManager.getLogger(UserCommand.class);
 
@@ -21,13 +21,13 @@ public class UserCommand implements Command {
     public String execude(HttpServletRequest req) {
         log.info("Start UserCommand {}", req.getParameter("id"));
         try {
-            user = userServiceImpl.findById(Long.parseLong(req.getParameter("id")));
-            if (user.getId() == null) {
+            userDTO = userServiceImpl.findById(Long.parseLong(req.getParameter("id")));
+            if (userDTO.getId() == null) {
                 req.setAttribute("errorMessage", "The user does not exist");
                 log.error("The user does not exist");
                 return "error.jsp";
             } else {
-                req.setAttribute("user", user);
+                req.setAttribute("user", userDTO);
                 return "user.jsp";
             }
         } catch (Exception e) {

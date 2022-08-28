@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserRepJdbcImpl implements UserRepJdbc {
     private final UserDaoJdbcImpl userDaoJdbc;
-    private final ObjectMapper mapper;
+    private final ObjectMapperDao mapper;
 
     @Override
     public User findById(Long id) {

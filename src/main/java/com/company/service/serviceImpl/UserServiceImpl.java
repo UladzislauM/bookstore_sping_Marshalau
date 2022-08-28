@@ -1,8 +1,10 @@
 package com.company.service.serviceImpl;
 
+import com.company.DTO.UserDTO;
 import com.company.data.repository.UserRepJdbc;
 import com.company.entity.User;
 import com.company.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +13,28 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service("userService")
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepJdbc userRepJdbc;
+    private final ObjectMapperSC mapper;
+
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
 
-    @Autowired
-    public UserServiceImpl(UserRepJdbc userRepJdbc) {
-        this.userRepJdbc = userRepJdbc;
-    }
-
     @Override
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
         List<User> users = userRepJdbc.findAll();
         log.debug("Start UserService - getAllUsers: {}", users.size());
-        return users;
+        List<UserDTO> userDTOList = users.stream().map(user -> {
+            return mapper.toUserDTO(user);
+        }).toList();
+        return userDTOList;
     }
 
     @Override
-    public User findById(Long id) {
+    public UserDTO findById(Long id) {
         log.debug("Start UserService - getUserById: {}", id);
-        return userRepJdbc.findById(id);
+        UserDTO userDTO = mapper.toUserDTO(userRepJdbc.findById(id));
+        return userDTO;
     }
 
     @Override
@@ -43,14 +47,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
-        log.debug("Start UserService - createUser: {}", user);
+    public User create(UserDTO userDTO) {
+        log.debug("Start UserService - createUser: {}", userDTO);
+        User user = mapper.toUser(userDTO);
         return userRepJdbc.create(user);
     }
 
     @Override
-    public User update(User user) {
-        log.debug("Start UserService - updateUserById: {}", user);
+    public User update(UserDTO userDTO) {
+        log.debug("Start UserService - updateUserById: {}", userDTO);
+        User user = mapper.toUser(userDTO);
         return userRepJdbc.update(user);
     }
 

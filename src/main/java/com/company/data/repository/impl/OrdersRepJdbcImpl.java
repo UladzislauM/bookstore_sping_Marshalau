@@ -22,7 +22,7 @@ public class OrdersRepJdbcImpl implements OrdersRepJdbc {
     private final OrderItemDaoJdbc orderItemDaoJdbc;
     private final UserDaoJdbc userDaoJdbc;
     private final BookDaoJdbc bookDaoJdbc;
-    private final ObjectMapper mapper;
+    private final ObjectMapperDao mapper;
 
     @Override
     public Orders findById(Long id) {

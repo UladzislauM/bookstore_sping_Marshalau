@@ -1,7 +1,7 @@
 package com.company.controller.UserControllers;
 
 import com.company.controller.Command;
-import com.company.service.serviceImpl.UserServiceImpl;
+import com.company.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component("user_delete")
 @RequiredArgsConstructor
 public class UserDelete implements Command {
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
     private static final Logger log = LogManager.getLogger(UserCommand.class);
 
@@ -20,9 +20,9 @@ public class UserDelete implements Command {
         log.info("Start UserDelete {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            userServiceImpl.delete(Long.parseLong(req.getParameter("id")));
-            req.setAttribute("user_count", userServiceImpl.countAll());
-            req.setAttribute("users", userServiceImpl.findAll());
+            userService.delete(Long.parseLong(req.getParameter("id")));
+            req.setAttribute("user_count", userService.countAll());
+            req.setAttribute("users", userService.findAll());
             return "users.jsp";
         } catch (Exception e) {
             log.error("Exception by UserDelete {}", e);

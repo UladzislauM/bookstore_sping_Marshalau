@@ -1,7 +1,7 @@
 package com.company.controller.OrdersControllers;
 
+import com.company.DTO.OrdersDTO;
 import com.company.controller.Command;
-import com.company.entity.Orders;
 import com.company.service.OrdersService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class OrdersFindById implements Command {
     private final OrdersService ordersService;
-    private Orders order;
+    private OrdersDTO ordersDTO;
 
     private static final Logger log = LogManager.getLogger(OrdersFindById.class);
 
@@ -21,13 +21,13 @@ public class OrdersFindById implements Command {
     public String execude(HttpServletRequest req) {
         log.info("Start OrdersFindById {}", req.getParameter("id"));
         try {
-            order = ordersService.findById(Long.parseLong(req.getParameter("id")));
-            if (order.getId() == 0) {
+            ordersDTO = ordersService.findById(Long.parseLong(req.getParameter("id")));
+            if (ordersDTO.getId() == 0) {
                 log.error("The book does not exist, OrdersFindById");
                 req.setAttribute("errorMessage", "The book does not exist, OrdersFindById");
                 return "error.jsp";
             } else {
-                req.setAttribute("order", order);
+                req.setAttribute("order", ordersDTO);
                 return "JSP/order.jsp";
             }
         } catch (Exception e) {

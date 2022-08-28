@@ -1,5 +1,6 @@
 package com.company.controller.OrdersControllers;
 
+import com.company.DTO.OrdersDTO;
 import com.company.controller.Command;
 import com.company.entity.Orders;
 import com.company.entity.StatusBook;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class OrdersUpdate implements Command {
     private final OrdersService ordersService;
-    private Orders orders;
+    private OrdersDTO ordersDTO;
 
     private static final Logger log = LogManager.getLogger(OrdersUpdate.class);
 
@@ -23,15 +24,15 @@ public class OrdersUpdate implements Command {
         log.info("Start OrdersUpdate {}", req.getParameter("id"));
         try {
             req.setCharacterEncoding("UTF-8");
-            orders = ordersService.findById(Long.parseLong(req.getParameter("id")));
-            orders = addOrderKeyBoard(req);
-            if (orders == null) {
+            ordersDTO = ordersService.findById(Long.parseLong(req.getParameter("id")));
+            ordersDTO = addOrderKeyBoard(req);
+            if (ordersDTO == null) {
                 log.error("The order does not update, OrdersUpdate");
                 req.setAttribute("errorMessage", "Ops..... The order does not update, OrdersUpdate");
                 return "error.jsp";
             } else {
-                ordersService.update(orders);
-                req.setAttribute("order", orders);
+                ordersService.update(ordersDTO);
+                req.setAttribute("order", ordersDTO);
                 return "JSP/order.jsp";
             }
         } catch (Exception e) {
@@ -41,10 +42,10 @@ public class OrdersUpdate implements Command {
         }
     }
 
-    private Orders addOrderKeyBoard(HttpServletRequest req) {
+    private OrdersDTO addOrderKeyBoard(HttpServletRequest req) {
         if (req.getParameter("status_name") != null) {
-            orders.setStatus(StatusBook.valueOf(req.getParameter("status_name")));
+            ordersDTO.setStatus(StatusBook.valueOf(req.getParameter("status_name")));
         }
-        return orders;
+        return ordersDTO;
     }
 }
