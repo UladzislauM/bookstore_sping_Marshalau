@@ -1,38 +1,36 @@
-INSERT INTO status (status_name)
-VALUES ('IN_STOCK'),
-    ('SOLD'),
-    ('RESERVE'),
-    ('DELIVERY_EXPECTED'),
-    ('OUT_OF_STOCK');
+INSERT INTO cover (cover_name)
+VALUES ('HARD'),
+       ('SOFT'),
+       ('EXCLUSIVE');
 
-INSERT INTO books (title, name_author, date_release_book, price, isbn, status_id)
-VALUES ('7Navikov', 'S.Kovy', '1991-12-25', 32.00, '978-3-16-148410-0', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('GrafMonte', 'A.Dyma', '1896-10-18', 23.00, '978-3-16-148410-1', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('GunsSteelAndGerms', 'D.Diamond', '2003-06-17', 44.00, '978-3-16-148410-2', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('TheSubtleArtOfNotGivingAF', 'M.Mancon', '2016-09-13', 65.00, '978-3-16-148410-3', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('SmertIvanaIlicha', 'L.Tolstoy', '1886-11-05', 35.00, '978-3-16-148410-4', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('KamoGryadeshi', 'G.Synkevich', '1896-05-14', 73.00, '978-3-16-148410-5', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('HoreOtUma', 'A.Griboedov', '1824-08-24', 59.00, '978-3-16-148410-6', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('Neirofitnes', 'R.Djandial', '2019-02-23', 31.00, '978-3-16-148411-0', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('JiznBezGranic', 'N.Vuitich', '2010-04-20', 77.00, '978-3-16-148411-1', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('1984', 'D.Oruall', '1949-05-28', 11.00, '978-3-16-148411-2', (SELECT Id FROM status WHERE status_name = 'SOLD')),
-    ('AnimalFarm', 'D.Oruall', '1945-09-17', 73.00, '978-3-16-148411-3', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('ThreeMeninABoat(ToSayNothingOfTheDog)', 'D.Dgerom', '1889-07-13', 90.00, '978-3-16-148411-4', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('Uliss', 'I.Achlabustin', '2015-08-26', 36.00, '978-3-16-148411-5', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('Do Androids Dream of Electric Sheep?', 'P.Dick', '1968-06-03', 9.80, '978-3-16-148411-6', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('Pineapple water for beautiful ladies', 'V.Pelevin', '2010-11-25', 12.20, '978-3-16-148412-0', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('An Occurrence at Owl Creek Bridge', 'A.Birs', '1890-06-05', 24.30, '978-3-16-148412-1', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('To Kill a Mockingbird', 'H.Li', '1960-06-11', 110.80, '978-3-16-148412-2', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('What Doesn’t Kill Us', 'S.Carney', '2011-11-20', 26.00, '978-3-16-148412-3', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('Sleeping Beauties', 'S.King', '2017-09-01', 45.70, '978-3-16-148412-4', (SELECT Id FROM status WHERE status_name = 'IN_STOCK')),
-    ('In search of the lost orpheus', 'A.Lurie', '1912-04-04', 84.30, '978-3-16-148412-5', (SELECT Id FROM status WHERE status_name = 'IN_STOCK'));
-
+INSERT INTO books (title, name_author, date_release_book, price, isbn, cover_id)
+VALUES ('7Navikov', 'S.Kovy', '1991-12-25', 32.00, '978-3-16-148410-0', (SELECT id FROM cover WHERE cover_name = 'SOFT')),
+    ('GrafMonte', 'A.Dyma', '1896-10-18', 23.00, '978-3-16-148410-1', (SELECT Id FROM cover WHERE cover_name = 'SOFT')),
+    ('GunsSteelAndGerms', 'D.Diamond', '2003-06-17', 44.00, '978-3-16-148410-2', (SELECT Id FROM cover WHERE cover_name = 'SOFT')),
+    ('TheSubtleArtOfNotGivingAF', 'M.Mancon', '2016-09-13', 65.00, '978-3-16-148410-3', (SELECT Id FROM cover WHERE cover_name = 'SOFT')),
+    ('SmertIvanaIlicha', 'L.Tolstoy', '1886-11-05', 35.00, '978-3-16-148410-4', (SELECT Id FROM cover WHERE cover_name = 'SOFT')),
+    ('KamoGryadeshi', 'G.Synkevich', '1896-05-14', 73.00, '978-3-16-148410-5', (SELECT Id FROM cover WHERE cover_name = 'SOFT')),
+    ('HoreOtUma', 'A.Griboedov', '1824-08-24', 59.00, '978-3-16-148410-6', (SELECT Id FROM cover WHERE cover_name = 'EXCLUSIVE')),
+    ('Neirofitnes', 'R.Djandial', '2019-02-23', 31.00, '978-3-16-148411-0', (SELECT Id FROM cover WHERE cover_name = 'EXCLUSIVE')),
+    ('JiznBezGranic', 'N.Vuitich', '2010-04-20', 77.00, '978-3-16-148411-1', (SELECT Id FROM cover WHERE cover_name = 'EXCLUSIVE')),
+    ('1984', 'D.Oruall', '1949-05-28', 11.00, '978-3-16-148411-2', (SELECT Id FROM cover WHERE cover_name = 'SOFT')),
+    ('AnimalFarm', 'D.Oruall', '1945-09-17', 73.00, '978-3-16-148411-3', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('ThreeMeninABoat(ToSayNothingOfTheDog)', 'D.Dgerom', '1889-07-13', 90.00, '978-3-16-148411-4', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('Uliss', 'I.Achlabustin', '2015-08-26', 36.00, '978-3-16-148411-5', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('Do Androids Dream of Electric Sheep?', 'P.Dick', '1968-06-03', 9.80, '978-3-16-148411-6', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('Pineapple water for beautiful ladies', 'V.Pelevin', '2010-11-25', 12.20, '978-3-16-148412-0', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('An Occurrence at Owl Creek Bridge', 'A.Birs', '1890-06-05', 24.30, '978-3-16-148412-1', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('To Kill a Mockingbird', 'H.Li', '1960-06-11', 110.80, '978-3-16-148412-2', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('What Doesnâ€™t Kill Us', 'S.Carney', '2011-11-20', 26.00, '978-3-16-148412-3', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('Sleeping Beauties', 'S.King', '2017-09-01', 45.70, '978-3-16-148412-4', (SELECT Id FROM cover WHERE cover_name = 'HARD')),
+    ('In search of the lost orpheus', 'A.Lurie', '1912-04-04', 84.30, '978-3-16-148412-5', (SELECT Id FROM cover WHERE cover_name = 'HARD'));
+   
 INSERT INTO role(role_name)
 VALUES ('ADMIN'),
     ('USER'),
     ('MANAGER');
-
-INSERT INTO users(name, last_name, email, password, role_id)
+    
+INSERT INTO users(name, last_name, email, password, role_id) 
 VALUES ('Yauheni', 'Hlaholeu', 'jek94@gmail.com', '12qwaszx', (SELECT Id FROM role WHERE role_name = 'ADMIN')),
     ('Uladzislau', 'Solovev', 'sol44@yandex.by', 'qazxsw21', (SELECT Id FROM role WHERE role_name = 'USER')),
     ('Haliana', 'Sidoric', 'galina_sid@gmail.com', 'sid93LL', (SELECT Id FROM role WHERE role_name = 'USER')),
@@ -54,3 +52,32 @@ VALUES ('Yauheni', 'Hlaholeu', 'jek94@gmail.com', '12qwaszx', (SELECT Id FROM ro
     ('Artemiy', 'Potrahunchik', 'temavsem424@Gmail.com', '4567876543', (SELECT Id FROM role WHERE role_name = 'USER')),
     ('Vlad', 'Topalov', 'topal34@mail.ru', '345ygf', (SELECT Id FROM role WHERE role_name = 'USER')),
     ('Vlad', 'Marshalau', 'rigfd2020@rambler.by', 'srdfhgjthr', (SELECT id FROM role WHERE role_name = 'ADMIN'));
+    
+INSERT INTO status (status_name)
+VALUES ('IN_PROCESSING'),
+	('ASSEMBLED'),
+	('AWAITING_PAYMENT'),
+	('READY_TO_SHIP'),
+	('SENT'),
+	('PAID_FOR'),
+	('CANCELLED'),
+	('COMPLETELY_CHANGED'),
+	('FAILED'),
+	('DELIVERED'),
+	('REFUND'),
+	('THE_TRANSACTION_IS_COMPLETED'),
+	('CANCELLED');
+   
+INSERT INTO orders (user_id, total_cost, timestamp, status_id)
+VALUES ((SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu'), 125.00, '2022-08-22', (SELECT id FROM status WHERE status_name = 'IN_PROCESSING')),
+	((SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev'), 50.00, '2022-08-21', (SELECT id FROM status WHERE status_name = 'ASSEMBLED')),
+	((SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova'), 45.00, '2022-08-23', (SELECT id FROM status WHERE status_name = 'ASSEMBLED')),
+	((SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov'), 300.00, '2022-08-24', (SELECT id FROM status WHERE status_name = 'SENT')),
+	((SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric'), 1200.00, '2022-08-22', (SELECT id FROM status WHERE status_name = 'SENT'));
+
+INSERT INTO orders_items(orders_id, book_id, quantity, price)
+VALUES ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu')), (SELECT id FROM books WHERE title = '7Navikov'), 2, 2*(SELECT price FROM books WHERE title = '7Navikov')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev')), (SELECT id FROM books WHERE title = 'GrafMonte'), 1, 1*(SELECT price FROM books WHERE title = 'GrafMonte')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova')), (SELECT id FROM books WHERE title = 'GunsSteelAndGerms'), 1, 1*(SELECT price FROM books WHERE title = 'GunsSteelAndGerms')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov')), (SELECT id FROM books WHERE title = 'TheSubtleArtOfNotGivingAF'), 3, 3*(SELECT price FROM books WHERE title = 'TheSubtleArtOfNotGivingAF')),
+((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric')), (SELECT id FROM books WHERE title = 'SmertIvanaIlicha'), 5, 5*(SELECT price FROM books WHERE title = 'SmertIvanaIlicha'));

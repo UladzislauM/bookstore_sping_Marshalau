@@ -1,13 +1,10 @@
 package com.company.service;
 
-import com.company.entity.User;
+import com.company.service.dto.UserDto;
+import com.company.service.entity.User;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 @Component
-public interface UserService extends AbstractService<User>{
-//    User getUserByEmail(String email);
-//
-//    List<User> getUsersByLastName(String lastName);
-
+public interface UserService extends AbstractService<User, UserDto> {
+    Long countAll();
 }

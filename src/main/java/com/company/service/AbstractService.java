@@ -1,23 +1,19 @@
 package com.company.service;
 
-import com.company.entity.Book;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public interface AbstractService<T> {
-    List<T> findAll();
+public interface AbstractService<T, D> {
+    List<D> findAll();
 
-    T findById(Long id);
+    D findById(Long id);
 
     void delete(Long id);
 
-    T create(T t);
+    T create(D d);
 
-    T update(T t);
-
-    Long countAll();
-
+    T update(D d);
 }
 
