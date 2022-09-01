@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface Command {
-    String execude(HttpServletRequest req);
+    String execute(HttpServletRequest req);
 }
