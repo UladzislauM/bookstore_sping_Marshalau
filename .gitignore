@@ -27,12 +27,4 @@ replay_pid*
 .idea/
 *.iml
 
-#loggs
-logs/
-*.log
 
-#target
-*target/**
-
-#others
-*.DS_Store

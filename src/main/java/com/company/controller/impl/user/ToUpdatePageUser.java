@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 @Controller("user_update_form")
 @RequiredArgsConstructor
 public class ToUpdatePageUser implements Command {
-    private static final Logger log = LogManager.getLogger(UserCommand.class);
+    private static final Logger log = LogManager.getLogger(UserFindUserById.class);
     private final UserServiceImpl userServiceImpl;
 
     @Override

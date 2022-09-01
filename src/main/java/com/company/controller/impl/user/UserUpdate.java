@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component("user_update")
 @RequiredArgsConstructor
 public class UserUpdate implements Command {
-    private static final Logger log = LogManager.getLogger(UserCommand.class);
+    private static final Logger log = LogManager.getLogger(UserFindUserById.class);
     private final UserService userService;
 
     @Override

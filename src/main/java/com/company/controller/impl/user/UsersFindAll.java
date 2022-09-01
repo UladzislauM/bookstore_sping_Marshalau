@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Component("users")
 @RequiredArgsConstructor
-public class UsersCommand implements Command {
-    private static final Logger log = LogManager.getLogger(UsersCommand.class);
+public class UsersFindAll implements Command {
+    private static final Logger log = LogManager.getLogger(UsersFindAll.class);
     private final UserService userService;
 
     @Override

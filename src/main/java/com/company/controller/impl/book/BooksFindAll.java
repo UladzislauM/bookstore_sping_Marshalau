@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 
 @Controller("books")
 @RequiredArgsConstructor
-public class BooksCommand implements Command {
-    private static final Logger log = LogManager.getLogger(BooksCommand.class);
+public class BooksFindAll implements Command {
+    private static final Logger log = LogManager.getLogger(BooksFindAll.class);
     private final BookServiceImpl bookServiceImpl;
 
     @Override
