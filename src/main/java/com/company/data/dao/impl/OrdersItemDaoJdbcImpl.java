@@ -1,7 +1,7 @@
 package com.company.data.dao.impl;
 
 import com.company.data.dao.OrderItemDaoJdbc;
-import com.company.data.dataDTO.OrdersItemsDaoDTO;
+import com.company.data.dto.OrdersItemsDaoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -33,7 +33,7 @@ public class OrdersItemDaoJdbcImpl implements OrderItemDaoJdbc {
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
-    public OrdersItemsDaoDTO findById(Long id) {
+    public OrdersItemsDaoDto findById(Long id) {
         try {
             return namedJdbcTemplate.queryForObject(SELECT_FROM_ID,
                     new MapSqlParameterSource("id", id), this::processRow);
@@ -43,13 +43,13 @@ public class OrdersItemDaoJdbcImpl implements OrderItemDaoJdbc {
     }
 
     @Override
-    public List<OrdersItemsDaoDTO> findAll() {
+    public List<OrdersItemsDaoDto> findAll() {
         return namedJdbcTemplate.query(GET_ALL, this::processRow);
     }
 
     @Override
-    public List<OrdersItemsDaoDTO> findByOrderId(Long order_id) {
-        List<OrdersItemsDaoDTO> orderItems = null;
+    public List<OrdersItemsDaoDto> findByOrderId(Long order_id) {
+        List<OrdersItemsDaoDto> orderItems = null;
         try {
             orderItems = namedJdbcTemplate.query(SELECT_FROM_ORDER_ID,
                     new MapSqlParameterSource("orders_id", order_id), this::processRow);
@@ -60,12 +60,12 @@ public class OrdersItemDaoJdbcImpl implements OrderItemDaoJdbc {
     }
 
     @Override
-    public OrdersItemsDaoDTO create(OrdersItemsDaoDTO entity, Long orderId) {
+    public OrdersItemsDaoDto create(OrdersItemsDaoDto entity, Long orderId) {
         return null;
     }
 
     @Override
-    public OrdersItemsDaoDTO update(OrdersItemsDaoDTO entity) {
+    public OrdersItemsDaoDto update(OrdersItemsDaoDto entity) {
         return null;
     }
 
@@ -74,8 +74,8 @@ public class OrdersItemDaoJdbcImpl implements OrderItemDaoJdbc {
         return false;
     }
 
-    public OrdersItemsDaoDTO processRow(ResultSet resultSet, int rowNum) throws SQLException {
-        OrdersItemsDaoDTO ordersItemsDTO = new OrdersItemsDaoDTO();
+    public OrdersItemsDaoDto processRow(ResultSet resultSet, int rowNum) throws SQLException {
+        OrdersItemsDaoDto ordersItemsDTO = new OrdersItemsDaoDto();
         ordersItemsDTO.setId(resultSet.getLong("id"));
         ordersItemsDTO.setOrder_id(resultSet.getLong("orders_id"));
         ordersItemsDTO.setBook_id(resultSet.getLong("book_id"));

@@ -1,8 +1,8 @@
 package com.company.data.repository.impl;
 
 import com.company.data.dao.impl.BookDaoJdbcImpl;
-import com.company.data.dataDTO.BookDaoDTO;
-import com.company.entity.Book;
+import com.company.data.dto.BookDaoDto;
+import com.company.service.entity.Book;
 import com.company.data.repository.BookRepJdbc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,7 +18,7 @@ public class BookRepJdbcImpl implements BookRepJdbc {
 
     @Override
     public Book findById(Long id) {
-        BookDaoDTO bookDTO = bookDaoJdbc.findById(id);
+        BookDaoDto bookDTO = bookDaoJdbc.findById(id);
         if (bookDTO != null) {
             return mapper.toBook(bookDTO);
         }
@@ -27,7 +27,7 @@ public class BookRepJdbcImpl implements BookRepJdbc {
 
     @Override
     public List<Book> findAll() {
-        List<BookDaoDTO> booksDTO = bookDaoJdbc.findAll();
+        List<BookDaoDto> booksDTO = bookDaoJdbc.findAll();
         List<Book> books = new ArrayList<>();
         if (booksDTO != null) {
             booksDTO.stream().forEach(bookDTO -> books.add(mapper.toBook(bookDTO)));

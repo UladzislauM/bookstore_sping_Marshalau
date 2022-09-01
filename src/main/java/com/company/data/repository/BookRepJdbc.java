@@ -1,6 +1,6 @@
 package com.company.data.repository;
 
-import com.company.entity.Book;
+import com.company.service.entity.Book;
 import org.springframework.stereotype.Component;
 
 @Component

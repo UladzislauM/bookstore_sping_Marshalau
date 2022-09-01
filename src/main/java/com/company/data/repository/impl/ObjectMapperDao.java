@@ -1,18 +1,18 @@
 package com.company.data.repository.impl;
 
-import com.company.data.dataDTO.BookDaoDTO;
-import com.company.data.dataDTO.OrdersDaoDTO;
-import com.company.data.dataDTO.OrdersItemsDaoDTO;
-import com.company.data.dataDTO.UserDaoDTO;
-import com.company.entity.Book;
-import com.company.entity.Orders;
-import com.company.entity.OrdersItems;
-import com.company.entity.User;
+import com.company.data.dto.BookDaoDto;
+import com.company.data.dto.OrdersDaoDto;
+import com.company.data.dto.OrdersItemsDaoDto;
+import com.company.data.dto.UserDaoDto;
+import com.company.service.entity.Book;
+import com.company.service.entity.Orders;
+import com.company.service.entity.OrdersItems;
+import com.company.service.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ObjectMapperDao {
-    public Book toBook(BookDaoDTO bookDTO) {
+    public Book toBook(BookDaoDto bookDTO) {
         Book book = new Book();
         book.setId(bookDTO.getId());
         book.setCoverBook(bookDTO.getCoverBookDaoDTO());
@@ -25,8 +25,8 @@ public class ObjectMapperDao {
         return book;
     }
 
-    public BookDaoDTO toBookDaoDTO(Book book) {
-        BookDaoDTO bookDTO = new BookDaoDTO();
+    public BookDaoDto toBookDaoDTO(Book book) {
+        BookDaoDto bookDTO = new BookDaoDto();
         bookDTO.setId(book.getId());
         bookDTO.setCoverBookDaoDTO(book.getCoverBook());
         bookDTO.setDateReleaseBook(book.getDateReleaseBook());
@@ -38,7 +38,7 @@ public class ObjectMapperDao {
         return bookDTO;
     }
 
-    public User toUser(UserDaoDTO userDTO) {
+    public User toUser(UserDaoDto userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
         user.setEmail(userDTO.getEmail());
@@ -50,8 +50,8 @@ public class ObjectMapperDao {
         return user;
     }
 
-    public UserDaoDTO toUserDaoDTO(User user) {
-        UserDaoDTO userDaoDTO = new UserDaoDTO();
+    public UserDaoDto toUserDaoDTO(User user) {
+        UserDaoDto userDaoDTO = new UserDaoDto();
         userDaoDTO.setId(user.getId());
         userDaoDTO.setEmail(user.getEmail());
         userDaoDTO.setPassword(user.getPassword());
@@ -62,7 +62,7 @@ public class ObjectMapperDao {
         return userDaoDTO;
     }
 
-    public Orders toOrder(OrdersDaoDTO ordersDTO) {
+    public Orders toOrder(OrdersDaoDto ordersDTO) {
         Orders orders = new Orders();
         orders.setId(ordersDTO.getId());
         orders.setTimestamp(ordersDTO.getTimestamp());
@@ -71,7 +71,7 @@ public class ObjectMapperDao {
         return orders;
     }
 
-    public OrdersItems toOrderItems(OrdersItemsDaoDTO ordersItemsDTO) {
+    public OrdersItems toOrderItems(OrdersItemsDaoDto ordersItemsDTO) {
         OrdersItems ordersItems = new OrdersItems();
         ordersItems.setId(ordersItemsDTO.getId());
         ordersItems.setPrice(ordersItemsDTO.getPrice());

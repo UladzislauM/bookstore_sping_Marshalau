@@ -20,7 +20,7 @@
     <tbody>
     <tr>
         <form id="form1" action="controller" method="post">
-            <input type="hidden" name="post" value="book_update"/>
+            <input type="hidden" name="command" value="book_update"/>
             <input type="hidden" name="id" value="${requestScope.book.id}"/>
             <td>
                 <input form="form1" type="text" value="${requestScope.book.nameAuthor}" name="name_author">
@@ -48,7 +48,7 @@
 <p><input form="form1" type="submit" name="submit" value="Update Book"/></p>
 
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="book_delete"/>
+    <input type="hidden" name="command" value="book_delete"/>
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="delete" value="Delete book"/></form>
 

@@ -33,7 +33,7 @@
     </tbody>
 </table>
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="order_update_form"/>
+    <input type="hidden" name="command" value="order_update_form"/>
     <input type="hidden" name="id" value="${requestScope.order.id}"/>
     <input type="submit" name="submit" value="Update Order"/></form>
 

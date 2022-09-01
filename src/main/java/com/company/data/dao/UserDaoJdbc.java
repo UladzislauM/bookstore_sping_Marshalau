@@ -1,13 +1,11 @@
 package com.company.data.dao;
 
-import com.company.data.dataDTO.UserDaoDTO;
-import com.company.entity.Book;
-import com.company.entity.User;
+import com.company.data.dto.UserDaoDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserDaoJdbc extends AbstractDaoJdbc<UserDaoDTO> {
-    UserDaoDTO create(UserDaoDTO user);
+public interface UserDaoJdbc extends AbstractDaoJdbc<UserDaoDto> {
+    UserDaoDto create(UserDaoDto user);
 
     Long countAll();
 }

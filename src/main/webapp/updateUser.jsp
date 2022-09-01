@@ -19,7 +19,7 @@
     <tbody>
     <tr>
         <form id="form1" action="controller" method="post">
-            <input type="hidden" name="post" value="user_update"/>
+            <input type="hidden" name="command" value="user_update"/>
             <input type="hidden" name="id" value="${requestScope.user.id}"/>
             <td>
                 <input form="form1" type="text" value="${requestScope.user.last_name}" name="last_name">
@@ -44,7 +44,7 @@
 <p><input form="form1" type="submit" name="submit" value="Update User"/>
 
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="user_delete"/>
+    <input type="hidden" name="command" value="user_delete"/>
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="delete" value="Delete user"/></form>
 

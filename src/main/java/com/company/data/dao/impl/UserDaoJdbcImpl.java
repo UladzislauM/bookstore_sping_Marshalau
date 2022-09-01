@@ -1,8 +1,8 @@
 package com.company.data.dao.impl;
 
 import com.company.data.dao.UserDaoJdbc;
-import com.company.data.dataDTO.UserDaoDTO;
-import com.company.entity.RoleUser;
+import com.company.data.dto.UserDaoDto;
+import com.company.service.entity.RoleUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -52,12 +52,13 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
             SELECT count(*) 
             AS total 
             FROM users
+            WHERE deleted = FALSE
             """;
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
-    public UserDaoDTO findById(Long id) {
+    public UserDaoDto findById(Long id) {
         try {
             return namedJdbcTemplate.queryForObject(GET_BY_ID, new MapSqlParameterSource("id", id), this::processRow);
         } catch (EmptyResultDataAccessException ignored) {
@@ -66,12 +67,12 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
     }
 
     @Override
-    public List<UserDaoDTO> findAll() {
+    public List<UserDaoDto> findAll() {
         return namedJdbcTemplate.query(GET_ALL, this::processRow);
     }
 
     @Override
-    public UserDaoDTO create(UserDaoDTO user) {
+    public UserDaoDto create(UserDaoDto user) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> map = new HashMap<>();
         extractedUser(user, map);
@@ -85,7 +86,7 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
     }
 
     @Override
-    public UserDaoDTO update(UserDaoDTO user) {
+    public UserDaoDto update(UserDaoDto user) {
         Map<String, Object> map = new HashMap<>();
         extractedUser(user, map);
         namedJdbcTemplate.update(UPDATE_BY_ID, map);
@@ -103,7 +104,7 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
         return namedJdbcTemplate.queryForObject(COUNT_USERS, new MapSqlParameterSource(), Long.class);
     }
 
-    private void extractedUser(UserDaoDTO user, Map<String, Object> map) {
+    private void extractedUser(UserDaoDto user, Map<String, Object> map) {
         map.put("name", user.getName());
         map.put("last_name", user.getLast_name());
         map.put("email", user.getEmail());
@@ -112,8 +113,8 @@ public class UserDaoJdbcImpl implements UserDaoJdbc {
         map.put("id", user.getId());
     }
 
-    public UserDaoDTO processRow(ResultSet rs, int rowNum) throws SQLException {
-        UserDaoDTO user = new UserDaoDTO();
+    public UserDaoDto processRow(ResultSet rs, int rowNum) throws SQLException {
+        UserDaoDto user = new UserDaoDto();
         user.setId(rs.getLong("id"));
         user.setName(rs.getString("name"));
         user.setLast_name(rs.getString("last_name"));

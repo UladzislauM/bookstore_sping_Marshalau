@@ -1,10 +1,9 @@
 package com.company.data.dao;
 
-import com.company.data.dataDTO.OrdersDaoDTO;
-import com.company.entity.Orders;
+import com.company.data.dto.OrdersDaoDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface OrdersDaoJdbc extends AbstractDaoJdbc<OrdersDaoDTO> {
-    OrdersDaoDTO create(OrdersDaoDTO entity);
+public interface OrdersDaoJdbc extends AbstractDaoJdbc<OrdersDaoDto> {
+    OrdersDaoDto create(OrdersDaoDto entity);
 }

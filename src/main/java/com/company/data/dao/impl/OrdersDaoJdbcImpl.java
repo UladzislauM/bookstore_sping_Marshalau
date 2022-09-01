@@ -1,8 +1,8 @@
 package com.company.data.dao.impl;
 
 import com.company.data.dao.OrdersDaoJdbc;
-import com.company.data.dataDTO.OrdersDaoDTO;
-import com.company.entity.StatusBook;
+import com.company.data.dto.OrdersDaoDto;
+import com.company.service.entity.StatusBook;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -32,7 +32,7 @@ public class OrdersDaoJdbcImpl implements OrdersDaoJdbc {
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
-    public OrdersDaoDTO findById(Long id) {
+    public OrdersDaoDto findById(Long id) {
         try {
             return namedJdbcTemplate.queryForObject(GET_BY_ID, new MapSqlParameterSource("id", id), this::processRow);
         } catch (EmptyResultDataAccessException ignored) {
@@ -41,17 +41,17 @@ public class OrdersDaoJdbcImpl implements OrdersDaoJdbc {
     }
 
     @Override
-    public List<OrdersDaoDTO> findAll() {
+    public List<OrdersDaoDto> findAll() {
         return namedJdbcTemplate.query(GET_ALL, this::processRow);
     }
 
     @Override
-    public OrdersDaoDTO create(OrdersDaoDTO ordersDTO) {
+    public OrdersDaoDto create(OrdersDaoDto ordersDTO) {
         return null;
     }
 
     @Override
-    public OrdersDaoDTO update(OrdersDaoDTO ordersDTO) {
+    public OrdersDaoDto update(OrdersDaoDto ordersDTO) {
         return null;
     }
 
@@ -60,8 +60,8 @@ public class OrdersDaoJdbcImpl implements OrdersDaoJdbc {
         return false;
     }
 
-    public OrdersDaoDTO processRow(ResultSet resultSet, int rowNum) throws SQLException {
-        OrdersDaoDTO orders = new OrdersDaoDTO();
+    public OrdersDaoDto processRow(ResultSet resultSet, int rowNum) throws SQLException {
+        OrdersDaoDto orders = new OrdersDaoDto();
         orders.setId(resultSet.getLong("id"));
         orders.setUserId(resultSet.getLong("user_id"));
         orders.setTotalCost(resultSet.getBigDecimal("total_cost"));

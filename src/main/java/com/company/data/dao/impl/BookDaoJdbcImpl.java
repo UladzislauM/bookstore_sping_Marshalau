@@ -1,12 +1,10 @@
 package com.company.data.dao.impl;
 
 import com.company.data.dao.BookDaoJdbc;
-import com.company.data.dataDTO.BookDaoDTO;
-import com.company.entity.Book;
-import com.company.entity.CoverBook;
+import com.company.data.dto.BookDaoDto;
+import com.company.service.entity.CoverBook;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -55,12 +53,13 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
             SELECT count(*) 
             AS total 
             FROM books
+            WHERE deleted = FALSE
             """;
 
     private final NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
-    public BookDaoDTO findById(Long id) {
+    public BookDaoDto findById(Long id) {
         try {
             return namedJdbcTemplate.queryForObject(GET_BY_ID, new MapSqlParameterSource("id", id), this::processRow);
         } catch (EmptyResultDataAccessException ignored) {
@@ -69,12 +68,12 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
     }
 
     @Override
-    public List<BookDaoDTO> findAll() {
+    public List<BookDaoDto> findAll() {
         return namedJdbcTemplate.query(GET_ALL, this::processRow);
     }
 
     @Override
-    public BookDaoDTO create(BookDaoDTO book) {
+    public BookDaoDto create(BookDaoDto book) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Map<String, Object> map = new HashMap<>();
         extractedBook(book, map);
@@ -89,7 +88,7 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
     }
 
     @Override
-    public BookDaoDTO update(BookDaoDTO book) {
+    public BookDaoDto update(BookDaoDto book) {
         Map<String, Object> map = new HashMap<>();
         extractedBook(book, map);
         namedJdbcTemplate.update(UPDATE_BY_ID, map);
@@ -107,7 +106,7 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         return namedJdbcTemplate.queryForObject(COUNT_BOOKS, new MapSqlParameterSource(), Long.class);
     }
 
-    private void extractedBook(BookDaoDTO book, Map<String, Object> map) {
+    private void extractedBook(BookDaoDto book, Map<String, Object> map) {
         map.put("title", book.getTitle());
         map.put("name_author", book.getNameAuthor());
         map.put("date_release_book", Date.valueOf(book.getDateReleaseBook()));
@@ -118,8 +117,8 @@ public class BookDaoJdbcImpl implements BookDaoJdbc {
         map.put("deleted", book.getDeleted());
     }
 
-    public BookDaoDTO processRow(ResultSet resultSet, int rowNum) throws SQLException {
-        BookDaoDTO book = new BookDaoDTO();
+    public BookDaoDto processRow(ResultSet resultSet, int rowNum) throws SQLException {
+        BookDaoDto book = new BookDaoDto();
         book.setId(resultSet.getLong("id"));
         book.setTitle(resultSet.getString("title"));
         book.setNameAuthor(resultSet.getString("name_author"));

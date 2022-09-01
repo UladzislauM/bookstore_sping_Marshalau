@@ -4,11 +4,11 @@ import com.company.data.dao.BookDaoJdbc;
 import com.company.data.dao.OrderItemDaoJdbc;
 import com.company.data.dao.OrdersDaoJdbc;
 import com.company.data.dao.UserDaoJdbc;
-import com.company.data.dataDTO.BookDaoDTO;
-import com.company.data.dataDTO.OrdersDaoDTO;
-import com.company.data.dataDTO.UserDaoDTO;
+import com.company.data.dto.BookDaoDto;
+import com.company.data.dto.OrdersDaoDto;
+import com.company.data.dto.UserDaoDto;
 import com.company.data.repository.OrdersRepJdbc;
-import com.company.entity.*;
+import com.company.service.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -26,13 +26,13 @@ public class OrdersRepJdbcImpl implements OrdersRepJdbc {
 
     @Override
     public Orders findById(Long id) {
-        OrdersDaoDTO orderDTO = ordersDaoJdbc.findById(id);
+        OrdersDaoDto orderDTO = ordersDaoJdbc.findById(id);
         if (orderDTO == null) {
             return null;
         }
         Orders orders = mapper.toOrder(orderDTO);
         Long userId = orderDTO.getUserId();
-        UserDaoDTO userDTO = userDaoJdbc.findById(userId);
+        UserDaoDto userDTO = userDaoJdbc.findById(userId);
         User user = mapper.toUser(userDTO);
         orders.setUser(user);
         List<OrdersItems> ordersItems = orderItemDaoJdbc.findByOrderId(orderDTO.getId()).stream()
@@ -40,7 +40,7 @@ public class OrdersRepJdbcImpl implements OrdersRepJdbc {
                     OrdersItems items = mapper.toOrderItems(dto);
                     items.setOrders(orders);
                     Long bookId = dto.getBook_id();
-                    BookDaoDTO bookDTO = bookDaoJdbc.findById(bookId);
+                    BookDaoDto bookDTO = bookDaoJdbc.findById(bookId);
                     Book book = mapper.toBook(bookDTO);
                     items.setBook(book);
                     return items;
@@ -60,7 +60,7 @@ public class OrdersRepJdbcImpl implements OrdersRepJdbc {
                                 OrdersItems items = mapper.toOrderItems(itemsDto);
                                 items.setOrders(order);
                                 Long bookId = itemsDto.getBook_id();
-                                BookDaoDTO bookDTO = bookDaoJdbc.findById(bookId);
+                                BookDaoDto bookDTO = bookDaoJdbc.findById(bookId);
                                 Book book = mapper.toBook(bookDTO);
                                 items.setBook(book);
                                 return items;

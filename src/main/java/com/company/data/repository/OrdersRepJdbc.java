@@ -1,6 +1,6 @@
 package com.company.data.repository;
 
-import com.company.entity.Orders;
+import com.company.service.entity.Orders;
 import org.springframework.stereotype.Component;
 
 @Component

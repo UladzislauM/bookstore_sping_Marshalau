@@ -37,12 +37,12 @@
     </tbody>
 </table>
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="book_update_form"/>
+    <input type="hidden" name="command" value="book_update_form"/>
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="submit" value="Update Book"/></form>
 
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="book_delete"/>
+    <input type="hidden" name="command" value="book_delete"/>
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="delete" value="Delete book"/></form>
 

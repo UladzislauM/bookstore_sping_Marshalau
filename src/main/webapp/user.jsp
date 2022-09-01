@@ -33,12 +33,12 @@
     </tbody>
 </table>
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="user_update_form"/>
+    <input type="hidden" name="command" value="user_update_form"/>
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="submit" value="Update User"/></form>
 
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="user_delete"/>
+    <input type="hidden" name="command" value="user_delete"/>
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="delete" value="Delete user"/></form>
 

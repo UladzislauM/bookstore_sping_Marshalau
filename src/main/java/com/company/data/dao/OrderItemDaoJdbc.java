@@ -1,13 +1,12 @@
 package com.company.data.dao;
 
-import com.company.data.dataDTO.OrdersItemsDaoDTO;
-import com.company.entity.OrdersItems;
+import com.company.data.dto.OrdersItemsDaoDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public interface OrderItemDaoJdbc extends AbstractDaoJdbc<OrdersItemsDaoDTO> {
-    OrdersItemsDaoDTO create(OrdersItemsDaoDTO entity, Long id);
-    List<OrdersItemsDaoDTO> findByOrderId(Long order_id);
+public interface OrderItemDaoJdbc extends AbstractDaoJdbc<OrdersItemsDaoDto> {
+    OrdersItemsDaoDto create(OrdersItemsDaoDto entity, Long id);
+    List<OrdersItemsDaoDto> findByOrderId(Long order_id);
 }

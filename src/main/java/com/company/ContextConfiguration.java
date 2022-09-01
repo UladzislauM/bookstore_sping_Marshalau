@@ -34,18 +34,12 @@ public class ContextConfiguration {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         Properties properties = properties();
-        String urlKey = null;
-        String userKey = null;
-        String passwordKey = null;
-        String driverClassNameKey = null;
+        String urlKey;
+        String userKey;
+        String passwordKey;
+        String driverClassNameKey;
         String typeOfConnection = properties.getProperty("db");
         switch (typeOfConnection) {
-            case "elephant":
-                urlKey = "db.elephant.url";
-                userKey = "db.elephant.user";
-                passwordKey = "db.elephant.password";
-                driverClassNameKey = "db.elephant.driver-Class-Name";
-                break;
             case "local":
                 urlKey = "db.local.url";
                 userKey = "db.local.user";

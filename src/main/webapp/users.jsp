@@ -13,7 +13,7 @@
     <details>
         <summary>Create New User</summary>
         <p>Write Parameters:</p>
-        <input type="hidden" name="post" value="user_create"/>
+        <input type="hidden" name="command" value="user_create"/>
         <p><input type="text" name="name" placeholder="write Name">
         <p><input type="text" name="last_name" placeholder="write Last_Name">
         <p><input type="email" name="email" placeholder="write Email">
@@ -28,7 +28,7 @@
 <p align="left">All counts: ${requestScope.user_count}</p>
 
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="user_delete"/>
+    <input type="hidden" name="command" value="user_delete"/>
     <table class="table">
         <thead>
         <tr>
@@ -54,14 +54,13 @@
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="users"/>
+    <input type="hidden" name="command" value="users"/>
     <input type="submit" value="All users"/></form>
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="books"/>
+    <input type="hidden" name="command" value="books"/>
     <input type="submit" value="All books"/></form>
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="all_orders"/>
+    <input type="hidden" name="command" value="all_orders"/>
     <input type="submit" value="All orders"/></form>
-</form>
 </body>
 </html>

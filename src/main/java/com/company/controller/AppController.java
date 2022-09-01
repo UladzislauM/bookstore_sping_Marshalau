@@ -25,45 +25,35 @@ public class AppController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        String commandParam = req.getParameter("post");
-        log.info("Start Controller doPost {}", commandParam);
-        forwardProcess(req, resp, commandParam);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Start Controller doPost");
+        forwardProcess(req, resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        String commandParam = req.getParameter("command");
-        log.info("Start Controller doGet {}", commandParam);
-        forwardProcess(req, resp, commandParam);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Start Controller doGet");
+        forwardProcess(req, resp);
     }
 
-    private void forwardProcess(HttpServletRequest req, HttpServletResponse resp, String commandParam) {
-        try {
-            if (commandParam == null) {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
-                log.info("Address error or CommandParam == null");
-            } else {
-                String page = "";
-                Command command = (Command) context.getBean(commandParam);
-                if (command == null) {
-                    log.error("Controller exception, execude {}");
-                    req.setAttribute("errorMessage", "Oops..... You entered the wrong command.....");
-                    page = "error.jsp";
-                } else {
-                    try {
-                        page = command.execude(req);
-                    } catch (Exception e) {
-                        log.error("Controller exception, execude {}", e);
-                        req.setAttribute("errorMessage", "Oops..... Page not found.....");
-                        page = "error.jsp";
-                    }
-                }
-                req.getRequestDispatcher(page).forward(req, resp);
+    private void forwardProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String commandParam = req.getParameter("command");
+        Command command = (Command) context.getBean(commandParam);
+        String page;
+        if (commandParam == null || command == null) {
+            page = "index.jsp";
+            log.info("Address error or Command == null");
+        } else {
+            try {
+                page = command.execute(req);
+            } catch (Exception e) {
+                log.error("Controller exception, execute {}", e.getMessage(), e);
+                req.setAttribute("errorMessage", "Oops..... " + e.getMessage());
+                page = "error.jsp";
             }
-        } catch (ServletException | IOException e) {
-            log.error("Controller exception, forward {}", e);
         }
+        req.getRequestDispatcher(page).forward(req, resp);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.company.data.repository.impl;
 
 import com.company.data.dao.impl.UserDaoJdbcImpl;
-import com.company.data.dataDTO.UserDaoDTO;
+import com.company.data.dto.UserDaoDto;
 import com.company.data.repository.UserRepJdbc;
-import com.company.entity.User;
+import com.company.service.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ public class UserRepJdbcImpl implements UserRepJdbc {
 
     @Override
     public User findById(Long id) {
-        UserDaoDTO userDTO = userDaoJdbc.findById(id);
+        UserDaoDto userDTO = userDaoJdbc.findById(id);
         if (userDTO != null) {
             return mapper.toUser(userDTO);
         }
@@ -27,7 +27,7 @@ public class UserRepJdbcImpl implements UserRepJdbc {
 
     @Override
     public List<User> findAll() {
-        List<UserDaoDTO> usersDTO = userDaoJdbc.findAll();
+        List<UserDaoDto> usersDTO = userDaoJdbc.findAll();
         List<User> users = new ArrayList<>();
         if (usersDTO != null) {
             usersDTO.stream().forEach(usersDaoDTO -> users.add(mapper.toUser(usersDaoDTO)));
@@ -54,7 +54,7 @@ public class UserRepJdbcImpl implements UserRepJdbc {
 
     @Override
     public boolean delete(Long id) {
-        UserDaoDTO userDTO = userDaoJdbc.findById(id);
+        UserDaoDto userDTO = userDaoJdbc.findById(id);
         if (userDTO != null) {
             return userDaoJdbc.delete(id);
         }

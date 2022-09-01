@@ -10,7 +10,7 @@
 <p>Status:</p>
 
 <form action="controller" method="post">
-    <input type="hidden" name="post" value="order_update"/>
+    <input type="hidden" name="command" value="order_update"/>
     <input type="hidden" name="id" value="${requestScope.order.id}"/>
     <p><input type="radio" name="status_name" value="IN_PROCESSING">IN_PROCESSING
         <input type="radio" name="status_name" value="ASSEMBLED">ASSEMBLED
