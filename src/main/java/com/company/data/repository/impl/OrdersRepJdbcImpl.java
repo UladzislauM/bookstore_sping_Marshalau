@@ -22,9 +22,6 @@ private final EntityManager entityManager;
         entityManager.getTransaction().begin();
         Orders orders = entityManager.find(Orders.class, id);
         entityManager.getTransaction().commit();
-        if (orders == null) {
-            return null;
-        }
         return orders;
     }
 
