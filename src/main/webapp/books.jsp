@@ -15,6 +15,7 @@
         <summary>Create New Book</summary>
         <p>Write Parameters:</p>
         <input type="hidden" name="command" value="book_create"/>
+        <input type="hidden" name="deleted" value="false"/>
         <p><input type="text" name="title" placeholder="write title">
         <p><input type="text" name="name_author" placeholder="write author">
         <p>(Format data: yyyy-MM-dd)</p>
@@ -44,14 +45,14 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.books}" var="book" varStatus="counter">
+        <c:forEach items="${requestScope.books}" var="books" varStatus="counter">
             <tr>
-                <td class="center"><input type="radio" name="id" value="${book.id}">${counter.count}</td>
-                <td><a href="controller?command=get_book_by_id&id=${book.id}">${book.title}</a></td>
-                <td>${book.nameAuthor}</td>
-                <td class="center">${book.dateReleaseBook}</td>
-                <td class="center">${book.price}</td>
-                <td class="center">${book.coverBook}</td>
+                <td class="center"><input type="radio" name="id" value="${books.id}">${counter.count}</td>
+                <td><a href="controller?command=get_book_by_id&id=${books.id}">${books.title}</a></td>
+                <td>${books.nameAuthor}</td>
+                <td class="center">${books.dateReleaseBook}</td>
+                <td class="center">${books.price}</td>
+                <td class="center">${books.coverBook}</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -61,14 +62,13 @@
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
 <form action="controller" method="post">
-    <input type="hidden" name="command" value="users"/>
+    <input type="hidden" name="command" value="users_find"/>
     <input type="submit" value="All users"/></form>
 <form action="controller" method="post">
-    <input type="hidden" name="command" value="books"/>
+    <input type="hidden" name="command" value="books_find"/>
     <input type="submit" value="All books"/></form>
 <form action="controller" method="post">
     <input type="hidden" name="command" value="all_orders"/>
     <input type="submit" value="All orders"/></form>
-</form>
 </body>
 </html>

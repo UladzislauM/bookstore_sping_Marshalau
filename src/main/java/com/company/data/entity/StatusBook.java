@@ -1,5 +1,10 @@
-package com.company.service.entity;
+package com.company.data.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum StatusBook {
     IN_PROCESSING,
     ASSEMBLED,

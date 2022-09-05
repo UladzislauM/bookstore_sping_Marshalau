@@ -2,6 +2,9 @@ package com.company;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,57 +23,68 @@ import java.util.Properties;
 @ComponentScan
 @PropertySource("classpath:application.properties")
 public class ContextConfiguration {
+
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
+    public EntityManagerFactory factory(){
+        return Persistence.createEntityManagerFactory("nlsojpao_psql");
     }
 
     @Bean
-    public NamedParameterJdbcTemplate namedJdbcTemplate() {
-        return new NamedParameterJdbcTemplate(dataSource());
+    public EntityManager entityManager() {
+        return factory().createEntityManager();
     }
 
-    @Bean
-    public DataSource dataSource() {
-        HikariConfig config = new HikariConfig();
-        Properties properties = properties();
-        String urlKey;
-        String userKey;
-        String passwordKey;
-        String driverClassNameKey;
-        String typeOfConnection = properties.getProperty("db");
-        switch (typeOfConnection) {
-            case "local":
-                urlKey = "db.local.url";
-                userKey = "db.local.user";
-                passwordKey = "db.local.password";
-                driverClassNameKey = "db.local.driver-Class-Name";
-                break;
-            default:
-                urlKey = "db.elephant.url";
-                userKey = "db.elephant.user";
-                passwordKey = "db.elephant.password";
-                driverClassNameKey = "db.elephant.driver-Class-Name";
-        }
-        String url = properties.getProperty(urlKey);
-        String user = properties.getProperty(userKey);
-        String password = properties.getProperty(passwordKey);
-        String driverClassName = properties.getProperty(driverClassNameKey);
-
-        config.setDriverClassName(driverClassName);
-        config.setJdbcUrl(url);
-        config.setUsername(user);
-        config.setPassword(password);
-        return new HikariDataSource(config);
-    }
-
-    @Bean
-    public Properties properties() {
-        Resource resource = new ClassPathResource("/application.properties");
-        try {
-            return PropertiesLoaderUtils.loadProperties(resource);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Bean
+//    public JdbcTemplate jdbcTemplate() {
+//        return new JdbcTemplate(dataSource());
+//    }
+//
+//    @Bean
+//    public NamedParameterJdbcTemplate namedJdbcTemplate() {
+//        return new NamedParameterJdbcTemplate(dataSource());
+//    }
+//
+//    @Bean
+//    public DataSource dataSource() {
+//        HikariConfig config = new HikariConfig();
+//        Properties properties = properties();
+//        String urlKey;
+//        String userKey;
+//        String passwordKey;
+//        String driverClassNameKey;
+//        String typeOfConnection = properties.getProperty("db");
+//        switch (typeOfConnection) {
+//            case "local":
+//                urlKey = "db.local.url";
+//                userKey = "db.local.user";
+//                passwordKey = "db.local.password";
+//                driverClassNameKey = "db.local.driver-Class-Name";
+//                break;
+//            default:
+//                urlKey = "db.elephant.url";
+//                userKey = "db.elephant.user";
+//                passwordKey = "db.elephant.password";
+//                driverClassNameKey = "db.elephant.driver-Class-Name";
+//        }
+//        String url = properties.getProperty(urlKey);
+//        String user = properties.getProperty(userKey);
+//        String password = properties.getProperty(passwordKey);
+//        String driverClassName = properties.getProperty(driverClassNameKey);
+//
+//        config.setDriverClassName(driverClassName);
+//        config.setJdbcUrl(url);
+//        config.setUsername(user);
+//        config.setPassword(password);
+//        return new HikariDataSource(config);
+//    }
+//
+//    @Bean
+//    public Properties properties() {
+//        Resource resource = new ClassPathResource("/application.properties");
+//        try {
+//            return PropertiesLoaderUtils.loadProperties(resource);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }

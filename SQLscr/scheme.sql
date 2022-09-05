@@ -1,17 +1,9 @@
 /*
 DROP TABLE IF EXISTS orders_items;
 DROP TABLE IF EXISTS books;
-DROP TABLE IF EXISTS cover;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS role;
-DROP TABLE IF EXISTS status;
 */
-
-CREATE TABLE IF NOT EXISTS cover (
- id                  BIGSERIAL PRIMARY KEY NOT NULL,
- cover_name			 CHARACTER VARYING (60)
-);
 
 CREATE TABLE IF NOT EXISTS books(
  id                  BIGSERIAL PRIMARY KEY NOT NULL,
@@ -20,13 +12,8 @@ CREATE TABLE IF NOT EXISTS books(
  date_Release_Book   DATE NOT null,
  price               DECIMAL(10,2),
  isbn                char(17) unique,
- cover_id            BIGINT REFERENCES cover(id),
+ cover	             CHARACTER VARYING (60),
  deleted			 BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE IF NOT EXISTS role(
-id                  BIGSERIAL PRIMARY KEY NOT NULL,
-role_name           CHARACTER VARYING (60)
 );
 
 CREATE TABLE IF NOT EXISTS users(
@@ -35,13 +22,8 @@ CREATE TABLE IF NOT EXISTS users(
  last_name          CHARACTER VARYING (100) NOT NULL,
  email              CHARACTER VARYING (100) NOT NULL,
  password           CHARACTER VARYING (50) NOT null,
- role_id            BIGINT REFERENCES role(id),
- deleted			BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE IF NOT EXISTS status(
- id                  BIGSERIAL PRIMARY KEY NOT NULL,
- status_name         CHARACTER VARYING (60)
+ role	            CHARACTER VARYING (60),
+ is_active			BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS orders(
@@ -49,7 +31,7 @@ id                 BIGSERIAL PRIMARY KEY NOT NULL,
 user_id			   BIGINT REFERENCES users(id),
 total_cost  	   DECIMAL(8,2)NOT NULL,
 timestamp		   DATE NOT NULL,
-status_id          BIGINT REFERENCES status(id)
+status	           CHARACTER VARYING (60)
 );
 
 CREATE TABLE IF NOT EXISTS orders_items(

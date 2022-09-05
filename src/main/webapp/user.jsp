@@ -42,6 +42,6 @@
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="delete" value="Delete user"/></form>
 
-<a href="controller?command=users"><-Back</a>
+<a href="controller?command=users_find"><-Back</a>
 </body>
 </html>

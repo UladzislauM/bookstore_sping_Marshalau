@@ -1,68 +1,81 @@
 package com.company.data.repository.impl;
 
-import com.company.data.dao.impl.UserDaoJdbcImpl;
-import com.company.data.dto.UserDaoDto;
 import com.company.data.repository.UserRepJdbc;
-import com.company.service.entity.User;
+import com.company.data.entity.User;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository("userRep")
 @RequiredArgsConstructor
 public class UserRepJdbcImpl implements UserRepJdbc {
-    private final UserDaoJdbcImpl userDaoJdbc;
-    private final ObjectMapperDao mapper;
+    public static final String GET_COUNT = """
+            SELECT count(*) 
+            FROM User u
+            WHERE u.is_active = true 
+            """;
+    private static final String GET_ALL = """
+            FROM User 
+            """;
+    private final EntityManager entityManager;
 
     @Override
     public User findById(Long id) {
-        UserDaoDto userDTO = userDaoJdbc.findById(id);
-        if (userDTO != null) {
-            return mapper.toUser(userDTO);
+        entityManager.getTransaction().begin();
+        User user = entityManager.find(User.class, id);
+        entityManager.getTransaction().commit();
+        if (user == null) {
+            return null;
         }
-        return null;
+        return user;
     }
 
     @Override
     public List<User> findAll() {
-        List<UserDaoDto> usersDTO = userDaoJdbc.findAll();
-        List<User> users = new ArrayList<>();
-        if (usersDTO != null) {
-            usersDTO.stream().forEach(usersDaoDTO -> users.add(mapper.toUser(usersDaoDTO)));
-            return users;
+        entityManager.getTransaction().begin();
+        List<User> users = entityManager.createQuery(GET_ALL, User.class).getResultList();
+        entityManager.getTransaction().commit();
+        if (users == null) {
+            return null;
         }
-        return null;
+        return users;
     }
 
     @Override
     public User create(User user) {
-        if (user != null) {
-            return mapper.toUser(userDaoJdbc.create(mapper.toUserDaoDTO(user)));
-        }
-        return null;
+        entityManager.getTransaction().begin();
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
+        return user;
     }
 
     @Override
     public User update(User user) {
-        if (user != null) {
-            return mapper.toUser(userDaoJdbc.update(mapper.toUserDaoDTO(user)));
-        }
-        return null;
+        entityManager.getTransaction().begin();
+        entityManager.merge(user);
+        entityManager.getTransaction().commit();
+        return user;
     }
 
     @Override
     public boolean delete(Long id) {
-        UserDaoDto userDTO = userDaoJdbc.findById(id);
-        if (userDTO != null) {
-            return userDaoJdbc.delete(id);
-        }
         return false;
     }
 
     @Override
     public Long countAll() {
-        return userDaoJdbc.countAll();
+        entityManager.getTransaction().begin();
+        Long count = entityManager.createQuery(GET_COUNT, Long.class).getSingleResult();
+        entityManager.getTransaction().commit();
+        return count;
+    }
+
+    public boolean active(Long id, User user) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(user);
+        entityManager.getTransaction().commit();
+        return user.getIs_active();
     }
 }

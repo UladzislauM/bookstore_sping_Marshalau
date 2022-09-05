@@ -1,11 +1,12 @@
 package com.company.data.repository;
 
-import com.company.service.entity.Book;
+import com.company.data.entity.Books;
 import org.springframework.stereotype.Component;
 
+
 @Component
-public interface BookRepJdbc extends AbstractRepJdbc<Book> {
-    Book create(Book book);
+public interface BookRepJdbc extends AbstractRepJdbc<Books> {
+    Books create(Books books);
 
     Long countAll();
 }

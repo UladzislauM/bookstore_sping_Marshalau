@@ -1,16 +1,14 @@
 package com.company.service.dto;
 
-import com.company.service.entity.OrdersItems;
-import com.company.service.entity.StatusBook;
-import com.company.service.entity.User;
+import com.company.data.entity.OrdersItems;
+import com.company.data.entity.User;
 import lombok.Data;
-import org.springframework.stereotype.Component;
+import com.company.data.entity.StatusBook;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
 @Data
 public class OrdersDto {
     private Long id;

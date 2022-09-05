@@ -1,7 +1,7 @@
 package com.company.service.impl;
 
 import com.company.service.dto.OrdersDto;
-import com.company.service.entity.Orders;
+import com.company.data.entity.Orders;
 import com.company.data.repository.OrdersRepJdbc;
 import com.company.service.OrdersService;
 import lombok.RequiredArgsConstructor;

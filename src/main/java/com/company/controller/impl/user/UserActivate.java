@@ -8,16 +8,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-@Component("user_delete")
+@Component("user_activate")
 @RequiredArgsConstructor
-public class UserDelete implements Command {
-    private static final Logger log = LogManager.getLogger(UserFindUserById.class);
+public class UserActivate implements Command {
+    private static final Logger log = LogManager.getLogger(UserFindById.class);
     private final UserService userService;
 
     @Override
     public String execute(HttpServletRequest req) {
         log.info("Start UserDelete {}", req.getParameter("id"));
-        userService.delete(Long.parseLong(req.getParameter("id")));
+        userService.active(Long.parseLong(req.getParameter("id")), true);
         req.setAttribute("user_count", userService.countAll());
         req.setAttribute("users", userService.findAll());
         return "users.jsp";

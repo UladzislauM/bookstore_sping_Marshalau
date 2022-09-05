@@ -2,7 +2,7 @@ package com.company.service.impl;
 
 import com.company.service.dto.UserDto;
 import com.company.data.repository.UserRepJdbc;
-import com.company.service.entity.User;
+import com.company.data.entity.User;
 import com.company.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -80,5 +80,15 @@ public class UserServiceImpl implements UserService {
     public Long countAll() {
         log.debug("Start UserService - countAllUsers");
         return userRepJdbc.countAll();
+    }
+
+    public void active(Long id, boolean user_status){
+        User user = mapper.toUser(findById(id));
+        user.setIs_active(user_status);
+        if (userRepJdbc.active(id, user)) {
+            log.debug("Start UserService - ActivateUserById: {}", id);
+        } else {
+            log.error("UserService - DeactivateUserById false: {}", id);
+        }
     }
 }

@@ -14,6 +14,7 @@
         <summary>Create New User</summary>
         <p>Write Parameters:</p>
         <input type="hidden" name="command" value="user_create"/>
+        <input type="hidden" name="is_active" value="true"/>
         <p><input type="text" name="name" placeholder="write Name">
         <p><input type="text" name="last_name" placeholder="write Last_Name">
         <p><input type="email" name="email" placeholder="write Email">
@@ -28,7 +29,8 @@
 <p align="left">All counts: ${requestScope.user_count}</p>
 
 <form action="controller" method="post">
-    <input type="hidden" name="command" value="user_delete"/>
+    <%--    <input type="hidden" name="command" value="user_deactivate"/>--%>
+    <%--   --%>
     <table class="table">
         <thead>
         <tr>
@@ -36,28 +38,32 @@
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Is active</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${requestScope.users}" var="user" varStatus="counter">
             <tr>
                 <td class="center"><input type="radio" name="id" value="${user.id}">${counter.count}</td>
-                <td><a href="controller?command=get_user_by_id&id=${user.id}">${user.name} ${user.last_name}</a></td>
+                <td><a href="controller?command=get_user_by_id&id=${user.id}">${user.name} ${user.last_name}</a>
+                </td>
                 <td>${user.email}</td>
                 <td class="center">${user.role}</td>
+                <td class="center">${user.is_active}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <input type="submit" name="id" value="Delete User"/>
+    <button type="submit" name="command" value="user_deactivate">User Deactivate</button>
+    <button type="submit" name="command" value="user_activate">User Activate</button>
 </form>
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
 <form action="controller" method="post">
-    <input type="hidden" name="command" value="users"/>
+    <input type="hidden" name="command" value="users_find"/>
     <input type="submit" value="All users"/></form>
 <form action="controller" method="post">
-    <input type="hidden" name="command" value="books"/>
+    <input type="hidden" name="command" value="books_find"/>
     <input type="submit" value="All books"/></form>
 <form action="controller" method="post">
     <input type="hidden" name="command" value="all_orders"/>

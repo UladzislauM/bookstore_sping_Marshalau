@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 
 @Controller("all_orders")
 @RequiredArgsConstructor
-public class OrdersCommand implements Command {
-    private static final Logger log = LogManager.getLogger(OrdersCommand.class);
+public class OrdersFindAll implements Command {
+    private static final Logger log = LogManager.getLogger(OrdersFindAll.class);
     private final OrdersService ordersService;
 
 

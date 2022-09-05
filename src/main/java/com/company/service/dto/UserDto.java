@@ -1,10 +1,8 @@
 package com.company.service.dto;
 
-import com.company.service.entity.RoleUser;
+import com.company.data.entity.RoleUser;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
-@Component
 @Data
 public class UserDto {
     private Long id;
@@ -13,5 +11,5 @@ public class UserDto {
     private String email;
     private String password;
     private RoleUser role;
-    private Boolean deleted;
+    private Boolean is_active;
 }

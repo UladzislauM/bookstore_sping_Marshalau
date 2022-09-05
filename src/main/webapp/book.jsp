@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>View book in BookStore</title>
+    <title>View books in BookStore</title>
     <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
@@ -10,7 +10,7 @@
     <thead>
     <tr>
         <th>Author:</th>
-        <th>Date release book:</th>
+        <th>Date release books:</th>
         <th>Price:</th>
         <th>ISBN:</th>
         <th>Cover:</th>
@@ -44,8 +44,8 @@
 <form action="controller" method="post">
     <input type="hidden" name="command" value="book_delete"/>
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
-    <input type="submit" name="delete" value="Delete book"/></form>
+    <input type="submit" name="delete" value="Delete books"/></form>
 
-<a href="controller?command=books"><-Back</a>
+<a href="controller?command=books_find"><-Back</a>
 </body>
 </html>

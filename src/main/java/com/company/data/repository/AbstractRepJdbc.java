@@ -12,5 +12,4 @@ public interface AbstractRepJdbc<T> {
     T update(T entity);
 
     boolean delete(Long id);
-
 }

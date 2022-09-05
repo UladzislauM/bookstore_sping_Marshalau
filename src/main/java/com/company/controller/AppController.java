@@ -1,18 +1,21 @@
 package com.company.controller;
 
 import com.company.ContextConfiguration;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-
 @Component
 @WebServlet("/controller")
 public class AppController extends HttpServlet {
@@ -37,7 +40,6 @@ public class AppController extends HttpServlet {
     }
 
     private void forwardProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String commandParam = req.getParameter("command");
         Command command = (Command) context.getBean(commandParam);
         String page;
@@ -48,6 +50,7 @@ public class AppController extends HttpServlet {
             try {
                 page = command.execute(req);
             } catch (Exception e) {
+                context.getBean(EntityManager.class).getTransaction().rollback();
                 log.error("Controller exception, execute {}", e.getMessage(), e);
                 req.setAttribute("errorMessage", "Oops..... " + e.getMessage());
                 page = "error.jsp";
@@ -59,5 +62,6 @@ public class AppController extends HttpServlet {
     @Override
     public void destroy() {
         context.close();
+        context.getBean(EntityManagerFactory.class).close();
     }
 }
