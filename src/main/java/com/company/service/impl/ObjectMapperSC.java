@@ -3,6 +3,7 @@ package com.company.service.impl;
 import com.company.data.entity.*;
 import com.company.service.dto.BookDto;
 import com.company.service.dto.OrdersDto;
+import com.company.service.dto.OrdersItemsDTO;
 import com.company.service.dto.UserDto;
 import org.springframework.stereotype.Component;
 
@@ -78,5 +79,25 @@ public class ObjectMapperSC {
         ordersDTO.setStatus(orders.getStatus());
         ordersDTO.setTotalCost(orders.getTotalCost());
         return ordersDTO;
+    }
+
+    public OrdersItems toOrdersItems (OrdersItemsDTO ordersItemsDTO){
+        OrdersItems ordersItems = new OrdersItems();
+        ordersItems.setId(ordersItemsDTO.getId());
+        ordersItems.setOrders(toOrder(ordersItemsDTO.getOrdersDto()));
+        ordersItems.setBook(toBook(ordersItemsDTO.getBookDto()));
+        ordersItems.setQuantity(ordersItemsDTO.getQuantity());
+        ordersItems.setPrice(ordersItemsDTO.getPrice());
+        return ordersItems;
+    }
+
+    public OrdersItemsDTO toOrdersItemsDTO (OrdersItems ordersItems){
+        OrdersItemsDTO ordersItemsDTO = new OrdersItemsDTO();
+        ordersItemsDTO.setId(ordersItems.getId());
+        ordersItemsDTO.setOrdersDto(toOrdersDTO(ordersItems.getOrders()));
+        ordersItemsDTO.setBookDto(toBookDTO(ordersItems.getBook()));
+        ordersItemsDTO.setQuantity(ordersItemsDTO.getQuantity());
+        ordersItemsDTO.setPrice(ordersItemsDTO.getPrice());
+        return ordersItemsDTO;
     }
 }

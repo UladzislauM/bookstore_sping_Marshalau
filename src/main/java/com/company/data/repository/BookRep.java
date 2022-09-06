@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public interface BookRepJdbc extends AbstractRepJdbc<Books> {
+public interface BookRep extends AbstractRep<Books> {
     Books create(Books books);
 
     Long countAll();

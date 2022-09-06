@@ -4,6 +4,6 @@ import com.company.data.entity.OrdersItems;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface OrderItemRepJdbc extends AbstractRepJdbc<OrdersItems> {
+public interface OrderItemRep extends AbstractRep<OrdersItems> {
     OrdersItems create(OrdersItems entity, Long id);
 }

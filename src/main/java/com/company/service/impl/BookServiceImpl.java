@@ -2,7 +2,7 @@ package com.company.service.impl;
 
 import com.company.data.entity.Books;
 import com.company.service.dto.BookDto;
-import com.company.data.repository.BookRepJdbc;
+import com.company.data.repository.BookRep;
 import com.company.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
-    private final BookRepJdbc bookRepJdbc;
+    private final BookRep bookRepJdbc;
     private final ObjectMapperSC mapper;
 
     public void validate(Books books) {

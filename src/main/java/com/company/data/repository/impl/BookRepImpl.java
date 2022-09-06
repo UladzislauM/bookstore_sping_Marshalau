@@ -1,67 +1,81 @@
 package com.company.data.repository.impl;
 
-import com.company.data.repository.UserRepJdbc;
-import com.company.data.entity.User;
+import com.company.data.entity.Books;
+import com.company.data.repository.BookRep;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("userRep")
+
+@Repository("bookRep")
 @RequiredArgsConstructor
-public class UserRepJdbcImpl implements UserRepJdbc {
+public class BookRepImpl implements BookRep {
     public static final String GET_COUNT = """
             SELECT count(*) 
-            FROM User u
-            WHERE u.is_active = true 
+            FROM Books
+            WHERE deleted = false
             """;
     private static final String GET_ALL = """
-            FROM User 
+            FROM Books 
+            WHERE deleted = false
             """;
+    public static final String DELETE_BOOK = """
+            UPDATE Books 
+            SET deleted = true 
+            WHERE id = :id
+            """;
+
     private final EntityManager entityManager;
 
     @Override
-    public User findById(Long id) {
+    public Books findById(Long id) {
         entityManager.getTransaction().begin();
-        User user = entityManager.find(User.class, id);
+        Books books = entityManager.find(Books.class, id);
         entityManager.getTransaction().commit();
-        if (user == null) {
+        if (books == null) {
             return null;
         }
-        return user;
+        return books;
     }
 
     @Override
-    public List<User> findAll() {
+    public List<Books> findAll() {
         entityManager.getTransaction().begin();
-        List<User> users = entityManager.createQuery(GET_ALL, User.class).getResultList();
+        List<Books> books = entityManager.createQuery(GET_ALL, Books.class).getResultList();
         entityManager.getTransaction().commit();
-        if (users == null) {
+        if (books == null) {
             return null;
         }
-        return users;
+        return books;
     }
 
     @Override
-    public User create(User user) {
+    public Books create(Books books) {
         entityManager.getTransaction().begin();
-        entityManager.persist(user);
+        entityManager.persist(books);
         entityManager.getTransaction().commit();
-        return user;
+        return books;
     }
 
     @Override
-    public User update(User user) {
+    public Books update(Books books) {
         entityManager.getTransaction().begin();
-        entityManager.merge(user);
+        entityManager.merge(books);
         entityManager.getTransaction().commit();
-        return user;
+        return books;
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery(DELETE_BOOK);
+        query.setParameter("id", id);
+        boolean check = query.executeUpdate() == 1;
+        entityManager.getTransaction().commit();
+        return check;
     }
 
     @Override
@@ -70,12 +84,5 @@ public class UserRepJdbcImpl implements UserRepJdbc {
         Long count = entityManager.createQuery(GET_COUNT, Long.class).getSingleResult();
         entityManager.getTransaction().commit();
         return count;
-    }
-
-    public boolean active(Long id, User user) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(user);
-        entityManager.getTransaction().commit();
-        return user.getIs_active();
     }
 }

@@ -1,7 +1,7 @@
 package com.company.service.impl;
 
 import com.company.service.dto.UserDto;
-import com.company.data.repository.UserRepJdbc;
+import com.company.data.repository.UserRep;
 import com.company.data.entity.User;
 import com.company.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
-    private final UserRepJdbc userRepJdbc;
+    private final UserRep userRepJdbc;
     private final ObjectMapperSC mapper;
 
     @Override

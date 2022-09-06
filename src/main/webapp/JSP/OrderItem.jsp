@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -34,14 +35,14 @@
     <thead>
     <tr>
         <th>Id</th>
-        <th>User name</th>
-        <th>Total cost</th>
-        <th>Timestamp</th>
-        <th>Status</th>
+        <th>Order</th>
+        <th>Book(s)</th>
+        <th>Quantity</th>
+        <th>Price</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requestScope.orders}" var="order" varStatus="counter">
+    <c:forEach items="${requestScope.orders}" var="order_item" varStatus="counter">
         <tr>
             <td class="center">${counter.count}</td>
             <td>

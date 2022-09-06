@@ -4,7 +4,7 @@ import com.company.data.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserRepJdbc extends AbstractRepJdbc<User> {
+public interface UserRep extends AbstractRep<User> {
     User create(User user);
 
     Long countAll();
