@@ -17,7 +17,7 @@ public class OrdersFindAll implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        log.info("Start OrdersCommand {}", req);
+        log.info("Start OrdersFindAll {}", req);
         req.setAttribute("orders", ordersService.findAll());
         return "JSP/orders.jsp";
     }

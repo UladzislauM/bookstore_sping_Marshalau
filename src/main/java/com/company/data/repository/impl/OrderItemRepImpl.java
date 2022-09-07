@@ -15,7 +15,7 @@ public class OrderItemRepImpl implements OrderItemRep {
             FROM orders_items
             """;
     private static final String GET_ALL = """
-            FROM orders_items 
+            FROM OrdersItems 
             """;
 
     private final EntityManager entityManager;

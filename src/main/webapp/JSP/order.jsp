@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,6 +14,7 @@
         <th>Timestamp</th>
         <th>Total cost:</th>
         <th>Status:</th>
+        <th>Item:</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +30,33 @@
         </td>
         <td class="center">
             ${requestScope.order.status}
+        </td>
+        <td class="center">
+            ${requestScope.order.items.size()}:
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Author:</th>
+                    <th>Date release books:</th>
+                    <th>Price:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${requestScope.order.items}" var="order_item" varStatus="counter">
+                    <tr>
+                        <td class="center">
+                                ${order_item.book.nameAuthor}"
+                        </td>
+                        <td class="center">
+                                ${order_item.book.dateReleaseBook}"
+                        </td>
+                        <td class="center">
+                                ${order_item.book.price}"
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </td>
     </tr>
     </tbody>

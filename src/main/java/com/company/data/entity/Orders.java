@@ -47,4 +47,16 @@ public class Orders {
     public int hashCode() {
         return Objects.hash(id, user, totalCost, timestamp, status, items);
     }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", user=" + user.getId() +
+                ", totalCost=" + totalCost +
+                ", timestamp=" + timestamp +
+                ", status=" + status +
+                ", items=" + items +
+                '}';
+    }
 }

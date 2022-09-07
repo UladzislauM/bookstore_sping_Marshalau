@@ -47,7 +47,7 @@ public class OrdersItems {
         return "OrdersItem{" +
                 "id=" + id +
                 ", orders=" + orders.getId() +
-                ", book=" + book +
+                ", book=" + book.getId() +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';

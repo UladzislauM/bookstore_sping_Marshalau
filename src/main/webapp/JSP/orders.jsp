@@ -10,26 +10,6 @@
 <body>
 <h3 align="center">AllOrders (abbreviated representation): </h3>
 
-<%--<form align="left" action="controller" method="post">--%>
-<%--    <details>--%>
-<%--        <summary>Create New Order</summary>--%>
-<%--        <p>Write Parameters:</p>--%>
-<%--        <input type="hidden" name="command" value="order_create"/>--%>
-<%--        <p><input type="text" name="user_id" placeholder="write user id">--%>
-<%--        <p><input type="text" name="total_cost" placeholder="write total cost">--%>
-<%--        <p>(Format data: yyyy-MM-dd)</p>--%>
-<%--        <p><input type="date" name="timestamp" placeholder="write timestamp">--%>
-<%--        <p><input type="radio" name="status_name" value="IN_PROCESSING">IN_PROCESSING--%>
-<%--            <input type="radio" name="status_name" value="ASSEMBLED">ASSEMBLED--%>
-<%--            <input type="radio" name="status_name" value="AWAITING_PAYMENT">AWAITING_PAYMENT--%>
-<%--            <input type="radio" name="status_name" value="READY_TO_SHIP">READY_TO_SHIP--%>
-<%--            <input type="radio" name="status_name" value="SENT">SENT--%>
-<%--        <p><input type="submit" name="submit" value="Create Order"/></p>--%>
-<%--    </details>--%>
-<%--</form>--%>
-
-<%--<p align="left">All counts: </p>--%>
-
 <table class="table">
     <thead>
     <tr>
@@ -41,15 +21,15 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requestScope.orders}" var="order" varStatus="counter">
+    <c:forEach items="${requestScope.orders}" var="order_items" varStatus="counter">
         <tr>
             <td class="center">${counter.count}</td>
             <td>
-                <a href="controller?command=find_order_by_id&id=${order.id}">${order.user.name} ${order.user.last_name}</a>
+                <a href="controller?command=find_order_by_id&id=${order_items.id}">${order_items.user.name} ${order_items.user.last_name}</a>
             </td>
-            <td class="center">${order.totalCost}</td>
-            <td class="center">${order.timestamp}</td>
-            <td class="center">${order.status}</td>
+            <td class="center">${order_items.totalCost}</td>
+            <td class="center">${order_items.timestamp}</td>
+            <td class="center">${order_items.status}</td>
         </tr>
     </c:forEach>
     </tbody>

@@ -14,7 +14,7 @@ import java.util.List;
 @Service("orderItemService")
 @RequiredArgsConstructor
 public class OrdersItemsServiceImpl implements OrdersItemsService {
-    private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
+    private static final Logger log = LogManager.getLogger(OrdersItemsService.class);
     private final ObjectMapperSC mapper;
     private final OrderItemRep orderItemRep;
 
