@@ -1,6 +1,7 @@
 package com.company.service.impl;
 
 import com.company.data.entity.Books;
+import com.company.service.OrdersItemsService;
 import com.company.service.dto.BookDto;
 import com.company.data.repository.BookRep;
 import com.company.service.BookService;
@@ -18,6 +19,7 @@ public class BookServiceImpl implements BookService {
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
     private final BookRep bookRepJdbc;
     private final ObjectMapperSC mapper;
+    private final OrdersItemsService ordersItemsService;
 
     public void validate(Books books) {
         if (books.getPrice().compareTo(BigDecimal.ZERO) == 0) {
@@ -48,6 +50,7 @@ public class BookServiceImpl implements BookService {
             log.error("BookService - findById - Book is not exist");
             throw new RuntimeException("FindById - Book is not exist...");
         }
+         ordersItemsService.findByOrdersId(id);
         return bookDTO;
     }
 

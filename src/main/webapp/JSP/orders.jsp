@@ -15,7 +15,6 @@
     <tr>
         <th>Id</th>
         <th>User name</th>
-        <th>Total cost</th>
         <th>Timestamp</th>
         <th>Status</th>
     </tr>
@@ -27,7 +26,6 @@
             <td>
                 <a href="controller?command=find_order_by_id&id=${order_items.id}">${order_items.user.name} ${order_items.user.last_name}</a>
             </td>
-            <td class="center">${order_items.totalCost}</td>
             <td class="center">${order_items.timestamp}</td>
             <td class="center">${order_items.status}</td>
         </tr>

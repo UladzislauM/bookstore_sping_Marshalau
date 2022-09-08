@@ -23,13 +23,13 @@ CREATE TABLE IF NOT EXISTS users(
  email              CHARACTER VARYING (100) NOT NULL,
  password           CHARACTER VARYING (50) NOT null,
  role	            CHARACTER VARYING (60),
- is_active			BOOLEAN NOT NULL DEFAULT FALSE
+ is_active			BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS orders(
 id                 BIGSERIAL PRIMARY KEY NOT NULL,
 user_id			   BIGINT REFERENCES users(id),
-total_cost  	   DECIMAL(8,2)NOT NULL,
+total_cost  	   DECIMAL(8,2),
 timestamp		   DATE NOT NULL,
 status	           CHARACTER VARYING (60)
 );
@@ -41,3 +41,4 @@ CREATE TABLE IF NOT EXISTS orders_items(
  quantity			INT2 NOT NULL,
  price 				DECIMAL (6,2)
 );
+

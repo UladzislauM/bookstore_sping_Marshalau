@@ -25,9 +25,8 @@ public class OrdersItemsServiceImpl implements OrdersItemsService {
         if (ordersItems == null) {
             log.error("OrdersItemsService - findAll - OrderItem is not exist");
             throw new RuntimeException("FindAll - OrderItem is not exist...");
-        } else {
-            return ordersItems.stream().map(mapper::toOrdersItemsDTO).toList();
         }
+            return ordersItems.stream().map(mapper::toOrdersItemsDTO).toList();
     }
 
     @Override
@@ -39,6 +38,17 @@ public class OrdersItemsServiceImpl implements OrdersItemsService {
             throw new RuntimeException("FindById - OrderItem is not exist...");
         }
         return ordersItemsDTO;
+    }
+
+    @Override
+    public List<OrdersItemsDTO> findByOrdersId(Long order_id) {
+        log.info("Start OrdersItemsService - findByOrdersId - {}", order_id);
+        List<OrdersItems> ordersItems = orderItemRep.findByOrdersId(order_id);
+        if (ordersItems == null) {
+            log.error("OrdersItemsService - findByOrdersId - OrderItem is not exist");
+            throw new RuntimeException("FindByOrdersId - OrderItem is not exist...");
+        }
+        return ordersItems.stream().map(mapper::toOrdersItemsDTO).toList();
     }
 
     @Override

@@ -50,10 +50,10 @@ public class AppController extends HttpServlet {
             try {
                 page = command.execute(req);
             } catch (Exception e) {
-                context.getBean(EntityManager.class).getTransaction().rollback();
                 log.error("Controller exception, execute {}", e.getMessage(), e);
                 req.setAttribute("errorMessage", "Oops..... " + e.getMessage());
                 page = "error.jsp";
+//                context.getBean(EntityManager.class).getTransaction().rollback();
             }
         }
         req.getRequestDispatcher(page).forward(req, resp);

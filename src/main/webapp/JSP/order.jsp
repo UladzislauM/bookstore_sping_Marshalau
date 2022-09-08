@@ -23,7 +23,7 @@
             ${requestScope.order.user.name} ${requestScope.order.user.last_name}
         </td>
         <td class="center">
-            ${requestScope.order.timestamp}"
+            ${requestScope.order.timestamp}
         </td>
         <td class="center">
             ${requestScope.order.totalCost}
@@ -31,13 +31,13 @@
         <td class="center">
             ${requestScope.order.status}
         </td>
-        <td class="center">
-            ${requestScope.order.items.size()}:
+        <td class="center"> Quantity - ${requestScope.order.items.size()} :
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Author:</th>
-                    <th>Date release books:</th>
+                    <th>N:</th>
+                    <th>Book:</th>
+                    <th>Quantity:</th>
                     <th>Price:</th>
                 </tr>
                 </thead>
@@ -45,13 +45,17 @@
                 <c:forEach items="${requestScope.order.items}" var="order_item" varStatus="counter">
                     <tr>
                         <td class="center">
-                                ${order_item.book.nameAuthor}"
+                                ${counter.count}
                         </td>
                         <td class="center">
-                                ${order_item.book.dateReleaseBook}"
+                            <a href="controller?command=get_book_by_id&id=${order_item.book.id}">${order_item.book.title}
+                                - ${order_item.book.nameAuthor}</a>
                         </td>
                         <td class="center">
-                                ${order_item.book.price}"
+                                ${order_item.quantity}
+                        </td>
+                        <td class="center">
+                                ${order_item.price}
                         </td>
                     </tr>
                 </c:forEach>
@@ -61,10 +65,6 @@
     </tr>
     </tbody>
 </table>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="order_update_form"/>
-    <input type="hidden" name="id" value="${requestScope.order.id}"/>
-    <input type="submit" name="submit" value="Update Order"/></form>
 
 <a href="controller?command=all_orders"><-Back</a>
 </body>

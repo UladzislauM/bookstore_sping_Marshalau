@@ -1,5 +1,6 @@
 package com.company.service.impl;
 
+import com.company.service.OrdersItemsService;
 import com.company.service.dto.OrdersDto;
 import com.company.data.entity.Orders;
 import com.company.data.repository.OrdersRep;
@@ -9,6 +10,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("orderService")
@@ -17,6 +20,7 @@ public class OrdersServiceImpl implements OrdersService {
     private static final Logger log = LogManager.getLogger(OrdersServiceImpl.class);
     private final OrdersRep ordersRepJdbc;
     private final ObjectMapperSC mapper;
+    private final OrdersItemsService ordersItemsService;
 
     @Override
     public List<OrdersDto> findAll() {
@@ -38,6 +42,12 @@ public class OrdersServiceImpl implements OrdersService {
             log.error("OrdersService - findById - Order is not exist");
             throw new RuntimeException("FindById - Order is not exist...");
         }
+        List<BigDecimal> cost = new ArrayList<>();
+        ordersItemsService.findByOrdersId(id).forEach(order -> {
+            cost.add(order.getPrice().multiply(BigDecimal.valueOf(order.getQuantity())));
+        });
+        BigDecimal cost_total = cost.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+        ordersDTO.setTotalCost(cost_total);
         return ordersDTO;
     }
 

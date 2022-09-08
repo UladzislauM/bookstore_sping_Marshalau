@@ -15,8 +15,5 @@
 <form action="controller" method="post">
     <input type="hidden" name="command" value="all_orders"/>
     <input type="submit" value="All orders"/></form>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="all_orderItems"/>
-    <input type="submit" value="All ordersItems"/></form>
 </body>
 </html>

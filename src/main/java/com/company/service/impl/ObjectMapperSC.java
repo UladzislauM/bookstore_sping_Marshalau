@@ -96,8 +96,8 @@ public class ObjectMapperSC {
         ordersItemsDTO.setId(ordersItems.getId());
         ordersItemsDTO.setOrdersDto(toOrdersDTO(ordersItems.getOrders()));
         ordersItemsDTO.setBookDto(toBookDTO(ordersItems.getBook()));
-        ordersItemsDTO.setQuantity(ordersItemsDTO.getQuantity());
-        ordersItemsDTO.setPrice(ordersItemsDTO.getPrice());
+        ordersItemsDTO.setQuantity(ordersItems.getQuantity());
+        ordersItemsDTO.setPrice(ordersItems.getPrice());
         return ordersItemsDTO;
     }
 }
