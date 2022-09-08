@@ -20,6 +20,6 @@ public class BookFindById implements Command {
         log.info("Start BookCommand {}", req.getParameter("id"));
         BookDto bookDto = bookServiceImpl.findById(Long.parseLong(req.getParameter("id")));
         req.setAttribute("book", bookDto);
-        return "book.jsp";
+        return "JSP/book.jsp";
     }
 }

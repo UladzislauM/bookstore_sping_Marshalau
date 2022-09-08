@@ -27,8 +27,9 @@ public class BookUpdate implements Command {
         BookDto bookDTO = bookService.findById(Long.parseLong(req.getParameter("id")));
         addBookKeyBoard(req, bookDTO);
         bookService.update(bookDTO);
+        req.setAttribute("book_count", bookService.countAll());
         req.setAttribute("book", bookDTO);
-        return "book.jsp";
+        return "JSP/book.jsp";
     }
 
     private BookDto addBookKeyBoard(HttpServletRequest req, BookDto bookDTO) {

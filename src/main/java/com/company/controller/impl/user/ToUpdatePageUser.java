@@ -18,6 +18,6 @@ public class ToUpdatePageUser implements Command {
     public String execute(HttpServletRequest req) {
         log.info("Start ToUpdatePageUser {}", req.getParameter("id"));
         req.setAttribute("user", userServiceImpl.findById(Long.parseLong(req.getParameter("id"))));
-        return "updateUser.jsp";
+        return "JSP/updateUser.jsp";
     }
 }

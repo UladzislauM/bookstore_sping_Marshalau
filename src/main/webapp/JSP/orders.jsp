@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>Orders in BookStore</title>
-    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 <h3 align="center">AllOrders (abbreviated representation): </h3>

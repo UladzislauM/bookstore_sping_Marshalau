@@ -26,8 +26,9 @@ public class BookCreate implements Command {
         log.info("Start BookCreate {}", req.getParameter("id"));
         BookDto bookDto = addBookKeyBoard(req);
         bookService.create(bookDto);
+        req.setAttribute("book_count", bookService.countAll());
         req.setAttribute("books", bookService.findAll());
-        return "books.jsp";
+        return "JSP/books.jsp";
     }
 
 

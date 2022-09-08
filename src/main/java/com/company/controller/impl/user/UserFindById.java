@@ -20,6 +20,6 @@ public class UserFindById implements Command {
         log.info("Start UserFindById {}", req.getParameter("id"));
         UserDto userDTO = userService.findById(Long.parseLong(req.getParameter("id")));
         req.setAttribute("user", userDTO);
-        return "user.jsp";
+        return "JSP/user.jsp";
     }
 }

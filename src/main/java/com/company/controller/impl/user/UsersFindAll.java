@@ -19,6 +19,6 @@ public class UsersFindAll implements Command {
         log.info("Start UsersFindAll {}", req);
         req.setAttribute("user_count", userService.countAll());
         req.setAttribute("users", userService.findAll());
-        return "users.jsp";
+        return "JSP/users.jsp";
     }
 }

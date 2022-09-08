@@ -55,13 +55,6 @@ INSERT INTO orders_items(orders_id, book_id, quantity, price)
     ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev')), (SELECT id FROM books WHERE title = 'GrafMonte'), 1, (SELECT price FROM books WHERE title = 'GrafMonte')),
     ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova')), (SELECT id FROM books WHERE title = 'GunsSteelAndGerms'), 1, (SELECT price FROM books WHERE title = 'GunsSteelAndGerms')),
     ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov')), (SELECT id FROM books WHERE title = 'TheSubtleArtOfNotGivingAF'), 3, (SELECT price FROM books WHERE title = 'TheSubtleArtOfNotGivingAF')),
-    ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric')), (SELECT id FROM books WHERE title = 'SmertIvanaIlicha'), 5, (SELECT price FROM books WHERE title = 'SmertIvanaIlicha'));
+    ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric')), (SELECT id FROM books WHERE title = 'SmertIvanaIlicha'), 5, (SELECT price FROM books WHERE title = 'SmertIvanaIlicha')),
+    ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu')), (SELECT id FROM books WHERE title = '1984'), 3, (SELECT price FROM books WHERE title = '1984'));
 
-   INSERT INTO orders_items(orders_id, book_id, quantity, price)
-    VALUES ((SELECT id FROM orders WHERE user_id = (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu')), (SELECT id FROM books WHERE title = '7Navikov'), 3, (SELECT price FROM books WHERE title = '1984'));
-   
-UPDATE orders SET total_cost = (SELECT quantity * price FROM orders_items WHERE orders_id = orders.id) WHERE orders.id = (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu'); 
-UPDATE orders SET total_cost = (SELECT quantity * price FROM orders_items WHERE orders_id = orders.id) WHERE orders.id = (SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev'); 
-UPDATE orders SET total_cost = (SELECT quantity * price FROM orders_items WHERE orders_id = orders.id) WHERE orders.id = (SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova'); 
-UPDATE orders SET total_cost = (SELECT quantity * price FROM orders_items WHERE orders_id = orders.id) WHERE orders.id = (SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov'); 
-UPDATE orders SET total_cost = (SELECT quantity * price FROM orders_items WHERE orders_id = orders.id) WHERE orders.id = (SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric'); 

@@ -19,7 +19,7 @@ public class BooksFindAll implements Command {
         log.info("Start BooksCommand {}", req);
         req.setAttribute("book_count", bookService.countAll());
         req.setAttribute("books", bookService.findAll());
-        return "books.jsp";
+        return "JSP/books.jsp";
     }
 }
 

@@ -23,7 +23,7 @@ public class UserUpdate implements Command {
         addUserKeyHttpReq(req, userDTO);
         userService.update(userDTO);
         req.setAttribute("user", userDTO);
-        return "user.jsp";
+        return "JSP/user.jsp";
     }
 
     private UserDto addUserKeyHttpReq(HttpServletRequest req, UserDto userDTO) {

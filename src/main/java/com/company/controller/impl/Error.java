@@ -14,6 +14,6 @@ public class Error implements Command {
     @Override
     public String execute(HttpServletRequest req) {
         log.error("Start method Error {}", req);
-        return "error.jsp";
+        return "JSP/error.jsp";
     }
 }

@@ -44,7 +44,7 @@ public class AppController extends HttpServlet {
         Command command = (Command) context.getBean(commandParam);
         String page;
         if (commandParam == null || command == null) {
-            page = "index.jsp";
+            page = "JSP/index.jsp";
             log.info("Address error or Command == null");
         } else {
             try {
@@ -52,8 +52,7 @@ public class AppController extends HttpServlet {
             } catch (Exception e) {
                 log.error("Controller exception, execute {}", e.getMessage(), e);
                 req.setAttribute("errorMessage", "Oops..... " + e.getMessage());
-                page = "error.jsp";
-//                context.getBean(EntityManager.class).getTransaction().rollback();
+                page = "JSP/error.jsp";
             }
         }
         req.getRequestDispatcher(page).forward(req, resp);
@@ -62,6 +61,5 @@ public class AppController extends HttpServlet {
     @Override
     public void destroy() {
         context.close();
-        context.getBean(EntityManagerFactory.class).close();
     }
 }

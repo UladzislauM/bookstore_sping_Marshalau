@@ -23,7 +23,7 @@ public class UserCreate implements Command {
         userService.create(userDTO);
         req.setAttribute("user_count", userService.countAll());
         req.setAttribute("users", userService.findAll());
-        return "users.jsp";
+        return "JSP/users.jsp";
     }
 
     private UserDto addUserKeyHttpReq(HttpServletRequest req) {

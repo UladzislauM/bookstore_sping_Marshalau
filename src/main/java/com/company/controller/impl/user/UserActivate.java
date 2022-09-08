@@ -20,6 +20,6 @@ public class UserActivate implements Command {
         userService.active(Long.parseLong(req.getParameter("id")), true);
         req.setAttribute("user_count", userService.countAll());
         req.setAttribute("users", userService.findAll());
-        return "users.jsp";
+        return "JSP/users.jsp";
     }
 }

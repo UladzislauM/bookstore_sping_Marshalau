@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>View order in BookStore</title>
-    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 <h2 align="center">Order: ${requestScope.order.totalCost}</h2>
@@ -20,7 +20,7 @@
     <tbody>
     <tr>
         <td>
-            ${requestScope.order.user.name} ${requestScope.order.user.last_name}
+            <a href="controller?command=get_user_by_id&id=${requestScope.order.user.id}">${requestScope.order.user.name} ${requestScope.order.user.last_name}</a>
         </td>
         <td class="center">
             ${requestScope.order.timestamp}

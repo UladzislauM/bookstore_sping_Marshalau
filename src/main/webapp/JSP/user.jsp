@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>View user in BookStore</title>
-    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 <h3>User: ${requestScope.user.name}</h3>
