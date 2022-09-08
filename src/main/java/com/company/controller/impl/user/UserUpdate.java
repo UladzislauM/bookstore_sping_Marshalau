@@ -1,8 +1,8 @@
 package com.company.controller.impl.user;
 
+import com.company.data.entity.RoleUser;
 import com.company.service.dto.UserDto;
 import com.company.controller.Command;
-import com.company.service.entity.RoleUser;
 import com.company.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component("user_update")
 @RequiredArgsConstructor
 public class UserUpdate implements Command {
-    private static final Logger log = LogManager.getLogger(UserFindUserById.class);
+    private static final Logger log = LogManager.getLogger(UserFindById.class);
     private final UserService userService;
 
     @Override
@@ -23,7 +23,7 @@ public class UserUpdate implements Command {
         addUserKeyHttpReq(req, userDTO);
         userService.update(userDTO);
         req.setAttribute("user", userDTO);
-        return "user.jsp";
+        return "JSP/user.jsp";
     }
 
     private UserDto addUserKeyHttpReq(HttpServletRequest req, UserDto userDTO) {
@@ -40,8 +40,7 @@ public class UserUpdate implements Command {
             userDTO.setPassword(req.getParameter("password"));
         }
         if (req.getParameter("role") != null) {
-            String roleStr = req.getParameter("role");
-            userDTO.setRole(RoleUser.valueOf(roleStr));
+            userDTO.setRole(RoleUser.valueOf(req.getParameter("role")));
         }
         return userDTO;
     }

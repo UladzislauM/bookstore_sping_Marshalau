@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-@Component("users")
+@Component("users_find")
 @RequiredArgsConstructor
 public class UsersFindAll implements Command {
     private static final Logger log = LogManager.getLogger(UsersFindAll.class);
@@ -16,9 +16,9 @@ public class UsersFindAll implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        log.info("Start UsersCommand {}", req);
+        log.info("Start UsersFindAll {}", req);
         req.setAttribute("user_count", userService.countAll());
         req.setAttribute("users", userService.findAll());
-        return "users.jsp";
+        return "JSP/users.jsp";
     }
 }

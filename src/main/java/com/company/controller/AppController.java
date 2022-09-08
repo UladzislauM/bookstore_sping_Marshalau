@@ -1,18 +1,21 @@
 package com.company.controller;
 
 import com.company.ContextConfiguration;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-
 @Component
 @WebServlet("/controller")
 public class AppController extends HttpServlet {
@@ -37,12 +40,11 @@ public class AppController extends HttpServlet {
     }
 
     private void forwardProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String commandParam = req.getParameter("command");
         Command command = (Command) context.getBean(commandParam);
         String page;
         if (commandParam == null || command == null) {
-            page = "index.jsp";
+            page = "JSP/index.jsp";
             log.info("Address error or Command == null");
         } else {
             try {
@@ -50,7 +52,7 @@ public class AppController extends HttpServlet {
             } catch (Exception e) {
                 log.error("Controller exception, execute {}", e.getMessage(), e);
                 req.setAttribute("errorMessage", "Oops..... " + e.getMessage());
-                page = "error.jsp";
+                page = "JSP/error.jsp";
             }
         }
         req.getRequestDispatcher(page).forward(req, resp);

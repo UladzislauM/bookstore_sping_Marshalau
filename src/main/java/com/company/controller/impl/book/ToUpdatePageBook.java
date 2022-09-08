@@ -18,6 +18,6 @@ public class ToUpdatePageBook implements Command {
     public String execute(HttpServletRequest req) {
         log.info("Start ToUpdatePageBook {}", req.getParameter("id"));
         req.setAttribute("book", bookServiceImpl.findById(Long.parseLong(req.getParameter("id"))));
-        return "updateBook.jsp";
+        return "JSP/updateBook.jsp";
     }
 }

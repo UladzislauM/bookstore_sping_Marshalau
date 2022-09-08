@@ -1,10 +1,10 @@
 package com.company.service;
 
 import com.company.service.dto.BookDto;
-import com.company.service.entity.Book;
+import com.company.data.entity.Books;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface BookService extends AbstractService<Book, BookDto> {
+public interface BookService extends AbstractService<Books, BookDto> {
     Long countAll();
 }

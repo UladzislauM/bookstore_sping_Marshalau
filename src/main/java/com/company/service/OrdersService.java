@@ -1,7 +1,7 @@
 package com.company.service;
 
 import com.company.service.dto.OrdersDto;
-import com.company.service.entity.Orders;
+import com.company.data.entity.Orders;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 @Controller("user_update_form")
 @RequiredArgsConstructor
 public class ToUpdatePageUser implements Command {
-    private static final Logger log = LogManager.getLogger(UserFindUserById.class);
+    private static final Logger log = LogManager.getLogger(UserFindById.class);
     private final UserServiceImpl userServiceImpl;
 
     @Override
     public String execute(HttpServletRequest req) {
         log.info("Start ToUpdatePageUser {}", req.getParameter("id"));
         req.setAttribute("user", userServiceImpl.findById(Long.parseLong(req.getParameter("id"))));
-        return "updateUser.jsp";
+        return "JSP/updateUser.jsp";
     }
 }

@@ -1,8 +1,8 @@
 package com.company.controller.impl.book;
 
+import com.company.data.entity.CoverBook;
 import com.company.service.dto.BookDto;
 import com.company.controller.Command;
-import com.company.service.entity.CoverBook;
 import com.company.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,9 @@ public class BookUpdate implements Command {
         BookDto bookDTO = bookService.findById(Long.parseLong(req.getParameter("id")));
         addBookKeyBoard(req, bookDTO);
         bookService.update(bookDTO);
+        req.setAttribute("book_count", bookService.countAll());
         req.setAttribute("book", bookDTO);
-        return "book.jsp";
+        return "JSP/book.jsp";
     }
 
     private BookDto addBookKeyBoard(HttpServletRequest req, BookDto bookDTO) {
@@ -45,8 +46,7 @@ public class BookUpdate implements Command {
                     (Integer.parseInt(dataArr.get(0)), Integer.parseInt(dataArr.get(1)), Integer.parseInt(dataArr.get(2))));
         }
         if (req.getParameter("cover_name") != null) {
-            String coverStr = req.getParameter("cover_name");
-            bookDTO.setCoverBook(CoverBook.valueOf(coverStr));
+            bookDTO.setCoverBook(CoverBook.valueOf(req.getParameter("cover_name")));
         }
         if (req.getParameter("price") != null) {
             bookDTO.setPrice(new BigDecimal(req.getParameter("price")));

@@ -1,40 +1,37 @@
 package com.company.service.impl;
 
+import com.company.data.entity.*;
 import com.company.service.dto.BookDto;
 import com.company.service.dto.OrdersDto;
+import com.company.service.dto.OrdersItemsDTO;
 import com.company.service.dto.UserDto;
-import com.company.data.dto.OrdersItemsDaoDto;
-import com.company.service.entity.Book;
-import com.company.service.entity.Orders;
-import com.company.service.entity.OrdersItems;
-import com.company.service.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ObjectMapperSC {
-    public Book toBook(BookDto bookDTO) {
-        Book book = new Book();
-        book.setId(bookDTO.getId());
-        book.setCoverBook(bookDTO.getCoverBook());
-        book.setDateReleaseBook(bookDTO.getDateReleaseBook());
-        book.setIsbn(bookDTO.getIsbn());
-        book.setPrice(bookDTO.getPrice());
-        book.setTitle(bookDTO.getTitle());
-        book.setNameAuthor(bookDTO.getNameAuthor());
-        book.setDeleted(bookDTO.getDeleted());
-        return book;
+    public Books toBook(BookDto bookDTO) {
+        Books books = new Books();
+        books.setId(bookDTO.getId());
+        books.setCoverBook(bookDTO.getCoverBook());
+        books.setDateReleaseBook(bookDTO.getDateReleaseBook());
+        books.setIsbn(bookDTO.getIsbn());
+        books.setPrice(bookDTO.getPrice());
+        books.setTitle(bookDTO.getTitle());
+        books.setNameAuthor(bookDTO.getNameAuthor());
+        books.setDeleted(bookDTO.getDeleted());
+        return books;
     }
 
-    public BookDto toBookDTO(Book book) {
+    public BookDto toBookDTO(Books books) {
         BookDto bookDTO = new BookDto();
-        bookDTO.setId(book.getId());
-        bookDTO.setCoverBook(book.getCoverBook());
-        bookDTO.setDateReleaseBook(book.getDateReleaseBook());
-        bookDTO.setIsbn(book.getIsbn());
-        bookDTO.setPrice(book.getPrice());
-        bookDTO.setTitle(book.getTitle());
-        bookDTO.setNameAuthor(book.getNameAuthor());
-        bookDTO.setDeleted(book.getDeleted());
+        bookDTO.setId(books.getId());
+        bookDTO.setCoverBook(books.getCoverBook());
+        bookDTO.setDateReleaseBook(books.getDateReleaseBook());
+        bookDTO.setIsbn(books.getIsbn());
+        bookDTO.setPrice(books.getPrice());
+        bookDTO.setTitle(books.getTitle());
+        bookDTO.setNameAuthor(books.getNameAuthor());
+        bookDTO.setDeleted(books.getDeleted());
         return bookDTO;
     }
 
@@ -46,7 +43,7 @@ public class ObjectMapperSC {
         user.setName(userDTO.getName());
         user.setLast_name(userDTO.getLast_name());
         user.setRole(userDTO.getRole());
-        user.setDeleted(userDTO.getDeleted());
+        user.setIs_active(userDTO.getIs_active());
         return user;
     }
 
@@ -58,7 +55,7 @@ public class ObjectMapperSC {
         userDTO.setName(user.getName());
         userDTO.setLast_name(user.getLast_name());
         userDTO.setRole(user.getRole());
-        userDTO.setDeleted(user.getDeleted());
+        userDTO.setIs_active(user.getIs_active());
         return userDTO;
     }
 
@@ -84,11 +81,23 @@ public class ObjectMapperSC {
         return ordersDTO;
     }
 
-    public OrdersItems toOrderItems(OrdersItemsDaoDto ordersItemsDTO) {
+    public OrdersItems toOrdersItems (OrdersItemsDTO ordersItemsDTO){
         OrdersItems ordersItems = new OrdersItems();
         ordersItems.setId(ordersItemsDTO.getId());
-        ordersItems.setPrice(ordersItemsDTO.getPrice());
+        ordersItems.setOrders(toOrder(ordersItemsDTO.getOrdersDto()));
+        ordersItems.setBook(toBook(ordersItemsDTO.getBookDto()));
         ordersItems.setQuantity(ordersItemsDTO.getQuantity());
+        ordersItems.setPrice(ordersItemsDTO.getPrice());
         return ordersItems;
+    }
+
+    public OrdersItemsDTO toOrdersItemsDTO (OrdersItems ordersItems){
+        OrdersItemsDTO ordersItemsDTO = new OrdersItemsDTO();
+        ordersItemsDTO.setId(ordersItems.getId());
+        ordersItemsDTO.setOrdersDto(toOrdersDTO(ordersItems.getOrders()));
+        ordersItemsDTO.setBookDto(toBookDTO(ordersItems.getBook()));
+        ordersItemsDTO.setQuantity(ordersItems.getQuantity());
+        ordersItemsDTO.setPrice(ordersItems.getPrice());
+        return ordersItemsDTO;
     }
 }
