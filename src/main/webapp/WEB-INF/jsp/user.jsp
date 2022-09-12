@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>View user in BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
 <h3>User: ${requestScope.user.name}</h3>
@@ -32,16 +32,19 @@
     </tr>
     </tbody>
 </table>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="user_update_form"/>
+<form action="/bookstore/users/user_update_form" method="post">
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="submit" value="Update User"/></form>
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="user_delete"/>
+<form action="/bookstore/users/user_activate" method="post">
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
-    <input type="submit" name="delete" value="Delete user"/></form>
+    <input type="submit" name="activate" value="Activate user"/></form>
+<form action="/bookstore/users/user_deactivate" method="post">
+    <input type="hidden" name="id" value="${requestScope.user.id}"/>
+    <input type="submit" name="deactivate" value="Deactivate user"/></form>
+<form action="/bookstore/users/users_find" method="post">
+    <input type="submit" value="All users"/></form>
 
-<a href="controller?command=users_find"><-Back</a>
+<a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>
 </body>
 </html>

@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>View books in BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
-<h2 align="center">Book: ${requestScope.orders.title}</h2>
+<h2 align="center">Book: ${requestScope.book.title}</h2>
 <table class="table">
     <thead>
     <tr>
@@ -22,7 +22,7 @@
             ${requestScope.book.nameAuthor}
         </td>
         <td class="center">
-            ${requestScope.book.dateReleaseBook}"
+            ${requestScope.book.dateReleaseBook}
         </td>
         <td class="center">
             ${requestScope.book.price}
@@ -36,16 +36,14 @@
     </tr>
     </tbody>
 </table>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="book_update_form"/>
-    <input type="hidden" name="id" value="${requestScope.book.id}"/>
-    <input type="submit" name="submit" value="Update Book"/></form>
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="book_delete"/>
+<form action="/bookstore/books/book_update_form" method="post">
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
-    <input type="submit" name="delete" value="Delete books"/></form>
+    <input type="submit" name="deleted" value="Update Book"/></form>
+<form action="/bookstore/books/book_deleted" method="post">
+    <input type="hidden" name="id" value="${requestScope.book.id}"/>
+    <input type="submit" name="deleted" value="Delete Book"/></form>
 
-<a href="controller?command=books_find"><-Back</a>
+<a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>
 </body>
 </html>

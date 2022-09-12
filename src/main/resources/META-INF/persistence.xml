@@ -12,6 +12,8 @@
             <property name="jakarta.persistence.jdbc.user" value="nlsojpao"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://rogue.db.elephantsql.com:5432/nlsojpao"/>
             <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.transaction.manager_lookup_class"
+                      value="org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform"/>
         </properties>
     </persistence-unit>
 </persistence>

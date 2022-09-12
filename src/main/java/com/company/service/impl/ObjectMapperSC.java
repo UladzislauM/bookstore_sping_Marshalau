@@ -7,13 +7,15 @@ import com.company.service.dto.OrdersItemsDTO;
 import com.company.service.dto.UserDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class ObjectMapperSC {
     public Books toBook(BookDto bookDTO) {
         Books books = new Books();
         books.setId(bookDTO.getId());
         books.setCoverBook(bookDTO.getCoverBook());
-        books.setDateReleaseBook(bookDTO.getDateReleaseBook());
+        books.setDateReleaseBook(LocalDate.parse(bookDTO.getDateReleaseBook()));
         books.setIsbn(bookDTO.getIsbn());
         books.setPrice(bookDTO.getPrice());
         books.setTitle(bookDTO.getTitle());
@@ -26,7 +28,7 @@ public class ObjectMapperSC {
         BookDto bookDTO = new BookDto();
         bookDTO.setId(books.getId());
         bookDTO.setCoverBook(books.getCoverBook());
-        bookDTO.setDateReleaseBook(books.getDateReleaseBook());
+        bookDTO.setDateReleaseBook(books.getDateReleaseBook().toString());
         bookDTO.setIsbn(books.getIsbn());
         bookDTO.setPrice(books.getPrice());
         bookDTO.setTitle(books.getTitle());

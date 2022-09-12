@@ -1,8 +1,8 @@
 package com.company.data.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,7 +34,7 @@ public class User {
     @Column(name = "is_active")
     private Boolean is_active;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private List<Orders> orders;
 
     @Override

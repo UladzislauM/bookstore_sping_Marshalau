@@ -1,19 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
     <title>Users in BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
 <h3>AllUsers (abbreviated representation): </h3>
 
-<form align="left" action="controller" method="post">
+<form align="left" action="/bookstore/users/create" method="post">
     <details>
         <summary>Create New User</summary>
         <p>Write Parameters:</p>
-        <input type="hidden" name="command" value="user_create"/>
         <input type="hidden" name="is_active" value="true"/>
         <p><input type="text" name="name" placeholder="write Name">
         <p><input type="text" name="last_name" placeholder="write Last_Name">
@@ -28,9 +28,7 @@
 
 <p align="left">All counts: ${requestScope.user_count}</p>
 
-<form action="controller" method="post">
-    <%--    <input type="hidden" name="command" value="user_deactivate"/>--%>
-    <%--   --%>
+<form action="/bookstore/users" method="post">
     <table class="table">
         <thead>
         <tr>
@@ -45,7 +43,7 @@
         <c:forEach items="${requestScope.users}" var="user" varStatus="counter">
             <tr>
                 <td class="center"><input type="radio" name="id" value="${user.id}">${counter.count}</td>
-                <td><a href="controller?command=get_user_by_id&id=${user.id}">${user.name} ${user.last_name}</a>
+                <td><a href="find_user_by_id/${user.id}">${user.name} ${user.last_name}</a>
                 </td>
                 <td>${user.email}</td>
                 <td class="center">${user.role}</td>
@@ -54,19 +52,16 @@
         </c:forEach>
         </tbody>
     </table>
-    <button type="submit" name="command" value="user_deactivate">User Deactivate</button>
-    <button type="submit" name="command" value="user_activate">User Activate</button>
+    <button type="submit" formaction="user_deactivate">User Deactivate</button>
+    <button type="submit" formaction="user_activate">User Activate</button>
 </form>
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="users_find"/>
+<form action="/bookstore/users/users_find" method="get">
     <input type="submit" value="All users"/></form>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="books_find"/>
+<form action="/bookstore/books/books_find" method="get">
     <input type="submit" value="All books"/></form>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="all_orders"/>
+<form action="/bookstore/orders/orders_find" method="get">
     <input type="submit" value="All orders"/></form>
 </body>
 </html>
