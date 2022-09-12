@@ -16,6 +16,7 @@
 3. Module 3 - Order (add new entity);
 4. Module 4 - JPA;
 5. Module 5 - MVC;
+6. Module 6 - Boot;
 
 * PS - supplemented.
 

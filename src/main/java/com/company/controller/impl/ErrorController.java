@@ -12,10 +12,8 @@ import javax.security.auth.login.AccountNotFoundException;
 @ControllerAdvice
 @RequestMapping("/error")
 public class ErrorController {
-
     @GetMapping
-    public String error(AppException e, Model model) {
-        model.addAttribute("message", e.getMessage());
+    public String error(){
         return "error";
     }
 
