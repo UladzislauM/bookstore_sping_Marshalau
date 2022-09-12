@@ -5,11 +5,11 @@
 <head>
     <meta charset="utf-8">
     <title>BookStoreError</title>
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
-<img height="150px" src="CSS/404.png" alt="404 Page not found...">
-<h2><c:out value="${errorMessage}" /></h2>
+<img height="150px" src="/bookstore/images/404.png" alt="404 Page not found...">
+<div>${message != null ? message : 'Something went wrong...'}</div>
 <a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>
 </body>
 </html>

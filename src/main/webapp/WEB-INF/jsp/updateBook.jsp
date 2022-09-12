@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Update Book in BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
 <h2 align="center">Book: ${requestScope.book.title}</h2>
@@ -19,14 +19,14 @@
     </thead>
     <tbody>
     <tr>
-        <form id="form1" action="controller" method="post">
-            <input type="hidden" name="command" value="book_update"/>
-            <input type="hidden" name="id" value="${requestScope.book.id}"/>
+        <form id="form1" action="/bookstore/books/book_update/${requestScope.book.id}" method="post">
+            <input type="hidden" name="title" value="${requestScope.book.title}"/>
+            <input type="hidden" name="deleted" value="${requestScope.book.deleted}"/>
             <td>
-                <input form="form1" type="text" value="${requestScope.book.nameAuthor}" name="name_author">
+                <input form="form1" type="text" value="${requestScope.book.nameAuthor}" name="nameAuthor">
             </td>
             <td class="center">
-                <input form="form1" type="date" value="${requestScope.book.dateReleaseBook}" name="data_purchase">
+                <input form="form1" type="date" value="${requestScope.book.dateReleaseBook}" name="dateReleaseBook">
             </td>
             <td class="center">
                 <input form="form1" type="text" value="${requestScope.book.price}" name="price">
@@ -35,7 +35,7 @@
                 <input form="form1" type="text" value="${requestScope.book.isbn}" name="isbn">
             </td>
             <td class="center">${requestScope.book.coverBook}
-                <select form="form1" name="cover_name" size="1">
+                <select form="form1" name="coverBook" size="1">
                     <option selected value="HARD">HARD</option>
                     <option selected value="SOFT">SOFT</option>
                     <option selected value="EXCLUSIVE">EXCLUSIVE</option>
@@ -47,10 +47,9 @@
 </table>
 <p><input form="form1" type="submit" name="submit" value="Update Book"/></p>
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="book_delete"/>
+<form action="/bookstore/books/book_deleted" method="post">
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
-    <input type="submit" name="delete" value="Delete books"/></form>
+    <input type="submit" name="deleted" value="Delete Book"/></form>
 
 <a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>
 </body>

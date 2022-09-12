@@ -11,7 +11,7 @@ public class BookDto {
     private Long id;
     private String title;
     private String nameAuthor;
-    private LocalDate dateReleaseBook;
+    private String dateReleaseBook;
     private CoverBook coverBook;
     private BigDecimal price;
     private String isbn;

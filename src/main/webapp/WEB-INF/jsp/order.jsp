@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>View order in BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
 <h2 align="center">Order: ${requestScope.order.totalCost}</h2>
@@ -20,7 +20,7 @@
     <tbody>
     <tr>
         <td>
-            <a href="controller?command=get_user_by_id&id=${requestScope.order.user.id}">${requestScope.order.user.name} ${requestScope.order.user.last_name}</a>
+            <a href="orders/find_user_by_id/${requestScope.order.user.id}">${requestScope.order.user.name} ${requestScope.order.user.last_name}</a>
         </td>
         <td class="center">
             ${requestScope.order.timestamp}
@@ -48,7 +48,7 @@
                                 ${counter.count}
                         </td>
                         <td class="center">
-                            <a href="controller?command=get_book_by_id&id=${order_item.book.id}">${order_item.book.title}
+                            <a href="/bookstore/books/find_book_by_id/${order_item.book.id}">${order_item.book.title}
                                 - ${order_item.book.nameAuthor}</a>
                         </td>
                         <td class="center">
@@ -66,6 +66,6 @@
     </tbody>
 </table>
 
-<a href="controller?command=all_orders"><-Back</a>
+<a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>
 </body>
 </html>

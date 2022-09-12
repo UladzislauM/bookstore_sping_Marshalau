@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>Orders in BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
 <h3 align="center">AllOrders (abbreviated representation): </h3>
@@ -20,28 +20,26 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requestScope.orders}" var="order_items" varStatus="counter">
+    <c:forEach items="${requestScope.orders}" var="order" varStatus="counter">
         <tr>
             <td class="center">${counter.count}</td>
             <td>
-                <a href="controller?command=find_order_by_id&id=${order_items.id}">${order_items.user.name} ${order_items.user.last_name}</a>
+                <a href="/bookstore/orders/find_order_by_id/${order.id}">${order.user.name} ${order.user.last_name}</a>
             </td>
-            <td class="center">${order_items.timestamp}</td>
-            <td class="center">${order_items.status}</td>
+            <td class="center">${order.timestamp}</td>
+            <td class="center">${order.status}</td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="users_find"/>
+<form action="/bookstore/users/users_find" method="get">
     <input type="submit" value="All users"/></form>
-<form action="controller" method="post">
+<form action="/bookstore/books/" method="get">
     <input type="hidden" name="command" value="books_find"/>
     <input type="submit" value="All books"/></form>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="all_orders"/>
+<form action="/bookstore/orders/orders_find" method="get">
     <input type="submit" value="All orders"/></form>
 </body>
 </html>

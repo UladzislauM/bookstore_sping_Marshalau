@@ -1,9 +1,8 @@
 package com.company.data.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -32,7 +31,10 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private StatusBook status;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     private List<OrdersItems> items;
 
     @Override

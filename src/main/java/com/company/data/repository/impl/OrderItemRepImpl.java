@@ -2,15 +2,16 @@ package com.company.data.repository.impl;
 
 import com.company.data.entity.OrdersItems;
 import com.company.data.repository.OrderItemRep;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository("orderItemRep")
-@RequiredArgsConstructor
+@Transactional
 public class OrderItemRepImpl implements OrderItemRep {
     public static final String GET_COUNT = """
             SELECT count(*) 
@@ -19,14 +20,12 @@ public class OrderItemRepImpl implements OrderItemRep {
     private static final String GET_ALL = """
             FROM OrdersItems 
             """;
-
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public OrdersItems findById(Long id) {
-        entityManager.getTransaction().begin();
         OrdersItems ordersItems = entityManager.find(OrdersItems.class, id);
-        entityManager.getTransaction().commit();
         if (ordersItems == null) {
             return null;
         }
@@ -35,10 +34,8 @@ public class OrderItemRepImpl implements OrderItemRep {
 
     @Override
     public List<OrdersItems> findByOrdersId(Long order_id) {
-        entityManager.getTransaction().begin();
         List<OrdersItems> ordersItems = entityManager.createQuery("FROM OrdersItems oi WHERE oi.orders.id = :order_id", OrdersItems.class)
                 .setParameter("order_id", order_id).getResultList();
-        entityManager.getTransaction().commit();
         if (ordersItems == null) {
             return null;
         }
@@ -47,9 +44,7 @@ public class OrderItemRepImpl implements OrderItemRep {
 
     @Override
     public List<OrdersItems> findAll() {
-        entityManager.getTransaction().begin();
         List<OrdersItems> ordersItems = entityManager.createQuery(GET_ALL, OrdersItems.class).getResultList();
-        entityManager.getTransaction().commit();
         if (ordersItems == null) {
             return null;
         }

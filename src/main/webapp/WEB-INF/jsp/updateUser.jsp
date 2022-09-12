@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Update user in BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/bookstore/css/style.css">
 </head>
 <body>
 <h3>User: ${requestScope.user.name}</h3>
@@ -18,9 +18,9 @@
     </thead>
     <tbody>
     <tr>
-        <form id="form1" action="controller" method="post">
-            <input type="hidden" name="command" value="user_update"/>
-            <input type="hidden" name="id" value="${requestScope.user.id}"/>
+        <form id="form1" action="/bookstore/users/user_update/${requestScope.user.id}" method="post">
+            <input type="hidden" value="${requestScope.user.name}" name="name"/>
+            <input type="hidden" value="${requestScope.user.is_active}" name="is_active"/>
             <td>
                 <input form="form1" type="text" value="${requestScope.user.last_name}" name="last_name">
             </td>
@@ -43,10 +43,12 @@
 </table>
 <p><input form="form1" type="submit" name="submit" value="Update User"/>
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="user_delete"/>
+<form action="/bookstore/users/user_activate" method="post">
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
-    <input type="submit" name="delete" value="Delete user"/></form>
+    <input type="submit" name="activate" value="Activate user"/></form>
+<form action="/bookstore/users/user_deactivate" method="post">
+    <input type="hidden" name="id" value="${requestScope.user.id}"/>
+    <input type="submit" name="deactivate" value="Deactivate user"/></form>
 
 <a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>
 </body>
