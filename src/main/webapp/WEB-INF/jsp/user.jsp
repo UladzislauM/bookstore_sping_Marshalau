@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>View user in BookStore</title>
-    <link rel="stylesheet" href="/bookstore/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h3>User: ${requestScope.user.name}</h3>
@@ -32,17 +32,17 @@
     </tr>
     </tbody>
 </table>
-<form action="/bookstore/users/user_update_form" method="post">
+<form action="/users/user_update_form" method="post">
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="submit" value="Update User"/></form>
 
-<form action="/bookstore/users/user_activate" method="post">
+<form action="/users/user_activate" method="post">
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="activate" value="Activate user"/></form>
-<form action="/bookstore/users/user_deactivate" method="post">
+<form action="/users/user_deactivate" method="post">
     <input type="hidden" name="id" value="${requestScope.user.id}"/>
     <input type="submit" name="deactivate" value="Deactivate user"/></form>
-<form action="/bookstore/users/users_find" method="post">
+<form action="/users/users_find" method="post">
     <input type="submit" value="All users"/></form>
 
 <a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>

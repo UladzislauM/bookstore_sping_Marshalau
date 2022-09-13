@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS books(
  name_Author         CHARACTER VARYING (60),
  date_Release_Book   DATE NOT null,
  price               DECIMAL(10,2),
- isbn                char(17) unique,
+ isbn                VARCHAR(17) unique,
  cover	             CHARACTER VARYING (60),
  deleted			 BOOLEAN NOT NULL DEFAULT FALSE
 );

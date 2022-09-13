@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>View order in BookStore</title>
-    <link rel="stylesheet" href="/bookstore/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h2 align="center">Order: ${requestScope.order.totalCost}</h2>
@@ -48,7 +48,7 @@
                                 ${counter.count}
                         </td>
                         <td class="center">
-                            <a href="/bookstore/books/find_book_by_id/${order_item.book.id}">${order_item.book.title}
+                            <a href="/books/find_book_by_id/${order_item.book.id}">${order_item.book.title}
                                 - ${order_item.book.nameAuthor}</a>
                         </td>
                         <td class="center">
