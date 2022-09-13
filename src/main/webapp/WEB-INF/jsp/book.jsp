@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>View books in BookStore</title>
-    <link rel="stylesheet" href="/bookstore/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h2 align="center">Book: ${requestScope.book.title}</h2>
@@ -37,10 +37,10 @@
     </tbody>
 </table>
 
-<form action="/bookstore/books/book_update_form" method="post">
+<form action="/books/book_update_form" method="post">
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="deleted" value="Update Book"/></form>
-<form action="/bookstore/books/book_deleted" method="post">
+<form action="/books/book_deleted" method="post">
     <input type="hidden" name="id" value="${requestScope.book.id}"/>
     <input type="submit" name="deleted" value="Delete Book"/></form>
 

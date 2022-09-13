@@ -5,12 +5,12 @@
 <head>
     <meta charset="utf-8">
     <title>Books in BookStore</title>
-    <link rel="stylesheet" href="/bookstore/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h3 align="center">AllBooks (abbreviated representation): </h3>
 
-<form align="left" action="/bookstore/books/create" method="post">
+<form align="left" action="/books/create" method="post">
     <details>
         <summary>Create New Book</summary>
         <p>Write Parameters:</p>
@@ -30,7 +30,7 @@
 
 <p align="left">All counts: ${requestScope.book_count}</p>
 
-<form action="/bookstore/books/book_delete" method="post">
+<form action="/books/book_delete" method="post">
     <table class="table">
         <thead>
         <tr>
@@ -46,7 +46,7 @@
         <c:forEach items="${requestScope.books}" var="book" varStatus="counter">
             <tr>
                 <td class="center"><input type="radio" name="id" value="${book.id}">${counter.count}</td>
-                <td><a href="/bookstore/books/find_book_by_id/${book.id}">${book.title}</a></td>
+                <td><a href="/books/find_book_by_id/${book.id}">${book.title}</a></td>
                 <td>${book.nameAuthor}</td>
                 <td class="center">${book.dateReleaseBook}</td>
                 <td class="center">${book.price}</td>
@@ -59,11 +59,11 @@
 </form>
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
-<form action="/bookstore/users/users_find" method="get">
+<form action="/users/users_find" method="get">
     <input type="submit" value="All users"/></form>
-<form action="/bookstore/books/books_find" method="get">
+<form action="/books/books_find" method="get">
     <input type="submit" value="All books"/></form>
-<form action="/bookstore/orders/orders_find" method="get">
+<form action="/orders/orders_find" method="get">
     <input type="submit" value="All orders"/></form>
 </body>
 </html>

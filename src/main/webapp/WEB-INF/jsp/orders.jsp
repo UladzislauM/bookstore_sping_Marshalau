@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>Orders in BookStore</title>
-    <link rel="stylesheet" href="/bookstore/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h3 align="center">AllOrders (abbreviated representation): </h3>
@@ -24,7 +24,7 @@
         <tr>
             <td class="center">${counter.count}</td>
             <td>
-                <a href="/bookstore/orders/find_order_by_id/${order.id}">${order.user.name} ${order.user.last_name}</a>
+                <a href="/orders/find_order_by_id/${order.id}">${order.user.name} ${order.user.last_name}</a>
             </td>
             <td class="center">${order.timestamp}</td>
             <td class="center">${order.status}</td>
@@ -34,12 +34,12 @@
 </table>
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
-<form action="/bookstore/users/users_find" method="get">
+<form action="/users/users_find" method="get">
     <input type="submit" value="All users"/></form>
-<form action="/bookstore/books/" method="get">
+<form action="/books/" method="get">
     <input type="hidden" name="command" value="books_find"/>
     <input type="submit" value="All books"/></form>
-<form action="/bookstore/orders/orders_find" method="get">
+<form action="/orders/orders_find" method="get">
     <input type="submit" value="All orders"/></form>
 </body>
 </html>
