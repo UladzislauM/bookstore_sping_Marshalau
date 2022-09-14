@@ -1,24 +1,38 @@
 package com.company.controller.impl;
 
+import com.company.service.UserService;
+import com.company.service.dto.UserDto;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/login")
+@RequiredArgsConstructor
 public class LoginController {
-    private static final Logger log = LogManager.getLogger(Index.class);
+    private final UserService userService;
 
-    @GetMapping
-    public String login() {
-        log.debug("Start method Login");
-        return "login";
+    @GetMapping("/login")
+    public String loginForm() {
+        return "login_form";
     }
-    @GetMapping("/registration")
-    public String registration() {
-        log.debug("Start method Registration");
-        return "registration";
+
+    @PostMapping("/login")
+    public String login(@RequestParam String login, @RequestParam String password, HttpSession session) {
+        UserDto userDto = userService.login(login, password);
+        session.setAttribute("user", userDto);
+        return "index";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "index";
     }
 }
