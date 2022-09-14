@@ -2,10 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
+
 <div> <%@ include file="menu.jsp" %> </div>
+
 <h3>What do you want to work with?(users, books, all_orders):</h3>
 <form action="users/users_find" method="get">
     <input type="submit" value="All users"/></form>
@@ -15,7 +17,7 @@
     <input type="submit" value="All orders"/></form>
 <form action="/login" method="get">
     <input type="submit" value="Login"/></form>
-<form action="/login/registration" method="get">
+<form action="/users/registration" method="get">
     <input type="submit" value="Registration"/></form>
 </body>
 </html>

@@ -1,9 +1,11 @@
 package com.company.service.impl;
 
+import com.company.service.EncryptionService;
 import com.company.service.dto.UserDto;
 import com.company.data.repository.UserRep;
 import com.company.data.entity.User;
 import com.company.service.UserService;
+import com.company.service.exception.AppException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +19,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
     private final UserRep userRepJdbc;
     private final ObjectMapperSC mapper;
+    private final EncryptionService encryptionService;
 
     @Override
     public List<UserDto> findAll() {
@@ -62,6 +65,9 @@ public class UserServiceImpl implements UserService {
             log.error("UserService - create false:");
             throw new RuntimeException("CreateUser false...");
         }
+        String originalPassword = user.getPassword();
+        String hashedPassword = encryptionService.digest(originalPassword);
+        user.setPassword(hashedPassword);
         return userRepJdbc.create(user);
     }
 
@@ -90,5 +96,14 @@ public class UserServiceImpl implements UserService {
         } else {
             log.error("UserService - DeactivateUserById false: {}", id);
         }
+    }
+
+    @Override
+    public UserDto login(String login, String password) {
+        String hashedPassword = encryptionService.digest(password);
+        return mapper.toUserDTO(userRepJdbc.findAll().stream()
+                .filter(u -> u.getEmail().equals(login) && u.getPassword().equals(hashedPassword))
+                .findFirst()
+                .orElseThrow(() -> new AppException("Login incorrect")));
     }
 }

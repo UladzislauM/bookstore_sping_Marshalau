@@ -19,11 +19,11 @@ HeaD
 <div class="registration-form">
 <h2 align="center">Create New User</h2>
 <form role="registration" action="/users/create" method="post">
-    <label>Name(Login):</label>
+    <label>Name:</label>
     <input name="name" type="text"><br>
     <label>Last Name:</label>
     <input name="last_name" type="text"><br>
-    <label>email:</label>
+    <label>email(Login):</label>
     <input name="email" type="text"><br>
     <label>Password:</label>
     <input name="password" type="text"><br>

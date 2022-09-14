@@ -18,6 +18,21 @@
   <li><a href="">Blog</a></li>
   <li><a href="">Contact</a></li>
   <li><a href="">Cart</a></li>
+  <c:if test="${sessionScope.user == null}">
+  <li><a href="/login" class="current">Login</a></li>
+  </c:if>
+  <c:if test="${sessionScope.user != null}">
+    <li>
+       <form action="/logout" method="post">
+          <input type="submit" value="Logout"/></form>
+             <c:if test="${sessionScope.user.role.toString() == ADMIN}">
+                <li>
+                <form action="/users/users_find" method="post">
+                       <input type="submit" value="All Users"/></form>
+                </li>
+             </c:if>
+    </li>
+  </c:if>
 </ul>
 
 </body>

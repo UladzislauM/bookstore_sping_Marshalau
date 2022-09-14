@@ -17,7 +17,7 @@ HeaD
 </div>
 <div class="login-form">
 <h2>Login</h2>
-<form role="login" action="/users/login" method="post">
+<form role="login" action="/login" method="post">
     <label><span class="screen-reader-text">Login:</span></label>
     <input name="login" type="text"><br>
     <label>Password:</label>

@@ -9,4 +9,6 @@ public interface UserService extends AbstractService<User, UserDto> {
     Long countAll();
 
     void active(Long id, boolean user_status);
+
+    UserDto login(String login, String password);
 }

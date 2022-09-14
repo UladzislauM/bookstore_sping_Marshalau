@@ -31,7 +31,7 @@ public class UserController {
     @PostMapping("/create")
     public String createUser(@ModelAttribute UserDto userDto) {
         userService.create(userDto);
-        return "redirect:/users/users_find";
+        return "redirect:/";
     }
 
     @GetMapping("/find_user_by_id/{id}")
@@ -41,7 +41,7 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/users_find")
+    @PostMapping("/users_find")
     public String findUsers(Model model) {
         log.info("Start UsersFindAll {}", model);
         model.addAttribute("user_count", userService.countAll());
@@ -65,5 +65,11 @@ public class UserController {
         model.addAttribute("user_count", userService.countAll());
         model.addAttribute("users", userService.findAll());
         return "users";
+    }
+
+    @GetMapping("/registration")
+    public String registration() {
+        log.debug("Start method Registration");
+        return "registration";
     }
 }
