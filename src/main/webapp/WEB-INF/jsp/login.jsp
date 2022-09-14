@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
 <html>
 <head>
     <meta charset="utf-8">
@@ -10,6 +9,8 @@
     <link rel="stylesheet" href="/css/normalize.css">
 </head>
 <body>
+
+<div> <%@ include file="menu.jsp" %> </div>
 
 <div class="head">
 HeaD

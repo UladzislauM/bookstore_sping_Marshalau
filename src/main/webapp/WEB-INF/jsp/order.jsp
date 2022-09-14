@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<div> <%@ include file="menu.jsp" %> </div>
+
 <h2 align="center">Order: ${requestScope.order.totalCost}</h2>
 <table class="table">
     <thead>

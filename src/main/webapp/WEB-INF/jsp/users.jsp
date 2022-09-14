@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<div> <%@ include file="menu.jsp" %> </div>
+
 <h3>AllUsers (abbreviated representation): </h3>
 
 <form align="left" action="/users/create" method="post">

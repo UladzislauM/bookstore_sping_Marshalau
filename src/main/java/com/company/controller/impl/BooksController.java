@@ -41,6 +41,21 @@ public class BooksController {
         return "book";
     }
 
+    @GetMapping("/find_book_by_author/{author}")
+    public String findByAuthor(@PathVariable String author, Model model) {
+        log.info("Start findByAuthor {}", model);
+        model.addAttribute("books", bookService.findByAuthor(author));
+        return "author";
+    }
+
+    @GetMapping("/authors_find")
+    public String findAuthors(Model model) {
+        log.info("Start findAuthors {}", model);
+        model.addAttribute("authors_count", bookService.countAllAuthors());
+        model.addAttribute("authors", bookService.findAllAuthors());
+        return "authors";
+    }
+
     @GetMapping("/books_find")
     public String findBooks(Model model) {
         log.info("Start findBooks {}", model);

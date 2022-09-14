@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<div> <%@ include file="menu.jsp" %> </div>
+
 <h2 align="center">Book: ${requestScope.book.title}</h2>
 
 <table class="table">

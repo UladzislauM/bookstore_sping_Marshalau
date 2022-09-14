@@ -11,7 +11,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Service("bookService")
 @RequiredArgsConstructor
@@ -35,10 +39,23 @@ public class BookServiceImpl implements BookService {
             log.error("BookService - findAll - Books is not exist");
             throw new RuntimeException("FindAll - Books is not exist...");
         } else {
-            List<BookDto> booksDTO = books.stream().map(book -> {
-                return mapper.toBookDTO(book);
-            }).toList();
-            return booksDTO;
+            return books.stream().map(mapper::toBookDTO).toList();
+        }
+    }
+
+    @Override
+    public List<BookDto> findAllAuthors() {
+        log.debug("Start BookService - findAllAuthors");
+        List<Books> books = bookRepJdbc.findAll();
+        if (books == null) {
+            log.error("BookService - findAllAuthors - Books is not exist");
+            throw new RuntimeException("findAllAuthors - Books is not exist...");
+        } else {
+            return books.stream().map(mapper::toBookDTO)
+                    .sorted(Comparator.comparing(BookDto::getNameAuthor))
+                    .collect(Collectors.toCollection(
+                    () -> new TreeSet<BookDto>((p1, p2) -> p1.getNameAuthor().compareTo(p2.getNameAuthor()))))
+                    .stream().toList();
         }
     }
 
@@ -50,8 +67,19 @@ public class BookServiceImpl implements BookService {
             log.error("BookService - findById - Book is not exist");
             throw new RuntimeException("FindById - Book is not exist...");
         }
-         ordersItemsService.findByOrdersId(id);
+        ordersItemsService.findByOrdersId(id);
         return bookDTO;
+    }
+
+    @Override
+    public List<BookDto> findByAuthor(String author) {
+        log.debug("Start BookService - findByAuthor {}", author);
+        List<Books> books= bookRepJdbc.findByAuthor(author);
+        if (books == null) {
+            log.error("BookService - findByAuthor - Book is not exist");
+            throw new RuntimeException("findByAuthor - Book is not exist...");
+        }
+        return books.stream().map(mapper::toBookDTO).toList();
     }
 
     @Override
@@ -90,5 +118,11 @@ public class BookServiceImpl implements BookService {
     public Long countAll() {
         log.debug("Start BookService - countAllBooks");
         return bookRepJdbc.countAll();
+    }
+
+    @Override
+    public Long countAllAuthors() {
+        log.debug("Start BookService - countAllAuthors");
+        return bookRepJdbc.countAllAuthors();
     }
 }

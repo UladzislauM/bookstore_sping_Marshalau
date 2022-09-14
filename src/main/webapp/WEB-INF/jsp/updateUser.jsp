@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<div> <%@ include file="menu.jsp" %> </div>
+
 <h3>User: ${requestScope.user.name}</h3>
 
 <table class="table">

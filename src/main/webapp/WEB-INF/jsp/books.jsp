@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<div> <%@ include file="menu.jsp" %> </div>
+
 <h3 align="center">AllBooks (abbreviated representation): </h3>
 
 <form align="left" action="/books/create" method="post">

@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div> <%@ include file="menu.jsp" %> </div>
 <h3>What do you want to work with?(users, books, all_orders):</h3>
 <form action="users/users_find" method="get">
     <input type="submit" value="All users"/></form>

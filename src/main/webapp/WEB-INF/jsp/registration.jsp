@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<div> <%@ include file="menu.jsp" %> </div>
+
 <div class="head">
 HeaD
 </div>

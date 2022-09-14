@@ -1,6 +1,7 @@
 package com.company.controller.impl;
 
 import com.company.service.exception.AppException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,13 @@ public class ErrorController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String applicationError(AppException e, Model model) {
+        model.addAttribute("message", e.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String applicationError2(AppException e, Model model) {
         model.addAttribute("message", e.getMessage());
         return "error";
     }

@@ -15,25 +15,36 @@ import java.util.List;
 @Transactional
 public class BookRepImpl implements BookRep {
     public static final String GET_COUNT = """
-            SELECT count(*) 
+            SELECT count(*)
+            FROM Books
+            WHERE deleted = false
+            """;
+    public static final String GET_COUNT_AUTHORS = """
+            SELECT count(distinct name_Author)
             FROM Books
             WHERE deleted = false
             """;
     private static final String GET_ALL = """
-            FROM Books 
+            FROM Books
             WHERE deleted = false
             """;
     public static final String DELETE_BOOK = """
-            UPDATE Books 
-            SET deleted = true 
+            UPDATE Books
+            SET deleted = true
             WHERE id = :id
             """;
+    public static final String AUTHOR = "FROM Books WHERE nameAuthor = :nameAuthor";
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public Books findById(Long id) {
         return entityManager.find(Books.class, id);
+    }
+
+    @Override
+    public List<Books> findByAuthor(String nameAuthor) {
+       return entityManager.createQuery(AUTHOR, Books.class).setParameter("nameAuthor", nameAuthor).getResultList();
     }
 
     @Override
@@ -61,13 +72,15 @@ public class BookRepImpl implements BookRep {
     public boolean delete(Long id) {
         Query query = entityManager.createQuery(DELETE_BOOK);
         query.setParameter("id", id);
-        boolean check = query.executeUpdate() == 1;
-        return check;
+        return query.executeUpdate() == 1;
     }
 
     @Override
     public Long countAll() {
-        Long count = entityManager.createQuery(GET_COUNT, Long.class).getSingleResult();
-        return count;
+        return entityManager.createQuery(GET_COUNT, Long.class).getSingleResult();
+    }
+    @Override
+    public Long countAllAuthors() {
+        return entityManager.createQuery(GET_COUNT_AUTHORS, Long.class).getSingleResult();
     }
 }
