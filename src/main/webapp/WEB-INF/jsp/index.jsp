@@ -12,5 +12,9 @@
     <input type="submit" value="All books"/></form>
 <form action="orders/orders_find" method="get">
     <input type="submit" value="All orders"/></form>
+<form action="/login" method="get">
+    <input type="submit" value="Login"/></form>
+<form action="/login/registration" method="get">
+    <input type="submit" value="Registration"/></form>
 </body>
 </html>

@@ -42,3 +42,39 @@
     border-radius: 8px;
     width: 150px !important;
 }
+.head{
+  width: 200px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.login-form{
+  padding: 100px;
+	text-align: center;
+  background-color: white;
+  padding-left: 20px;
+  padding-top: 10px;
+  border-radius: 10px;
+  width: 370px;
+  height: 200px;
+  border: 1px solid #000;
+  line-height: 30px;
+	margin: 0 auto;
+}
+
+.registration-form{
+  padding: 100px;
+	text-align: left;
+  background-color: white;
+  padding-left: 20px;
+  padding-top: 10px;
+  border-radius: 10px;
+  width: 420px;
+  height: 300px;
+  border: 1px solid #000;
+  line-height: 30px;
+	margin: 0 auto;
+}
