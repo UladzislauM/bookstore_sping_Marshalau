@@ -27,6 +27,10 @@
                     <td class="center">${book.dateReleaseBook}</td>
                     <td class="center">${book.price}</td>
                     <td class="center">${book.coverBook}</td>
+                    <td class="center">
+                        <form action="/orders/add_to_cart" method="post">
+                          <input type="submit" name="id" value="Add to cart"/></form>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
