@@ -1,14 +1,12 @@
 package com.company.controller.impl;
 
+import com.company.service.CartService;
 import com.company.service.UserService;
 import com.company.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +15,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class LoginController {
     private final UserService userService;
+    private final CartService cartService;
 
     @GetMapping("/login")
     public String loginForm() {

@@ -33,7 +33,10 @@ public class BookRepImpl implements BookRep {
             SET deleted = true
             WHERE id = :id
             """;
-    public static final String AUTHOR = "FROM Books WHERE nameAuthor = :nameAuthor";
+    public static final String AUTHOR = """
+            FROM Books
+            WHERE nameAuthor = :nameAuthor
+            """;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -44,12 +47,15 @@ public class BookRepImpl implements BookRep {
 
     @Override
     public List<Books> findByAuthor(String nameAuthor) {
-       return entityManager.createQuery(AUTHOR, Books.class).setParameter("nameAuthor", nameAuthor).getResultList();
+        return entityManager.createQuery(AUTHOR, Books.class)
+                .setParameter("nameAuthor", nameAuthor)
+                .getResultList();
     }
 
     @Override
     public List<Books> findAll() {
-        List<Books> books = entityManager.createQuery(GET_ALL, Books.class).getResultList();
+        List<Books> books = entityManager.createQuery(GET_ALL, Books.class)
+                .getResultList();
         if (books == null) {
             return null;
         }
@@ -77,10 +83,13 @@ public class BookRepImpl implements BookRep {
 
     @Override
     public Long countAll() {
-        return entityManager.createQuery(GET_COUNT, Long.class).getSingleResult();
+        return entityManager.createQuery(GET_COUNT, Long.class)
+                .getSingleResult();
     }
+
     @Override
     public Long countAllAuthors() {
-        return entityManager.createQuery(GET_COUNT_AUTHORS, Long.class).getSingleResult();
+        return entityManager.createQuery(GET_COUNT_AUTHORS, Long.class)
+                .getSingleResult();
     }
 }

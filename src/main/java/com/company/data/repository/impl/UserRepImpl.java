@@ -13,12 +13,12 @@ import java.util.List;
 @Transactional
 public class UserRepImpl implements UserRep {
     public static final String GET_COUNT = """
-            SELECT count(*) 
+            SELECT count(*)
             FROM User u
-            WHERE u.is_active = true 
+            WHERE u.is_active = true
             """;
     private static final String GET_ALL = """
-            FROM User 
+            FROM User
             """;
 
     @PersistenceContext

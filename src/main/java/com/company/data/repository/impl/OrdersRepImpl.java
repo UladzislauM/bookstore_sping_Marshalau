@@ -13,15 +13,14 @@ import java.util.List;
 @Transactional
 public class OrdersRepImpl implements OrdersRep {
     private static final String GET_ALL = """
-            FROM Orders 
+            FROM Orders
             """;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public Orders findById(Long id) {
-        Orders orders = entityManager.find(Orders.class, id);
-        return orders;
+        return entityManager.find(Orders.class, id);
     }
 
     @Override
@@ -35,7 +34,8 @@ public class OrdersRepImpl implements OrdersRep {
 
     @Override
     public Orders create(Orders orders) {
-        return null;
+        entityManager.persist(orders);
+        return orders;
     }
 
     @Override

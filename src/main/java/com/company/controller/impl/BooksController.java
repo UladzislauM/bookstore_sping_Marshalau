@@ -65,10 +65,9 @@ public class BooksController {
     }
 
     @PostMapping("/book_delete")
-    public String deleteBook(@RequestParam Long id, Model model) {
+    public String deleteBook(@RequestParam Long id) {
         log.info("Start deleteBook {}", id);
         bookService.delete(id);
         return "redirect:/books/books_find";
     }
-
 }

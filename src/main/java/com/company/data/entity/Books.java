@@ -43,6 +43,7 @@ public class Books {
     @OneToMany(mappedBy = "book")
     private List<OrdersItems> ordersItems;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
