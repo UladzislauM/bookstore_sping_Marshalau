@@ -14,11 +14,11 @@ import java.util.List;
 @Transactional
 public class OrderItemRepImpl implements OrderItemRep {
     public static final String GET_COUNT = """
-            SELECT count(*) 
+            SELECT count(*)
             FROM orders_items
             """;
     private static final String GET_ALL = """
-            FROM OrdersItems 
+            FROM OrdersItems
             """;
     @PersistenceContext
     private EntityManager entityManager;
@@ -62,7 +62,8 @@ public class OrderItemRepImpl implements OrderItemRep {
     }
 
     @Override
-    public OrdersItems create(OrdersItems entity, Long id) {
-        return null;
+    public OrdersItems create(OrdersItems ordersItems) {
+        entityManager.persist(ordersItems);
+        return ordersItems;
     }
 }

@@ -1,16 +1,21 @@
 package com.company.service.impl;
 
+import com.company.data.entity.StatusBook;
 import com.company.service.OrdersItemsService;
+import com.company.service.dto.BookDto;
 import com.company.service.dto.OrdersDto;
 import com.company.data.entity.Orders;
 import com.company.data.repository.OrdersRep;
 import com.company.service.OrdersService;
+import com.company.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +23,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrdersServiceImpl implements OrdersService {
     private static final Logger log = LogManager.getLogger(OrdersServiceImpl.class);
-    private final OrdersRep ordersRepJdbc;
+    private final OrdersRep ordersRep;
     private final ObjectMapperSC mapper;
     private final OrdersItemsService ordersItemsService;
 
     @Override
     public List<OrdersDto> findAll() {
         log.info("Start OrdersService - findAll");
-        List<Orders> orders = ordersRepJdbc.findAll();
+        List<Orders> orders = ordersRep.findAll();
         if (orders == null) {
             log.error("OrdersService - findAll - Orders is not exist");
             throw new RuntimeException("FindAll - Orders is not exist...");
@@ -37,7 +42,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public OrdersDto findById(Long id) {
         log.info("Start OrdersService - findById - {}", id);
-        OrdersDto ordersDTO = mapper.toOrdersDTO(ordersRepJdbc.findById(id));
+        OrdersDto ordersDTO = mapper.toOrdersDTO(ordersRep.findById(id));
         if (ordersDTO == null) {
             log.error("OrdersService - findById - Order is not exist");
             throw new RuntimeException("FindById - Order is not exist...");
@@ -56,12 +61,30 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Orders create(OrdersDto ordersDTO) {
+    public OrdersDto create(OrdersDto ordersDto) {
         return null;
     }
 
     @Override
-    public Orders update(OrdersDto ordersDTO) {
+    public OrdersDto create(BookDto bookDto, HttpSession session) {
+        log.debug("Start OrderService - createOrder {}", bookDto);
+        UserDto userDto = (UserDto) session.getAttribute("user");
+        Orders order = newOrder(bookDto, userDto);
+        return mapper.toOrdersDTO(ordersRep.create(order));
+    }
+
+    private Orders newOrder(BookDto bookDto, UserDto userDto) {
+        Orders orders;
+        orders = new Orders();
+        orders.setUser(mapper.toUser(userDto));
+        orders.setTotalCost(bookDto.getPrice());
+        orders.setTimestamp(LocalDate.now());
+        orders.setStatus(StatusBook.IN_PROCESSING);
+        return orders;
+    }
+
+    @Override
+    public OrdersDto update(OrdersDto ordersDTO) {
         return null;
     }
 }

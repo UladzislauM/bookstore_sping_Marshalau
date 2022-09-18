@@ -33,8 +33,7 @@ public class Orders {
 
     @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST,
             CascadeType.MERGE,
-            CascadeType.REFRESH},
-            fetch = FetchType.EAGER)
+            CascadeType.REFRESH})
     private List<OrdersItems> items;
 
     @Override
