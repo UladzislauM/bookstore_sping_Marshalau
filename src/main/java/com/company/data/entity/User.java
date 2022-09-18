@@ -34,6 +34,9 @@ public class User {
     @Column(name = "is_active")
     private Boolean is_active;
 
+    @OneToOne(mappedBy = "userC")
+    private Cart cart;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private List<Orders> orders;
 
