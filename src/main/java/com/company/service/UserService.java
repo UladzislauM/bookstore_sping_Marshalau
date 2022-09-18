@@ -5,7 +5,7 @@ import com.company.data.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserService extends AbstractService<User, UserDto> {
+public interface UserService extends AbstractService<UserDto> {
     Long countAll();
 
     void active(Long id, boolean user_status);

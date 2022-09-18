@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(UserDto userDTO) {
+    public UserDto create(UserDto userDTO) {
         log.debug("Start UserService - createUser: {}", userDTO);
         User user = mapper.toUser(userDTO);
         if(user == null){
@@ -68,18 +68,18 @@ public class UserServiceImpl implements UserService {
         String originalPassword = user.getPassword();
         String hashedPassword = encryptionService.digest(originalPassword);
         user.setPassword(hashedPassword);
-        return userRepJdbc.create(user);
+        return mapper.toUserDTO(userRepJdbc.create(user));
     }
 
     @Override
-    public User update(UserDto userDTO) {
+    public UserDto update(UserDto userDTO) {
         log.debug("Start UserService - updateUserById: {}", userDTO);
         User user = mapper.toUser(userDTO);
         if(user == null){
             log.error("UserService - update false:");
             throw new RuntimeException("UpdateUser false...");
         }
-        return userRepJdbc.update(user);
+        return mapper.toUserDTO(userRepJdbc.update(user));
     }
 
     @Override

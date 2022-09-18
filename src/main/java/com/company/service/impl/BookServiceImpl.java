@@ -93,25 +93,25 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Books create(BookDto bookDTO) {
+    public BookDto create(BookDto bookDTO) {
         log.debug("Start BookService - createBook {}", bookDTO);
         Books books = mapper.toBook(bookDTO);
         if (books == null) {
             log.error("BookService - create false:");
             throw new RuntimeException("CreateBook false...");
         }
-        return bookRepJdbc.create(books);
+        return mapper.toBookDTO(bookRepJdbc.create(books));
     }
 
     @Override
-    public Books update(BookDto bookDTO) {
+    public BookDto update(BookDto bookDTO) {
         log.debug("Start BookService - updateBookById {}", bookDTO);
         Books books = mapper.toBook(bookDTO);
         if (books == null) {
             log.error("BookService - update false:");
             throw new RuntimeException("UpdateBook false...");
         }
-        return bookRepJdbc.update(books);
+        return mapper.toBookDTO(bookRepJdbc.update(books));
     }
 
     @Override

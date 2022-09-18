@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public interface BookService extends AbstractService<Books, BookDto> {
+public interface BookService extends AbstractService<BookDto> {
     Long countAll();
 
     Long countAllAuthors();
