@@ -9,7 +9,7 @@
 <div> <%@ include file="menu.jsp" %> </div>
 
 <h3>What do you want to work with?(users, books, all_orders):</h3>
-<form action="users/users_find" method="get">
+<form action="users/users_find" method="post">
     <input type="submit" value="All users"/></form>
 <form action="books/books_find" method="get">
     <input type="submit" value="All books"/></form>

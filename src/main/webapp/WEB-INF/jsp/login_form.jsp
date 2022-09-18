@@ -19,9 +19,9 @@ HeaD
 <h2>Login</h2>
 <form role="login" action="/login" method="post">
     <label><span class="screen-reader-text">Login:</span></label>
-    <input name="login" type="text"><br>
+    <input name="login" type="email"><br>
     <label>Password:</label>
-    <input name="password" type="text"><br>
+    <input name="password" type="password"><br>
     <input value="Login" type="submit">
 </form>
 </div>
