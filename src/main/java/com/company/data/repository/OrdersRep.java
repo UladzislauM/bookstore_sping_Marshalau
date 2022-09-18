@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface OrdersRep extends AbstractRep<Orders> {
-    Orders create(Orders entity);
+
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 @Component
 public interface BookRep extends AbstractRep<Books> {
-    Books create(Books books);
 
     Long countAll();
 
