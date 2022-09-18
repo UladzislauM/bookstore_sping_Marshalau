@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public interface AbstractService<T, D> {
+public interface AbstractService<D> {
     List<D> findAll();
 
     D findById(Long id);
 
     void delete(Long id);
 
-    T create(D d);
+    D create(D d);
 
-    T update(D d);
+    D update(D d);
 }
 
