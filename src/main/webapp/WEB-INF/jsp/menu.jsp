@@ -17,11 +17,12 @@
   <li><a href="">About</a></li>
   <li><a href="">Blog</a></li>
   <li><a href="">Contact</a></li>
-  <li><a href="">Cart</a></li>
   <c:if test="${sessionScope.user == null}">
   <li><a href="/login" class="current">Login</a></li>
   </c:if>
   <c:if test="${sessionScope.user != null}">
+  <li><form class="current" action="/cart/get_cart" method="post">
+      <input type="submit" value="Cart"/></form></li>
     <li>
        <form action="/logout" method="post">
           <input type="submit" value="Logout"/></form>
