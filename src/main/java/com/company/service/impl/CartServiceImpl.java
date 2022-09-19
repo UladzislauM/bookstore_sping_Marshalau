@@ -5,6 +5,7 @@ import com.company.data.entity.Cart;
 import com.company.data.repository.BookRep;
 import com.company.data.repository.BooksInCartRep;
 import com.company.data.repository.CartRep;
+import com.company.service.BookService;
 import com.company.service.CartService;
 import com.company.service.dto.BookDto;
 import com.company.service.dto.UserDto;
@@ -14,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,8 +27,9 @@ import java.util.Map;
 public class CartServiceImpl implements CartService {
     private static final Logger log = LogManager.getLogger(CartServiceImpl.class);
     private final BookRep bookRep;
+    private final BookService bookService;
     private final ObjectMapperSC mapper;
-    private  final CartRep cartRep;
+    private final CartRep cartRep;
     private final BooksInCartRep booksInCartRep;
 
     @Override
@@ -45,7 +49,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public boolean isCreatedCart(UserDto userDto) {
-        if(cartRep.findByUserId(userDto.getId()) != null){
+        if (cartRep.findByUserId(userDto.getId()) != null) {
             return true;
         }
         return false;
@@ -82,8 +86,8 @@ public class CartServiceImpl implements CartService {
 
     private BooksInCart addBooksInCart(Map<Long, Integer> cartMap) {
         BooksInCart booksInCart = new BooksInCart();
-        if(cartMap.get(1) != null) {
-            booksInCart.setBooks(mapper.toBook(findBooksByCart(cartMap).get(0)));//fixMe
+        if (cartMap.get(1) != null) {
+            booksInCart.setBook(mapper.toBook(findBooksByCart(cartMap).get(0)));//fixMe
         }
         booksInCart.setQuantity(1);
         return booksInCartRep.create(booksInCart);
@@ -97,17 +101,21 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addProduct(Map<Long, Integer> cart, Long id, Integer quality) {
         log.debug("Start CartService - addProduct");
-        if(id!=null && quality != null){
+        if (id != null && quality != null) {
             cart.put(id, quality);
-        }else {
+        } else {
             throw new RuntimeException("No Login or id from cartMap");
         }
     }
 
     @Override
-    public boolean removeProduct(Map<Long, Integer> cart, Long id, Integer quality) {
+    public void removeProduct(Map<Long, Integer> cart, Long id, Integer quality) {
         log.debug("Start CartService - removeProduct");
-        return cart.remove(id, quality);
+        if (cart.remove(id, quality)) {
+            log.debug("RemoveProduct - true");
+        } else {
+            throw new RuntimeException("RemoveProduct - false");
+        }
     }
 
     @Override
@@ -115,10 +123,19 @@ public class CartServiceImpl implements CartService {
         log.debug("Start CartService - findBooksByCart");
         List<BookDto> bookDtoList = new ArrayList<>();
         Iterator<Map.Entry<Long, Integer>> iterator = cart.entrySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry<Long, Integer> entry = iterator.next();
             bookDtoList.add(mapper.toBookDTO(bookRep.findById(entry.getKey())));
         }
         return bookDtoList;
+    }
+
+    @Override
+    public BigDecimal sumPrice(BigDecimal price, BigDecimal totalPrice, boolean sum) {
+        if (sum) {
+            return totalPrice.add(price).setScale(2, RoundingMode.DOWN);
+        } else {
+            return totalPrice.subtract(price).setScale(2, RoundingMode.DOWN);
+        }
     }
 }
