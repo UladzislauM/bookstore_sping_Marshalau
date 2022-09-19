@@ -1,6 +1,6 @@
 package com.company.data.repository.impl;
 
-import com.company.data.entity.OrdersItems;
+import com.company.data.entity.OrderItem;
 import com.company.data.repository.OrderItemRep;
 
 import org.springframework.stereotype.Repository;
@@ -15,26 +15,30 @@ import java.util.List;
 public class OrderItemRepImpl implements OrderItemRep {
     public static final String GET_COUNT = """
             SELECT count(*)
-            FROM orders_items
+            FROM OrderItem
             """;
     private static final String GET_ALL = """
-            FROM OrdersItems
+            FROM OrderItem
+            """;
+    public static final String ORDER_ID = """
+            FROM OrderItem oi
+            WHERE oi.order.id = :order_id
             """;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public OrdersItems findById(Long id) {
-        OrdersItems ordersItems = entityManager.find(OrdersItems.class, id);
-        if (ordersItems == null) {
+    public OrderItem findById(Long id) {
+        OrderItem orderItem = entityManager.find(OrderItem.class, id);
+        if (orderItem == null) {
             return null;
         }
-        return ordersItems;
+        return orderItem;
     }
 
     @Override
-    public List<OrdersItems> findByOrdersId(Long order_id) {
-        List<OrdersItems> ordersItems = entityManager.createQuery("FROM OrdersItems oi WHERE oi.orders.id = :order_id", OrdersItems.class)
+    public List<OrderItem> findByOrdersId(Long order_id) {
+        List<OrderItem> ordersItems = entityManager.createQuery(ORDER_ID, OrderItem.class)
                 .setParameter("order_id", order_id).getResultList();
         if (ordersItems == null) {
             return null;
@@ -43,8 +47,8 @@ public class OrderItemRepImpl implements OrderItemRep {
     }
 
     @Override
-    public List<OrdersItems> findAll() {
-        List<OrdersItems> ordersItems = entityManager.createQuery(GET_ALL, OrdersItems.class).getResultList();
+    public List<OrderItem> findAll() {
+        List<OrderItem> ordersItems = entityManager.createQuery(GET_ALL, OrderItem.class).getResultList();
         if (ordersItems == null) {
             return null;
         }
@@ -52,7 +56,7 @@ public class OrderItemRepImpl implements OrderItemRep {
     }
 
     @Override
-    public OrdersItems update(OrdersItems entity) {
+    public OrderItem update(OrderItem entity) {
         return null;
     }
 
@@ -62,8 +66,8 @@ public class OrderItemRepImpl implements OrderItemRep {
     }
 
     @Override
-    public OrdersItems create(OrdersItems ordersItems) {
-        entityManager.persist(ordersItems);
-        return ordersItems;
+    public OrderItem create(OrderItem orderItem) {
+        entityManager.persist(orderItem);
+        return orderItem;
     }
 }
