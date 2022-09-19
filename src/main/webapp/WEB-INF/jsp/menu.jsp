@@ -24,7 +24,10 @@
   <li><form class="current" action="/cart/get_cart" method="post">
       <input type="submit" value="Cart"/></form></li>
     <li>
-       <form action="/logout" method="post">
+    <li><form class="current" action="/orders/find_orders" method="post">
+      <input type="submit" value="Orders"/></form></li>
+    <li>
+          <form action="/logout" method="post">
           <input type="submit" value="Logout"/></form>
              <c:if test="${sessionScope.user.role.toString() == ADMIN}">
                 <li>
