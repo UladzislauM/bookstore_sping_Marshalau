@@ -1,6 +1,6 @@
 package com.company.data.repository.impl;
 
-import com.company.data.entity.Books;
+import com.company.data.entity.Book;
 import com.company.data.repository.BookRep;
 
 import org.springframework.stereotype.Repository;
@@ -16,62 +16,62 @@ import java.util.List;
 public class BookRepImpl implements BookRep {
     public static final String GET_COUNT = """
             SELECT count(*)
-            FROM Books
+            FROM Book
             WHERE deleted = false
             """;
     public static final String GET_COUNT_AUTHORS = """
             SELECT count(distinct name_Author)
-            FROM Books
+            FROM Book
             WHERE deleted = false
             """;
     private static final String GET_ALL = """
-            FROM Books
+            FROM Book
             WHERE deleted = false
             """;
     public static final String DELETE_BOOK = """
-            UPDATE Books
+            UPDATE Book
             SET deleted = true
             WHERE id = :id
             """;
     public static final String AUTHOR = """
-            FROM Books
+            FROM Book
             WHERE nameAuthor = :nameAuthor
             """;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public Books findById(Long id) {
-        return entityManager.find(Books.class, id);
+    public Book findById(Long id) {
+        return entityManager.find(Book.class, id);
     }
 
     @Override
-    public List<Books> findByAuthor(String nameAuthor) {
-        return entityManager.createQuery(AUTHOR, Books.class)
+    public List<Book> findByAuthor(String nameAuthor) {
+        return entityManager.createQuery(AUTHOR, Book.class)
                 .setParameter("nameAuthor", nameAuthor)
                 .getResultList();
     }
 
     @Override
-    public List<Books> findAll() {
-        List<Books> books = entityManager.createQuery(GET_ALL, Books.class)
+    public List<Book> findAll() {
+        List<Book> book = entityManager.createQuery(GET_ALL, Book.class)
                 .getResultList();
-        if (books == null) {
+        if (book == null) {
             return null;
         }
-        return books;
+        return book;
     }
 
     @Override
-    public Books create(Books books) {
-        entityManager.persist(books);
-        return books;
+    public Book create(Book book) {
+        entityManager.persist(book);
+        return book;
     }
 
     @Override
-    public Books update(Books books) {
-        entityManager.merge(books);
-        return books;
+    public Book update(Book book) {
+        entityManager.merge(book);
+        return book;
     }
 
     @Override

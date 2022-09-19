@@ -1,7 +1,6 @@
 package com.company.service;
 
 import com.company.service.dto.BookDto;
-import com.company.data.entity.Books;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

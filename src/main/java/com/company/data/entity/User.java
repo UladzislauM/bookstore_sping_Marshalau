@@ -38,7 +38,7 @@ public class User {
     private Cart cart;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private List<Orders> orders;
+    private List<Order> orders;
 
     @Override
     public boolean equals(Object o) {

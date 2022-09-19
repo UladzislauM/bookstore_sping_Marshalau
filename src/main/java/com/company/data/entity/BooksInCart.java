@@ -17,7 +17,7 @@ public class BooksInCart {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    private Books books;
+    private Book book;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -33,11 +33,11 @@ public class BooksInCart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BooksInCart that = (BooksInCart) o;
-        return Objects.equals(id, that.id) && Objects.equals(books, that.books) && Objects.equals(quantity, that.quantity) && Objects.equals(cartList, that.cartList);
+        return Objects.equals(id, that.id) && Objects.equals(book, that.book) && Objects.equals(quantity, that.quantity) && Objects.equals(cartList, that.cartList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, books, quantity, cartList);
+        return Objects.hash(id, book, quantity, cartList);
     }
 }

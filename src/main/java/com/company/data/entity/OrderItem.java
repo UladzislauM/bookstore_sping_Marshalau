@@ -10,7 +10,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "orders_items")
-public class OrdersItems {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -18,11 +18,11 @@ public class OrdersItems {
 
     @ManyToOne
     @JoinColumn(name = "orders_id")
-    private Orders orders;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    private Books book;
+    private Book book;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -34,20 +34,20 @@ public class OrdersItems {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrdersItems that = (OrdersItems) o;
-        return Objects.equals(id, that.id) && Objects.equals(orders, that.orders) && Objects.equals(book, that.book) && Objects.equals(quantity, that.quantity) && Objects.equals(price, that.price);
+        OrderItem that = (OrderItem) o;
+        return Objects.equals(id, that.id) && Objects.equals(order, that.order) && Objects.equals(book, that.book) && Objects.equals(quantity, that.quantity) && Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orders, book, quantity, price);
+        return Objects.hash(id, order, book, quantity, price);
     }
 
     @Override
     public String toString() {
         return "OrdersItem{" +
                 "id=" + id +
-                ", orders=" + orders.getId() +
+                ", orders=" + order.getId() +
                 ", book=" + book.getId() +
                 ", quantity=" + quantity +
                 ", price=" + price +

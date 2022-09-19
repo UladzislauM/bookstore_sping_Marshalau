@@ -1,7 +1,6 @@
 package com.company.data.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,7 +11,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "books")
-public class Books {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -41,15 +40,15 @@ public class Books {
     private Boolean deleted;
 
     @OneToMany(mappedBy = "book")
-    private List<OrdersItems> ordersItems;
+    private List<OrderItem> ordersItems;
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Books books = (Books) o;
-        return Objects.equals(id, books.id) && Objects.equals(title, books.title) && Objects.equals(nameAuthor, books.nameAuthor) && Objects.equals(dateReleaseBook, books.dateReleaseBook) && coverBook == books.coverBook && Objects.equals(price, books.price) && Objects.equals(isbn, books.isbn) && Objects.equals(deleted, books.deleted) && Objects.equals(ordersItems, books.ordersItems);
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(nameAuthor, book.nameAuthor) && Objects.equals(dateReleaseBook, book.dateReleaseBook) && coverBook == book.coverBook && Objects.equals(price, book.price) && Objects.equals(isbn, book.isbn) && Objects.equals(deleted, book.deleted) && Objects.equals(ordersItems, book.ordersItems);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.company.service.impl;
 
-import com.company.data.entity.Books;
-import com.company.service.OrdersItemsService;
+import com.company.data.entity.Book;
+import com.company.service.OrderItemService;
 import com.company.service.dto.BookDto;
 import com.company.data.repository.BookRep;
 import com.company.service.BookService;
@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
@@ -23,10 +22,10 @@ public class BookServiceImpl implements BookService {
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
     private final BookRep bookRepJdbc;
     private final ObjectMapperSC mapper;
-    private final OrdersItemsService ordersItemsService;
+    private final OrderItemService orderItemService;
 
-    public void validate(Books books) {
-        if (books.getPrice().compareTo(BigDecimal.ZERO) == 0) {
+    public void validate(Book book) {
+        if (book.getPrice().compareTo(BigDecimal.ZERO) == 0) {
             throw new RuntimeException("Price is not valid, ...");
         }
     }
@@ -34,7 +33,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> findAll() {
         log.debug("Start BookService - findAllBooks");
-        List<Books> books = bookRepJdbc.findAll();
+        List<Book> books = bookRepJdbc.findAll();
         if (books == null) {
             log.error("BookService - findAll - Books is not exist");
             throw new RuntimeException("FindAll - Books is not exist...");
@@ -46,7 +45,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> findAllAuthors() {
         log.debug("Start BookService - findAllAuthors");
-        List<Books> books = bookRepJdbc.findAll();
+        List<Book> books = bookRepJdbc.findAll();
         if (books == null) {
             log.error("BookService - findAllAuthors - Books is not exist");
             throw new RuntimeException("findAllAuthors - Books is not exist...");
@@ -67,14 +66,14 @@ public class BookServiceImpl implements BookService {
             log.error("BookService - findById - Book is not exist");
             throw new RuntimeException("FindById - Book is not exist...");
         }
-        ordersItemsService.findByOrdersId(id);
+        orderItemService.findByOrdersId(id);
         return bookDTO;
     }
 
     @Override
     public List<BookDto> findByAuthor(String author) {
         log.debug("Start BookService - findByAuthor {}", author);
-        List<Books> books= bookRepJdbc.findByAuthor(author);
+        List<Book> books= bookRepJdbc.findByAuthor(author);
         if (books == null) {
             log.error("BookService - findByAuthor - Book is not exist");
             throw new RuntimeException("findByAuthor - Book is not exist...");
@@ -95,23 +94,23 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto create(BookDto bookDTO) {
         log.debug("Start BookService - createBook {}", bookDTO);
-        Books books = mapper.toBook(bookDTO);
-        if (books == null) {
+        Book book = mapper.toBook(bookDTO);
+        if (book == null) {
             log.error("BookService - create false:");
             throw new RuntimeException("CreateBook false...");
         }
-        return mapper.toBookDTO(bookRepJdbc.create(books));
+        return mapper.toBookDTO(bookRepJdbc.create(book));
     }
 
     @Override
     public BookDto update(BookDto bookDTO) {
         log.debug("Start BookService - updateBookById {}", bookDTO);
-        Books books = mapper.toBook(bookDTO);
-        if (books == null) {
+        Book book = mapper.toBook(bookDTO);
+        if (book == null) {
             log.error("BookService - update false:");
             throw new RuntimeException("UpdateBook false...");
         }
-        return mapper.toBookDTO(bookRepJdbc.update(books));
+        return mapper.toBookDTO(bookRepJdbc.update(book));
     }
 
     @Override

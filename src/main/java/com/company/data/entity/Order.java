@@ -11,7 +11,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "orders")
-public class Orders {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,17 +31,17 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private StatusBook status;
 
-    @OneToMany(mappedBy = "orders", cascade = {CascadeType.PERSIST,
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST,
             CascadeType.MERGE,
             CascadeType.REFRESH})
-    private List<OrdersItems> items;
+    private List<OrderItem> items;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Orders orders = (Orders) o;
-        return Objects.equals(id, orders.id) && Objects.equals(user, orders.user) && Objects.equals(totalCost, orders.totalCost) && Objects.equals(timestamp, orders.timestamp) && status == orders.status && Objects.equals(items, orders.items);
+        Order order = (Order) o;
+        return Objects.equals(id, order.id) && Objects.equals(user, order.user) && Objects.equals(totalCost, order.totalCost) && Objects.equals(timestamp, order.timestamp) && status == order.status && Objects.equals(items, order.items);
     }
 
     @Override
