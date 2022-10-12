@@ -1,10 +1,11 @@
 package com.company.service.impl;
 
 import com.company.data.entity.Book;
-import com.company.service.OrderItemService;
+import com.company.data.repository.OrderItemRep;
 import com.company.service.dto.BookDto;
 import com.company.data.repository.BookRep;
 import com.company.service.BookService;
+import com.company.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +23,7 @@ public class BookServiceImpl implements BookService {
     private static final Logger log = LogManager.getLogger(BookServiceImpl.class);
     private final BookRep bookRepJdbc;
     private final ObjectMapperSC mapper;
-    private final OrderItemService orderItemService;
+    private final OrderItemRep orderItemRep;
 
     public void validate(Book book) {
         if (book.getPrice().compareTo(BigDecimal.ZERO) == 0) {
@@ -61,12 +62,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto findById(Long id) {
         log.debug("Start BookService - getBookById {}", id);
-        BookDto bookDTO = mapper.toBookDTO(bookRepJdbc.findById(id));
+        Book book = bookRepJdbc.findById(id).orElseThrow(() -> {
+            throw new ResourceNotFoundException("User with id: " + id + " wasn't found");
+        });
+        BookDto bookDTO = mapper.toBookDTO(book);
         if (bookDTO == null) {
             log.error("BookService - findById - Book is not exist");
             throw new RuntimeException("FindById - Book is not exist...");
         }
-        orderItemService.findByOrdersId(id);
+        orderItemRep.findByOrdersId(id);
         return bookDTO;
     }
 
