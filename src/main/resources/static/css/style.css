@@ -1,80 +1,74 @@
-.table{
-    border: 1px solid #eee;
-    width: 100%;
-    margin-bottom: 20px;
+@import url("https://fonts.googleapis.com/css?family=PT+Sans+Caption");
+.table {
+	width: 100%;
+	margin-bottom: 20px;
+	border: 15px solid rgb(175, 175, 255);
+	border-top: 5px solid rgb(175, 175, 255);
+	border-collapse: collapse; 
 }
 .table th {
-    font-weight: bold;
-    padding: 5px;
-    background: #efefef;
-    border: 1px solid #dddddd;
+	font-weight: bold;
+	padding: 5px;
+	background: rgb(175, 175, 255);
+	border: none;
+	border-bottom: 5px solid rgb(175, 175, 255);
 }
-.table td{
-    padding: 5px 10px;
-    border: 1px solid #eee;
-    text-align: left;
+.table td {
+	padding: 5px;
+	border: none;
+	border-bottom: 5px solid rgb(175, 175, 255);
 }
-.table tbody tr:nth-child(odd){
-    background: #fff;
-}
-.table tbody tr:nth-child(even){
-    background: #F7F7F7;
-}
-.table thead tr th:first-child {
-    border-radius: 20px 0 0 0;
-}
-.table thead tr th:last-child {
-    border-radius: 0 20px 0 0;
-}
-.table tbody tr:last-child td:first-child {
-    border-radius: 0 0 0 20px;
-}
-.table tbody tr:last-child td:last-child {
-    border-radius: 0 0 20px 0;
-}
-.center{
+.center {
     text-align: center !important;
 }
-.left{
+.left {
     text-align: left !important;
 }
 .img {
     border-radius: 8px;
     width: 150px !important;
 }
-.head{
-  width: 200px;
+.head {
+    width: 200px;
 }
 
 body {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-.login-form{
-  padding: 100px;
-	text-align: center;
-  background-color: white;
-  padding-left: 20px;
-  padding-top: 10px;
-  border-radius: 10px;
-  width: 370px;
-  height: 280px;
-  border: 1px solid #000;
-  line-height: 30px;
-	margin: 0 auto;
+.login-form {
+    padding: 100px;
+    text-align: center;
+    background-color: white;
+    padding-left: 20px;
+    padding-top: 10px;
+    border-radius: 10px;
+    width: 370px;
+    height: 280px;
+    border: 1px solid #000;
+    line-height: 30px;
+    margin: 0 auto;
 }
 
-.registration-form{
-  padding: 100px;
-	text-align: left;
-  background-color: white;
-  padding-left: 20px;
-  padding-top: 10px;
-  border-radius: 10px;
-  width: 420px;
-  height: 300px;
-  border: 1px solid #000;
-  line-height: 30px;
-	margin: 0 auto;
+.registration-form {
+    padding: 100px;
+    text-align: left;
+    background-color: white;
+    padding-left: 20px;
+    padding-top: 10px;
+    border-radius: 10px;
+    width: 420px;
+    height: 300px;
+    border: 1px solid #000;
+    line-height: 30px;
+    margin: 0 auto;
+}
+
+.h3 {
+    text-align: center;
+}
+
+body {
+    font-family: "PT Sans Caption", sans-serif;
 }

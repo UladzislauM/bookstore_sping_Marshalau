@@ -1,37 +1,44 @@
-	label{
-		display: inline-block;
-		padding: 10px 15px;
-		font-size: 20px;
-		border-radius: 0;
-		border: 1px solid transparent;
-	}
+label {
+	display: inline-block;
+	padding: 10px 15px;
+	font-size: 20px;
+	font-family: "PT Sans Caption", sans-serif;
+	border-radius: 0;
+	border: 1px solid transparent;
+}
 
-	input[type="text"] {
-		display: inline-block;
-		padding: 10px 15px;
-		font-size: 20px;
-		border-radius: 0;
-		-webkit-appearance: none;
-		border: 1px solid transparent;
-		background-color: #bde5fc;
-        float: right;
+input[type="text"] {
+	display: inline-block;
+	padding: 10px 15px;
+	font-size: 20px;
+	font-family: "PT Sans Caption", sans-serif;
+	border-radius: 0;
+	border: 1px solid transparent;
+	background-color: #bde5fc;
+}
 
-		&:focus {
-			background-color: #e5f6ff;
-			color: black;
-			outline: 0;
-		}
-	}
+input[type="submit"] {
+	display: inline-block;
+	padding: 10px 15px;
+	font-size: 20px;
+	font-family: "PT Sans Caption", sans-serif;
+	border-radius: 0;
+	border: 1px solid transparent;
 
-	input[type="submit"] {
-		display: inline-block;
-		padding: 10px 15px;
-		font-size: 20px;
-		border-radius: 0;
-		-webkit-appearance: none;
-		border: 1px solid transparent;
+	cursor: pointer;
+	background-color: blue;
+	color: #fff;
+}
 
-		cursor: pointer;
-		background-color: blue;
-		color: #fff;
-	}
+button {
+	display: inline-block;
+	padding: 10px 15px;
+	font-size: 20px;
+	font-family: "PT Sans Caption", sans-serif;
+	border-radius: 0;
+	border: 1px solid transparent;
+
+	cursor: pointer;
+	background-color: blue;
+	color: #fff;
+}
