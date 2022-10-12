@@ -1,5 +1,6 @@
 package com.company.service.impl;
 
+import com.company.data.entity.Book;
 import com.company.data.entity.BooksInCart;
 import com.company.data.entity.Cart;
 import com.company.data.repository.BookRep;
@@ -9,6 +10,7 @@ import com.company.service.BookService;
 import com.company.service.CartService;
 import com.company.service.dto.BookDto;
 import com.company.service.dto.UserDto;
+import com.company.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +29,6 @@ import java.util.Map;
 public class CartServiceImpl implements CartService {
     private static final Logger log = LogManager.getLogger(CartServiceImpl.class);
     private final BookRep bookRep;
-    private final BookService bookService;
     private final ObjectMapperSC mapper;
     private final CartRep cartRep;
     private final BooksInCartRep booksInCartRep;
@@ -125,7 +126,11 @@ public class CartServiceImpl implements CartService {
         Iterator<Map.Entry<Long, Integer>> iterator = cart.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Long, Integer> entry = iterator.next();
-            bookDtoList.add(mapper.toBookDTO(bookRep.findById(entry.getKey())));
+            Long id = entry.getKey();
+            Book book = bookRep.findById(id).orElseThrow(() -> {
+                throw new ResourceNotFoundException("User with id: " + id + " wasn't found");
+            });
+            bookDtoList.add(mapper.toBookDTO(book));
         }
         return bookDtoList;
     }

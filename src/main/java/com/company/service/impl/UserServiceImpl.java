@@ -5,7 +5,7 @@ import com.company.service.dto.UserDto;
 import com.company.data.repository.UserRep;
 import com.company.data.entity.User;
 import com.company.service.UserService;
-import com.company.service.exception.AppException;
+import com.company.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +39,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findById(Long id) {
         log.debug("Start UserService - getUserById: {}", id);
-        UserDto userDTO = mapper.toUserDTO(userRepJdbc.findById(id));
+        User user = userRepJdbc.findById(id).orElseThrow(() -> {
+            throw new ResourceNotFoundException("User with id: " + id + " wasn't found");
+        });
+        UserDto userDTO = mapper.toUserDTO(user);
         if (userDTO == null) {
             log.error("UserService - findById - User is not exist");
             throw new RuntimeException("FindById - User is not exist...");
@@ -101,9 +104,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto login(String login, String password) {
         String hashedPassword = encryptionService.digest(password);
-        return mapper.toUserDTO(userRepJdbc.findAll().stream()
-                .filter(u -> u.getEmail().equals(login) && u.getPassword().equals(hashedPassword))
-                .findFirst()
-                .orElseThrow(() -> new AppException("Login incorrect")));
+        return mapper.toUserDTO(userRepJdbc.login(login, hashedPassword).orElseThrow(() -> {
+            throw new ResourceNotFoundException("User with login: " + login + " wasn't found");
+        }));
     }
 }
