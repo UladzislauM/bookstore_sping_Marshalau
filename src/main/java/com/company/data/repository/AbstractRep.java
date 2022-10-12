@@ -3,9 +3,11 @@ package com.company.data.repository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
+
 @Component
 public interface AbstractRep<T> {
-    T findById(Long id);
+    Optional<T> findById(Long id);
 
     List<T> findAll();
 

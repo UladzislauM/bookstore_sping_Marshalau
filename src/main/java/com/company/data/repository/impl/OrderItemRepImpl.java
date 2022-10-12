@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository("orderItemRep")
 @Transactional
@@ -28,12 +29,8 @@ public class OrderItemRepImpl implements OrderItemRep {
     private EntityManager entityManager;
 
     @Override
-    public OrderItem findById(Long id) {
-        OrderItem orderItem = entityManager.find(OrderItem.class, id);
-        if (orderItem == null) {
-            return null;
-        }
-        return orderItem;
+    public Optional<OrderItem> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(OrderItem.class, id));
     }
 
     @Override

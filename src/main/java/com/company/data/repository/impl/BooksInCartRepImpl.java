@@ -8,13 +8,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+
 @Repository("booksInCartRepository")
 @Transactional
 public class BooksInCartRepImpl implements BooksInCartRep {
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public BooksInCart findById(Long id) {
+    public Optional<BooksInCart> findById(Long id) {
         return null;
     }
 

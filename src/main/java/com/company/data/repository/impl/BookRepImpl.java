@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository("bookRep")
 @Transactional
@@ -41,8 +42,8 @@ public class BookRepImpl implements BookRep {
     private EntityManager entityManager;
 
     @Override
-    public Book findById(Long id) {
-        return entityManager.find(Book.class, id);
+    public Optional<Book> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(Book.class, id));
     }
 
     @Override

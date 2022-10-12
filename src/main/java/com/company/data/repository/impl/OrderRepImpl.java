@@ -2,13 +2,13 @@ package com.company.data.repository.impl;
 
 import com.company.data.entity.Order;
 import com.company.data.repository.OrdersRep;
-import com.company.service.dto.OrderDto;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository("ordersRep")
 @Transactional
@@ -24,8 +24,8 @@ public class OrderRepImpl implements OrdersRep {
     private EntityManager entityManager;
 
     @Override
-    public Order findById(Long id) {
-        return entityManager.find(Order.class, id);
+    public Optional<Order> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(Order.class, id));
     }
 
     @Override

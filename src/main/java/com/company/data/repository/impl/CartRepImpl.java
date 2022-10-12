@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository("cartRepository")
 @Transactional
@@ -33,7 +34,7 @@ public class CartRepImpl implements CartRep {
     private EntityManager entityManager;
 
     @Override
-    public Cart findById(Long id) {
+    public Optional<Cart> findById(Long id) {
         return null;
     }
 
