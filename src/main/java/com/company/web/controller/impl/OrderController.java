@@ -1,8 +1,10 @@
-package com.company.controller.impl;
+package com.company.web.controller.impl;
 
-import com.company.controller.resurses.CartRes;
+import com.company.web.controller.resurses.CartRes;
+import com.company.data.entity.StatusBook;
 import com.company.service.OrderItemService;
 import com.company.service.OrderService;
+import com.company.service.dto.OrderDto;
 import com.company.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -20,14 +22,12 @@ import java.util.Map;
 public class OrderController {
     private static final Logger log = LogManager.getLogger(OrderController.class);
     private final OrderService orderService;
-    private final OrderItemService orderItemService;
     private final CartRes cartRes;
 
     @GetMapping("/find_order_by_id/{id}")
     public String findOrder(@PathVariable Long id, Model model) {
         log.info("Start findOrder {}", model);
         model.addAttribute("order", orderService.findById(id));
-        model.addAttribute("order_item", orderItemService.findById(id));
         return "order";
     }
 
@@ -42,7 +42,7 @@ public class OrderController {
     public String addToOrder(HttpSession session, Model model) {
         log.info("Start addToOrder");
         Map<Long, Integer> cartMap = cartRes.getCart(session);
-        UserDto userDto = (UserDto)session.getAttribute("user");
+        UserDto userDto = (UserDto) session.getAttribute("user");
         if (userDto == null) {
             return "redirect:/login";
         }
@@ -54,10 +54,21 @@ public class OrderController {
     @PostMapping("/find_orders")
     public String findOrders(HttpSession session, Model model) {
         log.info("Start findOrders");
-        UserDto userDto = (UserDto)session.getAttribute("user");
+        UserDto userDto = (UserDto) session.getAttribute("user");
         if (userDto == null) {
             return "redirect:/login";
         }
+        model.addAttribute("orders", orderService.findByUserId(userDto.getId()));
+        return "orders_history";
+    }
+
+    @PostMapping("/confirm_order")
+    public String confirmOrder(@PathVariable Long id_order, HttpSession session, Model model) {
+        log.info("Start confirmOrder");
+        UserDto userDto = (UserDto) session.getAttribute("user");
+        OrderDto orderDto = orderService.findById(id_order);
+        orderDto.setStatus(StatusBook.AWAITING_PAYMENT);
+        orderService.update(orderDto);
         model.addAttribute("orders", orderService.findByUserId(userDto.getId()));
         return "orders_history";
     }

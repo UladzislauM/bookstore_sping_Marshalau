@@ -6,11 +6,11 @@ import com.company.data.entity.OrderItem;
 import com.company.data.entity.StatusBook;
 import com.company.data.repository.BookRep;
 import com.company.data.repository.OrderItemRep;
-import com.company.service.OrderItemService;
 import com.company.service.dto.OrderDto;
 import com.company.data.repository.OrdersRep;
 import com.company.service.OrderService;
 import com.company.service.dto.UserDto;
+import com.company.service.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +30,6 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger log = LogManager.getLogger(OrderServiceImpl.class);
     private final OrdersRep ordersRep;
     private final ObjectMapperSC mapper;
-    private final OrderItemService orderItemService;
     private final OrderItemRep orderItemRep;
     private final BookRep bookRep;
 
@@ -49,14 +48,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto findById(Long id) {
         log.info("Start OrdersService - findById - {}", id);
-        OrderDto orderDTO = mapper.toOrdersDTO(ordersRep.findById(id));
+        Order order = ordersRep.findById(id).orElseThrow(() -> {
+            throw new ResourceNotFoundException("User with id: " + id + " wasn't found");
+        });
+        OrderDto orderDTO = mapper.toOrdersDTO(order);
         if (orderDTO == null) {
             log.error("OrdersService - findById - Order is not exist");
             throw new RuntimeException("FindById - Order is not exist...");
         }
         List<BigDecimal> cost = new ArrayList<>();
-        orderItemService.findByOrdersId(id).forEach(order -> {
-            cost.add(order.getPrice().multiply(BigDecimal.valueOf(order.getQuantity())));
+        orderItemRep.findByOrdersId(id).forEach(order_price -> {
+            cost.add(order_price.getPrice().multiply(BigDecimal.valueOf(order_price.getQuantity())));
         });
         BigDecimal cost_total = cost.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
         orderDTO.setTotalCost(cost_total);
@@ -64,11 +66,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto>  findByUserId(Long id) {
+    public List<OrderDto> findByUserId(Long id) {
         log.info("Start OrdersService - findByUserId - {}", id);
-            List<OrderDto> orderDtoList = ordersRep.findByUserId(id).stream().map(order -> {
-                return mapper.toOrdersDTO(order);
-            }).toList();
+        List<OrderDto> orderDtoList = ordersRep.findByUserId(id).stream().map(order -> {
+            return mapper.toOrdersDTO(order);
+        }).toList();
         return orderDtoList;
     }
 
@@ -96,20 +98,23 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(StatusBook.IN_PROCESSING);
         ordersRep.create(order);
         List<OrderItem> orderItemList = new ArrayList<>();
-            Iterator<Map.Entry<Long, Integer>> iterator = cartMap.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Long, Integer> entry = iterator.next();
-                OrderItem orderItem = createOrderItem(order, entry);
-                orderItemRep.create(orderItem);
-                orderItemList.add(orderItem);
-            }
+        Iterator<Map.Entry<Long, Integer>> iterator = cartMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Long, Integer> entry = iterator.next();
+            OrderItem orderItem = createOrderItem(order, entry);
+            orderItemRep.create(orderItem);
+            orderItemList.add(orderItem);
+        }
         order.setItems(orderItemList);
         return order;
     }
 
     private OrderItem createOrderItem(Order order, Map.Entry<Long, Integer> entry) {
         OrderItem orderItem = new OrderItem();
-        Book book = bookRep.findById(entry.getKey());
+        Long id = entry.getKey();
+        Book book = bookRep.findById(id).orElseThrow(() -> {
+            throw new ResourceNotFoundException("User with id: " + id + " wasn't found");
+        });
         orderItem.setOrder(order);
         orderItem.setBook(book);
         orderItem.setQuantity(entry.getValue());

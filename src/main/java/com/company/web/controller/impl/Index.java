@@ -1,4 +1,4 @@
-package com.company.controller.impl;
+package com.company.web.controller.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

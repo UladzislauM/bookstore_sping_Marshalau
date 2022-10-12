@@ -1,4 +1,4 @@
-package com.company.controller.resurses;
+package com.company.web.controller.resurses;
 
 import org.springframework.stereotype.Component;
 

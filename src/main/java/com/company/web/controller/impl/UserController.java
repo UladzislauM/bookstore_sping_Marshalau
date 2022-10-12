@@ -1,4 +1,4 @@
-package com.company.controller.impl;
+package com.company.web.controller.impl;
 
 import com.company.service.UserService;
 import com.company.service.dto.UserDto;

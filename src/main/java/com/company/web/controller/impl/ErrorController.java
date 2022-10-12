@@ -1,4 +1,4 @@
-package com.company.controller.impl;
+package com.company.web.controller.impl;
 
 import com.company.service.exception.AppException;
 import org.springframework.dao.DataIntegrityViolationException;

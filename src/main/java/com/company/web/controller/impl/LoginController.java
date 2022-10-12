@@ -1,20 +1,16 @@
-package com.company.controller.impl;
+package com.company.web.controller.impl;
 
 import com.company.service.CartService;
 import com.company.service.UserService;
 import com.company.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpHeaders;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,7 +20,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm(HttpServletRequest request, HttpSession session) {
-        session.setAttribute("referer", request.getHeader("referer"));
+        session.setAttribute("refer", request.getHeader("referer"));
         return "login_form";
     }
 
@@ -33,13 +29,12 @@ public class LoginController {
                         @RequestParam String password, HttpSession session) {
         UserDto userDto = userService.login(login, password);
         session.setAttribute("user", userDto);
-        String f = (String) session.getAttribute("referer");
-        return "index";
+        return "redirect:" + session.getAttribute("refer");
     }
 
     @PostMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, HttpServletRequest request) {
         session.invalidate();
-        return "index";
+        return "redirect:" + request.getHeader("referer");
     }
 }

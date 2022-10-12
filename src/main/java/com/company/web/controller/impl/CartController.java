@@ -1,6 +1,6 @@
-package com.company.controller.impl;
+package com.company.web.controller.impl;
 
-import com.company.controller.resurses.CartRes;
+import com.company.web.controller.resurses.CartRes;
 import com.company.service.BookService;
 import com.company.service.CartService;
 import com.company.service.dto.UserDto;
@@ -38,9 +38,6 @@ public class CartController {
     @PostMapping("/book_to_cart")
     public String bookToCart(@ModelAttribute("id") Long id, HttpSession session) {
         log.info("Start bookToCart {}", id);
-        if (session.getAttribute("user") == null) {
-            return "redirect:/login";
-        }
         Map<Long, Integer> cartMap = cartRes.getCart(session);
         int quantity = cartRes.plusQuantity(id, cartMap);
         session.setAttribute("cart", cartMap);
@@ -66,7 +63,7 @@ public class CartController {
         log.info("Start quantityBooks {}", id);
         Map<Long, Integer> cartMap = cartRes.getCart(session);
         int quantity;
-        if (plus) {
+        if (plus) {//Fixme
             quantity = cartMap.get(id) + 1;
             sumPrice(id, session, true, 1);
         } else {
@@ -84,7 +81,7 @@ public class CartController {
     private void sumPrice(Long id, HttpSession session, boolean sum, int quantity) {
         BigDecimal price = bookService.findById(id).getPrice()
                 .multiply(BigDecimal.valueOf(quantity));
-        if (session.getAttribute("total_cost_cart") == null) {
+        if (session.getAttribute("total_cost_cart") == null) {//fixme
             session.setAttribute("total_cost_cart", price);
         } else {
             BigDecimal totalPrice = (BigDecimal) session.getAttribute("total_cost_cart");
