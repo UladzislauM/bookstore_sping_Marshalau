@@ -1,6 +1,5 @@
 package com.company.web.controller.impl;
 
-import com.company.service.CartService;
 import com.company.service.UserService;
 import com.company.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class LoginController {
     private final UserService userService;
-    private final CartService cartService;
 
     @GetMapping("/login")
     public String loginForm(HttpServletRequest request, HttpSession session) {

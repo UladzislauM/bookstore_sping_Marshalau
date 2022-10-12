@@ -8,7 +8,7 @@ import java.util.Map;
 @Component
 public class CartRes {
     public Map<Long, Integer> getCart(HttpSession session) {
-        Map<Long, Integer> cart = (Map<Long, Integer>) session.getAttribute("cart");
+        Map<Long, Integer> cart = (Map<Long, Integer>)session.getAttribute("cart");
         if (cart == null) {
             cart = new HashMap<>();
         }
