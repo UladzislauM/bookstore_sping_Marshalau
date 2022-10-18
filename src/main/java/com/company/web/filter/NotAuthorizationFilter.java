@@ -33,8 +33,16 @@ public class NotAuthorizationFilter extends HttpFilter {
                 || uri.equals("/")
                 || uri.equals("/index")
                 || uri.equals("/images/404.png")
+                || uri.equals("/images/405.png")
+                || uri.equals("/images/406.jpg")
+                || uri.equals("/images/407.jpg")
+                || uri.equals("/images/408.jpg")
+                || uri.equals("/images/409.jpg")
+                || uri.equals("/images/410.jpg")
                 || uri.equals("/css/style.css")
                 || uri.equals("/css/normalize.css")
-                || uri.equals("/css/menuStyle.css");
+                || uri.equals("/css/menuStyle.css")
+                || uri.equals("/css/carusel.css")
+                || uri.equals("/js/Carusel.js");
     }
 }
