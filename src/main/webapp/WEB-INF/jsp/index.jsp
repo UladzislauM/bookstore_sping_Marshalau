@@ -10,7 +10,7 @@
 
                 <jsp:include page="menu.jsp" />
                 <jsp:include page="carusel.jsp" />
-
+                
                 <div>
                     <h3>Our advantages:</h3>
                     <div class="brick">
@@ -21,6 +21,9 @@
                         <div class="brick_element">Of the most interesting books</div>
                     </div>
                 </div>
+                
+                <jsp:include page="new_products.jsp" />
+
             <h3>What do you want to work with?(users, books, all_orders):</h3>
             <form action="books/books_find" method="get">
                 <input type="submit" value="All books" />
