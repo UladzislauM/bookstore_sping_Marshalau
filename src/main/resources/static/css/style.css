@@ -91,3 +91,30 @@ h3 {
     background-color: blue;
     padding: 10px;
 }
+
+.dialog {
+    display: none;
+
+    left: 90%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    transition: transform 0.6s ease-out; 
+    padding: 10px 15px;
+	font-size: 20px;
+	font-family: "PT Sans Caption", sans-serif;
+	border-radius: 0;
+	border: 1px solid transparent;
+
+	cursor: pointer;
+	background-color: rgb(240, 96, 96);
+	color: #fff;
+}
+
+.dialog:target {
+    display: block;
+}
+
+.dialog:target+.window {
+    transform: translate(-50%, 0);
+    top: 17%;
+}

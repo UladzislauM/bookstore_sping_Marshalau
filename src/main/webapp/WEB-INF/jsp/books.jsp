@@ -7,6 +7,7 @@
             <meta charset="utf-8">
             <title>Books in BookStore</title>
             <link rel="stylesheet" href="/css/style.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         </head>
 
         <body>
@@ -35,6 +36,9 @@
                     </form>
                 </c:if>
             </c:if>
+            <div class="dialog" title="Dialog Title">
+                add to cart
+            </div>
             <p>All counts: ${requestScope.book_count}</p>
             <table class="table">
                 <thead>
@@ -59,20 +63,21 @@
                                 </c:if>
                                 ${counter.count}
                             </td>
-                            <td><a href="/books/find_book_by_id/${book.id}">${book.title}</a></td>
+                            <td><a id = "book_title_${book.id}" href="/books/find_book_by_id/${book.id}">${book.title}</a></td>
                             <td>${book.nameAuthor}</td>
                             <td class="center">${book.dateReleaseBook}</td>
                             <td class="center">${book.price}</td>
-                            <td class="center">${book.coverBook}</td>123
+                            <td class="center">${book.coverBook}</td>
                             <td class="center">
-                                <form action="/cart/book_to_cart" method="post">
-                                    <button name="id" value="${book.id}" />Add to Cart</button>
-                                </form>
+                                    <button id="book_${book.id}">Add to Cart</button>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+
+            <script src="/js/book_selector.js"></script>
+
             <c:if test="${sessionScope.user != null}">
                 <c:if test="${sessionScope.users.role.toString() == ADMIN}">
                     <input type="submit" name="id" value="Delete Book" />
