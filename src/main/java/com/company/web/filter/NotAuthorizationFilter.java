@@ -30,6 +30,7 @@ public class NotAuthorizationFilter extends HttpFilter {
                 || uri.equals("/books/books_find")
                 || uri.equals("/cart/book_to_cart")
                 || uri.equals("/books/authors_find")
+                || uri.equals("/books/find_book_by_id_json/{id}")//fixme
                 || uri.equals("/")
                 || uri.equals("/index")
                 || uri.equals("/images/404.png")
@@ -43,6 +44,7 @@ public class NotAuthorizationFilter extends HttpFilter {
                 || uri.equals("/css/normalize.css")
                 || uri.equals("/css/menuStyle.css")
                 || uri.equals("/css/carusel.css")
+                || uri.equals("/js/book_selector.js")
                 || uri.equals("/js/Carusel.js");
     }
 }

@@ -36,11 +36,11 @@ public class BooksController {
 
     @GetMapping("/find_book_by_id/{id}")
     public String findBook(@PathVariable Long id, Model model) {
-        log.info("Start findUser {}", model);
+        log.info("Start finBook{}", model);
         model.addAttribute("book", bookService.findById(id));
         return "book";
     }
-
+    
     @GetMapping("/find_book_by_author/{author}")
     public String findByAuthor(@PathVariable String author, Model model) {
         log.info("Start findByAuthor {}", model);
