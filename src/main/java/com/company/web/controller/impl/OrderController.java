@@ -1,7 +1,7 @@
 package com.company.web.controller.impl;
 
-import com.company.web.controller.resurses.CartRes;
 import com.company.data.entity.StatusBook;
+import com.company.service.CartService;
 import com.company.service.OrderService;
 import com.company.service.dto.OrderDto;
 import com.company.service.dto.UserDto;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class OrderController {
     private static final Logger log = LogManager.getLogger(OrderController.class);
     private final OrderService orderService;
-    private final CartRes cartRes;
+    private final CartService cartService;
 
     @GetMapping("/find_order_by_id/{id}")
     public String findOrder(@PathVariable Long id, Model model) {
@@ -40,11 +40,8 @@ public class OrderController {
     @PostMapping("/order_formation")
     public String addToOrder(HttpSession session, Model model) {
         log.info("Start addToOrder");
-        Map<Long, Integer> cartMap = cartRes.getCart(session);
+        Map<Long, Integer> cartMap = cartService.getCart(session);
         UserDto userDto = (UserDto) session.getAttribute("user");
-        if (userDto == null) {
-            return "redirect:/login";
-        }
         orderService.create(session, cartMap);
         model.addAttribute("orders", orderService.findByUserId(userDto.getId()));
         return "orders_history";
@@ -54,9 +51,6 @@ public class OrderController {
     public String findOrders(HttpSession session, Model model) {
         log.info("Start findOrders");
         UserDto userDto = (UserDto) session.getAttribute("user");
-        if (userDto == null) {
-            return "redirect:/login";
-        }
         model.addAttribute("orders", orderService.findByUserId(userDto.getId()));
         return "orders_history";
     }

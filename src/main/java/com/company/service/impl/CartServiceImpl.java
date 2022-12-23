@@ -16,9 +16,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +89,7 @@ public class CartServiceImpl implements CartService {
     private BooksInCart addBooksInCart(Map<Long, Integer> cartMap) {
         BooksInCart booksInCart = new BooksInCart();
         if (cartMap.get(1) != null) {
-            booksInCart.setBook(mapper.toBook(findBooksByCart(cartMap).get(0)));//fixMe
+            booksInCart.setBook(mapper.toBook(findBooksByCart(cartMap).get(0)));// fixMe
         }
         booksInCart.setQuantity(1);
         return booksInCartRep.create(booksInCart);
@@ -135,11 +137,61 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public BigDecimal sumPrice(BigDecimal price, BigDecimal totalPrice, boolean sum) {
+    public Map<Long, Integer> sumPrice(BigDecimal price, Long id, Map<Long, Integer> cartMap, Boolean plus,
+            HttpSession session) {
+        int quantity = 0;
+        if (plus) {
+            quantity = cartMap.get(id) + 1;
+            sumPriceInCart(price, session, true, 1);
+        } else {
+            quantity = cartMap.get(id) - 1;
+            sumPriceInCart(price, session, false, 1);
+            if (quantity <= 0) {
+                removeProduct(cartMap, id, 1);
+                return cartMap;
+            }
+        }
+        addProduct(cartMap, id, quantity);
+        return cartMap;
+    }
+
+    @Override
+    public void sumPriceInCart(BigDecimal price, HttpSession session, boolean sum, int quantity) {
+        price = price.multiply(BigDecimal.valueOf(quantity));
+        if (session.getAttribute("total_cost_cart") == null) {
+            session.setAttribute("total_cost_cart", price);
+        } else {
+            BigDecimal totalPrice = (BigDecimal) session.getAttribute("total_cost_cart");
+            session.setAttribute("total_cost_cart",
+                    sumPriceBigDecimal(price, totalPrice, sum));
+        }
+    }
+
+    private BigDecimal sumPriceBigDecimal(BigDecimal price, BigDecimal totalPrice, boolean sum) {
         if (sum) {
             return totalPrice.add(price).setScale(2, RoundingMode.DOWN);
         } else {
             return totalPrice.subtract(price).setScale(2, RoundingMode.DOWN);
         }
+    }
+
+    @Override
+    public Integer plusQuantity(Long id, Map<Long, Integer> cartMap) {
+        Integer quantity = cartMap.get(id);
+        if (quantity == null) {
+            quantity = 1;
+        } else if (quantity >= 1) {
+            quantity++;
+        }
+        return quantity;
+    }
+
+    @Override
+    public Map<Long, Integer> getCart(HttpSession session) {
+        Map<Long, Integer> cart = (Map<Long, Integer>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new HashMap<>();
+        }
+        return cart;
     }
 }

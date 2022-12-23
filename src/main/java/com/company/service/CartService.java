@@ -19,8 +19,17 @@ public interface CartService extends AbstractService<Cart> {
     Cart findCartByUserId(UserDto userDto, HttpSession session);
 
     boolean isCreatedCart(UserDto userDto);
+
     Cart create(UserDto userDto, Map<Long, Integer> cartMap);
+
     void deleteBookIntoCart(Long bookId);
 
-    BigDecimal sumPrice(BigDecimal price, BigDecimal totalPrice, boolean sum);
+    Map<Long, Integer> sumPrice(BigDecimal price, Long id, Map<Long, Integer> cartMap, Boolean plus,
+            HttpSession session);
+
+    void sumPriceInCart(BigDecimal price, HttpSession session, boolean sum, int quantity);
+
+    Integer plusQuantity(Long id, Map<Long, Integer> cartMap);
+
+    Map<Long, Integer> getCart(HttpSession session);
 }

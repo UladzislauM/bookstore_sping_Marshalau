@@ -1,6 +1,5 @@
 package com.company.web.controller.impl;
 
-import com.company.web.controller.resurses.CartRes;
 import com.company.service.BookService;
 import com.company.service.CartService;
 import com.company.service.dto.UserDto;
@@ -22,12 +21,11 @@ public class CartController {
     private static final Logger log = LogManager.getLogger(CartController.class);
     private final CartService cartService;
     private final BookService bookService;
-    private final CartRes cartRes;
 
     @PostMapping("/get_cart")
     public String toCart(HttpSession session, Model model) {
         log.info("Start toCart");
-        Map<Long, Integer> cart = cartRes.getCart(session);
+        Map<Long, Integer> cart = cartService.getCart(session);
         UserDto userDto = (UserDto) session.getAttribute("user");
         model.addAttribute("user", userDto);
         model.addAttribute("books", cartService.findBooksByCart(cart));
@@ -38,22 +36,23 @@ public class CartController {
     @PostMapping("/book_to_cart")
     public String bookToCart(@ModelAttribute("id") Long id, HttpSession session) {
         log.info("Start bookToCart {}", id);
-        Map<Long, Integer> cartMap = cartRes.getCart(session);
-        int quantity = cartRes.plusQuantity(id, cartMap);
+        Map<Long, Integer> cartMap = cartService.getCart(session);
+        int quantity = cartService.plusQuantity(id, cartMap);
+        BigDecimal price = bookService.findById(id).getPrice();
+        cartService.sumPriceInCart(price, session, true, 1);
         session.setAttribute("cart", cartMap);
         cartService.addProduct(cartMap, id, quantity);
-        sumPrice(id, session, true, quantity);
         return "redirect:/books/books_find";
     }
-
 
     @PostMapping("/book_delete")
     public String bookDelete(@RequestParam Long id, HttpSession session) {
         log.info("Start bookDelete {}", id);
-        Map<Long, Integer> cartMap = cartRes.getCart(session);
+        Map<Long, Integer> cartMap = cartService.getCart(session);
         int quantity = cartMap.get(id);
         session.setAttribute("cart", cartMap);
-        sumPrice(id, session, false, quantity);
+        BigDecimal price = bookService.findById(id).getPrice();
+        cartService.sumPriceInCart(price, session, false, quantity);
         cartService.removeProduct(cartMap, id, quantity);
         return "forward:/cart/get_cart";
     }
@@ -61,32 +60,10 @@ public class CartController {
     @PostMapping("/book_q")
     public String quantityBooks(@RequestParam Long id, Boolean plus, HttpSession session) {
         log.info("Start quantityBooks {}", id);
-        Map<Long, Integer> cartMap = cartRes.getCart(session);
-        int quantity;
-        if (plus) {//Fixme
-            quantity = cartMap.get(id) + 1;
-            sumPrice(id, session, true, 1);
-        } else {
-            quantity = cartMap.get(id) - 1;
-            sumPrice(id, session, false, 1);
-            if (quantity <= 0) {
-                return bookDelete(id, session);
-            }
-        }
-        cartService.addProduct(cartMap, id, quantity);
+        Map<Long, Integer> cartMap = cartService.getCart(session);
+        BigDecimal price = bookService.findById(id).getPrice();
+        cartService.sumPrice(price, id, cartMap, plus, session);
         session.setAttribute("cart", cartMap);
         return "forward:/cart/get_cart";
-    }
-
-    private void sumPrice(Long id, HttpSession session, boolean sum, int quantity) {
-        BigDecimal price = bookService.findById(id).getPrice()
-                .multiply(BigDecimal.valueOf(quantity));
-        if (session.getAttribute("total_cost_cart") == null) {//fixme
-            session.setAttribute("total_cost_cart", price);
-        } else {
-            BigDecimal totalPrice = (BigDecimal) session.getAttribute("total_cost_cart");
-            session.setAttribute("total_cost_cart",
-                    cartService.sumPrice(price, totalPrice, sum));
-        }
     }
 }
