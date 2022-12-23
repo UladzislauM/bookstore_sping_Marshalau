@@ -24,7 +24,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam String login,
-                        @RequestParam String password, HttpSession session) {
+            @RequestParam String password, HttpSession session) {
         UserDto userDto = userService.login(login, password);
         session.setAttribute("user", userDto);
         return "redirect:" + session.getAttribute("refer");
@@ -33,6 +33,6 @@ public class LoginController {
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletRequest request) {
         session.invalidate();
-        return "redirect:" + request.getHeader("referer");
+        return "redirect:/";
     }
 }
