@@ -9,9 +9,9 @@ import java.io.IOException;
 
 public class NotAuthorizationFilter extends HttpFilter {
     @Override
-    protected void doFilter( HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-        if(!isRequireAuthorization(req)) {
+        if (!isRequireAuthorization(req)) {
             Object user = req.getSession().getAttribute("user");
             if (user == null) {
                 req.getSession().setAttribute("message", "Please, login! Or add permissions!");
@@ -30,7 +30,6 @@ public class NotAuthorizationFilter extends HttpFilter {
                 || uri.equals("/books/books_find")
                 || uri.equals("/cart/book_to_cart")
                 || uri.equals("/books/authors_find")
-                || uri.equals("/books/find_book_by_id_json/{id}")//fixme
                 || uri.equals("/")
                 || uri.equals("/index")
                 || uri.equals("/images/404.png")
