@@ -1,9 +1,11 @@
 package com.company.data.repository;
 
-import com.company.data.entity.Orders;
+import com.company.data.entity.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public interface OrdersRep extends AbstractRep<Orders> {
-    Orders create(Orders entity);
+public interface OrdersRep extends AbstractRep<Order> {
+    List<Order> findByUserId(Long id);
 }

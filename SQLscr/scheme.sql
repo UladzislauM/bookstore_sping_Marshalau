@@ -1,5 +1,7 @@
 /*
 DROP TABLE IF EXISTS orders_items;
+DROP TABLE IF EXISTS cart;
+DROP TABLE IF EXISTS books_in_cart;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS users;
@@ -40,5 +42,18 @@ CREATE TABLE IF NOT EXISTS orders_items(
  book_id			BIGINT REFERENCES books(id),
  quantity			INT2 NOT NULL,
  price 				DECIMAL (6,2)
+);
+
+CREATE TABLE IF NOT EXISTS books_in_cart(
+ id                 BIGSERIAL PRIMARY KEY NOT NULL,
+ book_id	        BIGINT REFERENCES books(id),
+ quantity			INT2 NOT NULL
+ );
+
+
+CREATE TABLE IF NOT EXISTS cart(
+ id                 BIGSERIAL PRIMARY KEY NOT NULL,
+ users_id			BIGINT REFERENCES users(id),
+ books_id	        BIGINT REFERENCES books_in_cart(id)
 );
 

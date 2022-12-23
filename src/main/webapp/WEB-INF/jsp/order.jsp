@@ -1,71 +1,81 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>View order in BookStore</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-<h2 align="center">Order: ${requestScope.order.totalCost}</h2>
-<table class="table">
-    <thead>
-    <tr>
-        <th>User:</th>
-        <th>Timestamp</th>
-        <th>Total cost:</th>
-        <th>Status:</th>
-        <th>Item:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            <a href="orders/find_user_by_id/${requestScope.order.user.id}">${requestScope.order.user.name} ${requestScope.order.user.last_name}</a>
-        </td>
-        <td class="center">
-            ${requestScope.order.timestamp}
-        </td>
-        <td class="center">
-            ${requestScope.order.totalCost}
-        </td>
-        <td class="center">
-            ${requestScope.order.status}
-        </td>
-        <td class="center"> Quantity - ${requestScope.order.items.size()} :
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+        <html>
+
+        <head>
+            <title>View order in BookStore</title>
+            <link rel="stylesheet" href="/css/style.css">
+        </head>
+
+        <body>
+
+            <div>
+                <%@ include file="menu.jsp" %>
+            </div>
+
+            <h2 align="center">Order: ${requestScope.order.totalCost}</h2>
             <table class="table">
                 <thead>
-                <tr>
-                    <th>N:</th>
-                    <th>Book:</th>
-                    <th>Quantity:</th>
-                    <th>Price:</th>
-                </tr>
+                    <tr>
+                        <th>User:</th>
+                        <th>Timestamp</th>
+                        <th>Total cost:</th>
+                        <th>Status:</th>
+                        <th>Item:</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${requestScope.order.items}" var="order_item" varStatus="counter">
                     <tr>
-                        <td class="center">
-                                ${counter.count}
+                        <td>
+                            <a href="orders/find_user_by_id/${requestScope.order.user.id}">${requestScope.order.user.name}
+                                ${requestScope.order.user.last_name}</a>
                         </td>
                         <td class="center">
-                            <a href="/books/find_book_by_id/${order_item.book.id}">${order_item.book.title}
-                                - ${order_item.book.nameAuthor}</a>
+                            ${requestScope.order.timestamp}
                         </td>
                         <td class="center">
-                                ${order_item.quantity}
+                            ${requestScope.order.totalCost}
                         </td>
                         <td class="center">
-                                ${order_item.price}
+                            ${requestScope.order.status}
+                        </td>
+                        <td class="center"> Quantity - ${requestScope.order.items.size()} :
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>N:</th>
+                                        <th>Book:</th>
+                                        <th>Quantity:</th>
+                                        <th>Price:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.order.items}" var="order_item" varStatus="counter">
+                                        <tr>
+                                            <td class="center">
+                                                ${counter.count}
+                                            </td>
+                                            <td class="center">
+                                                <a href="/books/find_book_by_id/${order_item.book.id}">${order_item.book.title}
+                                                    - ${order_item.book.nameAuthor}</a>
+                                            </td>
+                                            <td class="center">
+                                                ${order_item.quantity}
+                                            </td>
+                                            <td class="center">
+                                                ${order_item.price}
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
-                </c:forEach>
                 </tbody>
             </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
 
-<a href="#" onclick="history.back();return false;" class="history-back"><-Back</a>
-</body>
-</html>
+            <a href="#" onclick="history.back();return false;" class="history-back">
+                <-Back< /a>
+        </body>
+
+        </html>

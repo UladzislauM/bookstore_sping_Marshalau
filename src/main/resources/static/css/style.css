@@ -1,44 +1,120 @@
-.table{
-    border: 1px solid #eee;
+@import url("https://fonts.googleapis.com/css?family=PT+Sans+Caption");
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "PT Sans Caption", sans-serif;
+}
+
+h3 {
+    text-align: center;
+    font-family: "PT Sans Caption", sans-serif;
+}
+
+.table {
     width: 100%;
     margin-bottom: 20px;
+    border: 15px solid rgb(175, 175, 255);
+    border-top: 5px solid rgb(175, 175, 255);
+    border-collapse: collapse;
 }
 .table th {
     font-weight: bold;
     padding: 5px;
-    background: #efefef;
-    border: 1px solid #dddddd;
+    background: rgb(175, 175, 255);
+    border: none;
+    border-bottom: 5px solid rgb(175, 175, 255);
 }
-.table td{
-    padding: 5px 10px;
-    border: 1px solid #eee;
-    text-align: left;
+.table td {
+    padding: 5px;
+    border: none;
+    border-bottom: 5px solid rgb(175, 175, 255);
 }
-.table tbody tr:nth-child(odd){
-    background: #fff;
-}
-.table tbody tr:nth-child(even){
-    background: #F7F7F7;
-}
-.table thead tr th:first-child {
-    border-radius: 20px 0 0 0;
-}
-.table thead tr th:last-child {
-    border-radius: 0 20px 0 0;
-}
-.table tbody tr:last-child td:first-child {
-    border-radius: 0 0 0 20px;
-}
-.table tbody tr:last-child td:last-child {
-    border-radius: 0 0 20px 0;
-}
-.center{
+.center {
     text-align: center !important;
 }
-.left{
+.left {
     text-align: left !important;
 }
 .img {
     border-radius: 8px;
     width: 150px !important;
+}
+.head {
+    width: 200px;
+}
+
+.login-form {
+    padding: 100px;
+    text-align: center;
+    background-color: white;
+    padding-left: 20px;
+    padding-top: 10px;
+    border-radius: 10px;
+    width: 370px;
+    height: 280px;
+    border: 1px solid #000;
+    line-height: 30px;
+    margin: 0 auto;
+}
+
+.registration-form {
+    padding: 100px;
+    text-align: left;
+    background-color: white;
+    padding-left: 20px;
+    padding-top: 10px;
+    border-radius: 10px;
+    width: 420px;
+    height: 300px;
+    border: 1px solid #000;
+    line-height: 30px;
+    margin: 0 auto;
+}
+
+.brick {
+    display: grid;
+    grid-column-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    font-size: 20px;
+    font-family: "PT Sans Caption", sans-serif;
+    border-radius: 0;
+    border: 5px solid transparent;
+
+    color: #fff;
+}
+
+.brick_element {
+    background-color: blue;
+    padding: 10px;
+}
+
+.dialog {
+    display: none;
+
+    left: 90%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    transition: transform 0.6s ease-out; 
+    padding: 10px 15px;
+	font-size: 20px;
+	font-family: "PT Sans Caption", sans-serif;
+	border-radius: 0;
+	border: 1px solid transparent;
+
+	cursor: pointer;
+	background-color: rgb(240, 96, 96);
+	color: #fff;
+}
+
+.dialog:target {
+    display: block;
+}
+
+.dialog:target+.window {
+    transform: translate(-50%, 0);
+    top: 17%;
 }

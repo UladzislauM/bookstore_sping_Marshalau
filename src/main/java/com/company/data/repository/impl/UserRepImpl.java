@@ -8,29 +8,30 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository("userRep")
 @Transactional
 public class UserRepImpl implements UserRep {
     public static final String GET_COUNT = """
-            SELECT count(*) 
+            SELECT count(*)
             FROM User u
-            WHERE u.is_active = true 
+            WHERE u.is_active = true
             """;
     private static final String GET_ALL = """
-            FROM User 
+            FROM User
+            """;
+    private static final String GET_USER_BY_LOGIN_PAS = """
+            FROM User u
+            WHERE u.email = :login AND u.password = :password
             """;
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public User findById(Long id) {
-        User user = entityManager.find(User.class, id);
-        if (user == null) {
-            return null;
-        }
-        return user;
+    public Optional<User> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(User.class, id));
     }
 
     @Override
@@ -61,12 +62,19 @@ public class UserRepImpl implements UserRep {
 
     @Override
     public Long countAll() {
-        Long count = entityManager.createQuery(GET_COUNT, Long.class).getSingleResult();
-        return count;
+        return entityManager.createQuery(GET_COUNT, Long.class).getSingleResult();
     }
 
     public boolean active(Long id, User user) {
         entityManager.merge(user);
         return user.getIs_active();
+    }
+
+    @Override
+    public Optional<User> login(String login, String password) {
+        return Optional.of(entityManager.createQuery(GET_USER_BY_LOGIN_PAS, User.class)
+                .setParameter("login", login)
+                .setParameter("password", password)
+                .getSingleResult());
     }
 }
