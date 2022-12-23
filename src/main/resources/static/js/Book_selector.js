@@ -1,6 +1,6 @@
 for (
   let index = 1;
-  index < document.querySelector("#books").childNodes.length / 2;
+  index < $('table >tbody >tr').length + 1;
   index++
 ) {
 $(`#book_${index}`).click(function () {
